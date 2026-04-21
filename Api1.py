@@ -1,25 +1,20 @@
 from fastapi import FastAPI
-from db import db
+from db import collection
 
 app = FastAPI()
 
 @app.get("/")
 def home():
-    return {"mensaje": "API funcionando"}
+    return {"mensaje": "API conectada a MongoDB"}
 
-@app.post("/usuarios")
-async def crear_usuario():
-    usuario = {"nombre": "Oscar", "edad": 20}
-    result = await db.usuarios.insert_one(usuario)
-    return {"id": str(result.inserted_id)}
+@app.get("/estudiantes")
+async def obtener_estudiantes():
+    datos = []
 
-@app.get("/usuarios")
-async def obtener_usuarios():
-    usuarios = []
-    cursor = db.usuarios.find()
+    cursor = collection.find()
 
     async for doc in cursor:
         doc["_id"] = str(doc["_id"])
-        usuarios.append(doc)
+        datos.append(doc)
 
-    return usuarios
+    return datos
