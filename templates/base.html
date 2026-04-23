@@ -1,0 +1,58 @@
+
+<script>
+async function cargarEstudiantes() {
+    try {
+        const res = await fetch("/estudiantes");
+        const data = await res.json();
+
+        const lista = document.getElementById("lista-estudiantes");
+        lista.innerHTML = "";
+
+        data.forEach(est => {
+            const li = document.createElement("li");
+            li.textContent = JSON.stringify(est);
+            lista.appendChild(li);
+        });
+
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+cargarEstudiantes();
+</script>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Página</title>
+</head>
+<body>
+
+    <header>
+        <h1>Bienvenido a mi página</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Acerca de</a></li>
+            <li><a href="#">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <section>
+        <h2>Estudiantes</h2>
+        <ul id="lista-estudiantes">
+            <li>Cargando datos...</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>© 2026 Mi Página</p>
+    </footer>
+
+</body>
+</html>
