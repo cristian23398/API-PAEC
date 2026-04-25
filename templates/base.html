@@ -1,58 +1,67 @@
-
-<script>
-async function cargarEstudiantes() {
-    try {
-        const res = await fetch("/estudiantes");
-        const data = await res.json();
-
-        const lista = document.getElementById("lista-estudiantes");
-        lista.innerHTML = "";
-
-        data.forEach(est => {
-            const li = document.createElement("li");
-            li.textContent = JSON.stringify(est);
-            lista.appendChild(li);
-        });
-
-    } catch (error) {
-        console.error("Error:", error);
-    }
-}
-
-cargarEstudiantes();
-</script>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Página</title>
+    <title>Lista de Estudiantes</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #1e1e1e;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+        }
+        .tarjeta-estudiante {
+            background-color: #2d2d2d;
+            border-left: 5px solid #007acc;
+            padding: 15px 20px;
+            margin: 10px 0;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 4px;
+        }
+        h2 { margin: 0 0 10px 0; color: #61dafb; }
+        .info { margin: 5px 0; color: #cccccc; }
+    </style>
 </head>
 <body>
 
-    <header>
-        <h1>Bienvenido a mi página</h1>
-    </header>
+    <h1>Base de Datos de Estudiantes</h1>
+    <div id="lista-estudiantes">Cargando...</div>
 
-    <nav>
-        <ul>
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#">Acerca de</a></li>
-            <li><a href="#">Contacto</a></li>
-        </ul>
-    </nav>
+    <script>
+        async function cargarEstudiantes() {
+            try {
+                // Conectando con tu endpoint
+                const res = await fetch("/estudiantes");
+                const data = await res.json();
 
-    <section>
-        <h2>Estudiantes</h2>
-        <ul id="lista-estudiantes">
-            <li>Cargando datos...</li>
-        </ul>
-    </section>
+                const contenedor = document.getElementById("lista-estudiantes");
+                contenedor.innerHTML = ""; // Limpiamos el texto de carga
 
-    <footer>
-        <p>© 2026 Mi Página</p>
-    </footer>
-
+                // Recorremos el arreglo de estudiantes
+                data.forEach(est => {
+                    const div = document.createElement("div");
+                    div.className = "tarjeta-estudiante";
+                    
+                    // Inyectamos la información formateada
+                    div.innerHTML = `
+                        <h2>${est.nombre}</h2>
+                        <div class="info"><strong>Edad:</strong> ${est.edad}</div>
+                        <div class="info"><strong>Carrera:</strong> ${est.carrera}</div>
+                        <div class="info"><strong>Semestre:</strong> ${est.semestre}</div>
+                    `;
+                    contenedor.appendChild(div);
+                });
+            } catch (error) {
+                document.getElementById("lista-estudiantes").innerHTML = "Error al conectar con la base de datos.";
+                console.error("Error:", error);
+            }
+        }
+        cargarEstudiantes();
+    </script>
 </body>
 </html>
