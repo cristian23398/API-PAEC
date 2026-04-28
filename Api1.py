@@ -4,13 +4,11 @@ from db import collection
 
 app = FastAPI()
 
-# Ruta principal
 @app.get("/", response_class=HTMLResponse)
 async def home():
-    with open("base.html", "r", encoding="utf-8") as f:
+    with open("templates/base.html", "r", encoding="utf-8") as f:
         return f.read()
 
-# API de estudiantes
 @app.get("/estudiantes")
 async def obtener_estudiantes():
     try:
