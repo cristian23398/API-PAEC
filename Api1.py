@@ -1,8 +1,15 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from db import collection
+from fastapi.staticfiles import StaticFiles
+import os
 
 app = FastAPI()
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+if not os.path.exists("static"):
+    os.makedirs("static")
 
 @app.get("/", response_class=HTMLResponse)
 async def home():

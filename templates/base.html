@@ -1,61 +1,12 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Lista de Estudiantes</title>
-    <style>
-        body { font-family: sans-serif; padding: 20px; }
-        .estudiante-card { 
-            border: 1px solid #ccc; 
-            margin: 10px 0; 
-            padding: 10px; 
-            border-radius: 5px;
-        }
-    </style>
-</head>
-<body>
-
-    <h1>Panel de Control - Estudiantes</h1>
+data.forEach(est => {
+    const div = document.createElement("div");
+    div.className = "estudiante-card";
     
-    <section>
-        <h2>Estudiantes registrados en MongoDB:</h2>
-        <div id="lista-estudiantes">
-            <p>Cargando datos desde la API...</p>
-        </div>
-    </section>
 
-    <script>
-        async function cargarEstudiantes() {
-            try {
-                const res = await fetch("/estudiantes");
-                const data = await res.json();
-
-                const contenedor = document.getElementById("lista-estudiantes");
-                contenedor.innerHTML = "";
-
-                if (data.length === 0) {
-                    contenedor.innerHTML = "<p>No hay estudiantes en la base de datos.</p>";
-                    return;
-                }
-
-                data.forEach(est => {
-                    const div = document.createElement("div");
-                    div.className = "estudiante-card";
-                    
-                    div.innerHTML = `
-                        <strong>ID:</strong> ${est._id}<br>
-                        <strong>Datos:</strong> ${JSON.stringify(est)}
-                    `;
-                    contenedor.appendChild(div);
-                });
-
-            } catch (error) {
-                console.error("Error al conectar con la API:", error);
-                document.getElementById("lista-estudiantes").innerHTML = "Error al cargar datos.";
-            }
-        }
-
-        cargarEstudiantes();
-    </script>
-</body>
-</html>
+        <img src="/static/plt.jpeg" alt="Imagen Estudiante" style="width:100%; max-width:200px; border-radius:8px;">
+        <br>
+        <strong>ID:</strong> ${est._id}<br>
+        <strong>Nombre:</strong> ${est.nombre || 'Sin nombre'}
+    `;
+    contenedor.appendChild(div);
+});
