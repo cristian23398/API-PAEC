@@ -3,229 +3,312 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bitácora de 8 Semanas - Dinámica</title>
+    <title>Semanas de Proyecto - Galería Visual</title>
     <style>
         :root {
             --primary: #2c3e50;
-            --accent: #3498db;
-            --bg: #f4f7f6;
+            --accent: #27ae60;
+            --bg: #f8f9fa;
         }
 
         body {
             font-family: 'Segoe UI', sans-serif;
-            background-color: var(--bg);
             margin: 0;
+            padding: 0;
+            background-color: var(--bg);
             color: #333;
         }
 
-        header {
-            background: var(--primary);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+        /* Título Principal */
+        .header-title {
+            padding: 30px 20px;
+            margin: 0;
+            background: white;
+            color: var(--primary);
+            border-bottom: 2px solid #eee;
+            font-size: 2em;
         }
 
-        .semana-section {
-            max-width: 1100px;
-            margin: 20px auto;
-            background: white;
+        /* --- MENÚ DE NAVEGACIÓN VISUAL --- */
+        .horizontal-nav {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 15px;
+            overflow-x: auto; /* Permite scroll si no caben todas */
+            padding-bottom: 10px;
+        }
+
+        /* Las miniaturas */
+        .thumb-link {
+            flex: 0 0 calc(12.5% - 13px); /* 8 semanas, restando espacio de gap */
+            min-width: 100px; /* Para que no se encojan mucho */
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            border: 3px solid transparent;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             overflow: hidden;
         }
 
-        .semana-header {
-            background: #ecf0f1;
-            padding: 15px 25px;
-            cursor: pointer;
+        .thumb-link img {
+            width: 100%;
+            height: 70px; /* Altura de la miniatura */
+            object-fit: cover;
+            display: block;
+            border-radius: 6px;
+        }
+
+        .thumb-link:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Estado Activo */
+        .thumb-link.active {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        /* Indicador textual opcional (aparece al hover) */
+        .thumb-label {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            text-align: center;
+            font-size: 0.75em;
+            padding: 3px 0;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .thumb-link:hover .thumb-label,
+        .thumb-link.active .thumb-label {
+            opacity: 1;
+        }
+
+        /* --- PANEL DE CONTENIDO --- */
+        .content-panel {
+            max-width: 1100px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-top: 5px solid var(--accent);
+        }
+
+        .panel-header-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #ddd;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
         }
 
-        .semana-header:hover { background: #e0e6e8; }
+        .main-title {
+            color: var(--primary);
+            font-size: 1.8em;
+            margin: 0;
+        }
 
-        .gallery-grid {
+        .semana-counter {
+            font-size: 1.1em;
+            color: #7f8c8d;
+            background: #ecf0f1;
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+
+        .data-content {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap; /* Para móviles */
+        }
+
+        /* Texto a la izquierda */
+        .text-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .text-info h4 { color: var(--primary); margin-top: 15px; margin-bottom: 5px; }
+        .text-info p, .text-info ul { margin: 0 0 10px 0; color: #555; font-size: 0.95em; line-height: 1.5; }
+        .text-info ul { padding-left: 20px; }
+
+        /* Galería de imágenes a la derecha */
+        .image-gallery {
+            flex: 1;
+            min-width: 300px;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            padding: 20px;
-            display: none; /* Oculto por defecto */
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
         }
 
-        .photo-card {
-            background: #fff;
-            border: 1px solid #eee;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: 0.3s;
+        .gallery-item {
             position: relative;
+            cursor: pointer;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: border-color 0.3s, transform 0.3s;
         }
 
-        .photo-card:hover { transform: scale(1.02); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-
-        .photo-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px 10px 0 0; }
-
-        .info-mini { padding: 10px; text-align: center; }
-
-        /* MODALES */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 1000;
-            justify-content: center; align-items: center;
+        .gallery-itemimg {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
         }
 
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            width: 90%; max-width: 600px;
-            max-height: 80vh; overflow-y: auto;
+        /* Hover effect en la galería grande */
+        .gallery-item:hover {
+            border-color: var(--accent);
+            transform: scale(1.03);
         }
 
-        .btn { padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px; }
-        .btn-edit { background: var(--accent); color: white; }
-        .btn-close { background: #95a5a6; color: white; }
-        .btn-save { background: #27ae60; color: white; width: 100%; }
+        /* Footer */
+        .main-footer {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            margin-top: 40px;
+            font-size: 0.9em;
+            background: #f1f3f4;
+            border-top: 1px solid #e0e0e0;
+        }
 
-        input, textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Bitácora de Proyecto (8 Semanas)</h1>
-    <p>Haz clic en una semana para ver las actividades</p>
-</header>
+    <h1 class="header-title">Bitácora Visual del Proyecto</h1>
 
-<div id="bitacora-container">
-    </div>
+    <nav class="horizontal-nav">
+        <div class="nav-inner" id="navInner">
+            </div>
+    </nav>
 
-<div id="mainModal" class="modal">
-    <div class="modal-content">
-        <div id="viewMode">
-            <h2 id="viewTitle"></h2>
-            <p><strong>Fecha de registro:</strong> <span id="viewDate"></span></p>
-            <hr>
-            <p id="viewDesc"></p>
-            <button class="btn btn-edit" onclick="toggleEdit(true)">Editar este registro</button>
-            <button class="btn btn-close" onclick="closeModal()">Cerrar</button>
-        </div>
+    <main class="content-panel" id="contentPanel">
+        </main>
 
-        <div id="editMode" style="display:none;">
-            <h2>Editar Actividad</h2>
-            <input type="hidden" id="editId">
-            <label>Título:</label>
-            <input type="text" id="editTitle">
-            <label>Descripción detallada:</label>
-            <textarea id="editDesc" rows="5"></textarea>
-            <button class="btn btn-save" onclick="saveData()">Guardar cambios en MongoDB</button>
-            <button class="btn btn-close" onclick="toggleEdit(false)">Volver</button>
-        </div>
-    </div>
-</div>
+    <footer class="main-footer">
+        <p>Mayo, 2026 - dolores Hidalgo - México</p>
+    </footer>
 
 <script>
-    // Generamos datos de prueba para las 8 semanas
-    let datosBitacora = [];
-    for (let s = 1; s <= 8; s++) {
-        datosBitacora.push({
-            semana: s,
-            actividades: [
-                { id: `s${s}a1`, titulo: `Actividad Principal Sem ${s}`, desc: `Descripción detallada de lo que se hizo en la semana ${s}. Aquí puedes poner mucho más texto.`, fecha: "2026-05-06", img: "/static/plt.jpg" },
-                { id: `s${s}a2`, titulo: `Reporte Técnico ${s}`, desc: `Análisis de resultados de la semana ${s}.`, fecha: "2026-05-07", img: "/static/plt.jpg" }
+    // 1. DATOS SIMULADOS PARA LAS 8 SEMANAS
+    // Cada semana tiene una imagen de miniatura y sus datos principales.
+    const projectData = [
+        {
+            id: 1, 
+            thumbImg: "/static/semana1_thumb.jpg", // Imagen pequeña para el menú
+            titulo: "Instalación y Configuración Inicial",
+            fecha: "05 - 11 Mayo, 2026",
+            log: [
+                "Preparación y enriquecimiento del suelo.",
+                "Siembra del lote inicial de semillas.",
+                "Primer ciclo de riego."
+            ],
+            obs: "Monitoreo inicial de humedad. Las plántulas de la 'IMAGE' original han progresado a una germinación saludable.",
+            // Galería grande
+            gallery: [
+                "/static/semana1_gal1.jpg", "/static/semana1_gal2.jpg",
+                "/static/semana1_gal3.jpg", "/static/semana1_gal4.jpg"
             ]
+        },
+        {
+            id: 2, thumbImg: "/static/semana2_thumb.jpg",
+            titulo: "Desarrollo de las Primeras Hojas",
+            fecha: "12 - 18 Mayo, 2026",
+            log: ["Aparecen las primeras hojas verdaderas.", "Control de malezas manual."],
+            obs: "El crecimiento es uniforme en un 90%.",
+            gallery: ["/static/semana2_gal1.jpg", "/static/semana2_gal2.jpg"]
+        },
+        // ... Repetir para semanas 3 a 8 ...
+        { id: 8, thumbImg: "/static/semana8_thumb.jpg", titulo: "Cosecha Final y Análisis", fecha: "23 - 29 Junio, 2026", log: ["Cosecha", "Pesar"], obs: "Éxito.", gallery: ["/static/fin.jpg"]}
+    ];
+
+    // Para completar las 8 rápidamente si no tienes todas las imágenes
+    for (let i = 2; i < 8; i++) {
+        if (!projectData[i]) {
+            projectData[i] = { ...projectData[0], id: i+1, titulo: `Actividad Principal Sem ${i+1}` };
+        }
+    }
+
+
+    const navInner = document.getElementById('navInner');
+    const contentPanel = document.getElementById('contentPanel');
+
+    // 2. INICIALIZAR LA NAVEGACIÓN VISUAL
+    function initNav() {
+        navInner.innerHTML = "";
+        projectData.forEach(sem => {
+            const thumb = document.createElement('div');
+            thumb.className = 'thumb-link';
+            thumb.id = `thumb-${sem.id}`;
+            thumb.onclick = () => showWeek(sem.id);
+            thumb.innerHTML = `
+                <img src="${sem.thumbImg}" alt="Avance Semana ${sem.id}">
+                <div class="thumb-label">Semana ${sem.id}</div>
+            `;
+            navInner.appendChild(thumb);
         });
     }
 
-    function init() {
-        const container = document.getElementById('bitacora-container');
-        container.innerHTML = "";
+    // 3. MOSTRAR CONTENIDO DE UNA SEMANA
+    function showWeek(id) {
+        const sem = projectData.find(s => s.id === id);
+        
+        // Actualizar estado activo en el menú
+        document.querySelectorAll('.thumb-link').forEach(t => t.classList.remove('active'));
+        document.getElementById(`thumb-${id}`).classList.add('active');
 
-        datosBitacora.forEach(bloque => {
-            const section = document.createElement('div');
-            section.className = 'semana-section';
-            section.innerHTML = `
-                <div class="semana-header" onclick="toggleSemana(this)">
-                    <span><strong>SEMANA ${bloque.semana}</strong> - Resumen de actividades</span>
-                    <span>▼</span>
+        // Renderizar el panel principal
+        contentPanel.innerHTML = `
+            <div class="panel-header-row">
+                <h3 class="main-title">${sem.titulo}</h3>
+                <span class="semana-counter">Semana ${sem.id}</span>
+            </div>
+
+            <div class="data-content">
+                <div class="text-info">
+                    <h4>Rango de Fecha:</h4>
+                    <p>${sem.fecha}</p>
+                    
+                    <h4>Registro de Actividades:</h4>
+                    <ul>
+                        ${sem.log.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                    
+                    <h4>Observaciones Detalladas:</h4>
+                    <p>${sem.obs}</p>
                 </div>
-                <div class="gallery-grid">
-                    ${bloque.actividades.map(act => `
-                        <div class="photo-card" onclick="showDetails('${bloque.semana}', '${act.id}')">
-                            <img src="${act.img}" alt="Evidencia">
-                            <div class="info-mini">
-                                <strong>${act.titulo}</strong>
-                            </div>
+
+                <div class="image-gallery">
+                    ${sem.gallery.map(img => `
+                        <div class="gallery-item">
+                            <img src="${img}" alt="Vista del Proyecto">
                         </div>
                     `).join('')}
                 </div>
-            `;
-            container.appendChild(section);
-        });
+            </div>
+        `;
     }
 
-    function toggleSemana(header) {
-        const grid = header.nextElementSibling;
-        const isVisible = grid.style.display === "grid";
-        grid.style.display = isVisible ? "none" : "grid";
-        header.querySelector('span:last-child').innerText = isVisible ? "▼" : "▲";
-    }
+    // Inicializar todo
+    initNav();
+    showWeek(1); // Cargar la semana 1 por defecto
 
-    function showDetails(numSemana, idAct) {
-        const semana = datosBitacora.find(s => s.semana == numSemana);
-        const act = semana.actividades.find(a => a.id == idAct);
-
-        document.getElementById('viewTitle').innerText = act.titulo;
-        document.getElementById('viewDesc').innerText = act.desc;
-        document.getElementById('viewDate').innerText = act.fecha;
-        
-        // Cargar datos en el formulario de edición por si acaso
-        document.getElementById('editId').value = `${numSemana}|${idAct}`;
-        document.getElementById('editTitle').value = act.titulo;
-        document.getElementById('editDesc').value = act.desc;
-
-        toggleEdit(false);
-        document.getElementById('mainModal').style.display = 'flex';
-    }
-
-    function toggleEdit(show) {
-        document.getElementById('viewMode').style.display = show ? 'none' : 'block';
-        document.getElementById('editMode').style.display = show ? 'block' : 'none';
-    }
-
-    function closeModal() {
-        document.getElementById('mainModal').style.display = 'none';
-    }
-
-    async function saveData() {
-        const [numSemana, idAct] = document.getElementById('editId').value.split('|');
-        const nuevoTit = document.getElementById('editTitle').value;
-        const nuevaDesc = document.getElementById('editDesc').value;
-
-        // Actualización local
-        const semanaIdx = datosBitacora.findIndex(s => s.semana == numSemana);
-        const actIdx = datosBitacora[semanaIdx].actividades.findIndex(a => a.id == idAct);
-        
-        datosBitacora[semanaIdx].actividades[actIdx].titulo = nuevoTit;
-        datosBitacora[semanaIdx].actividades[actIdx].desc = nuevaDesc;
-
-        // Aquí iría tu fetch real a MongoDB:
-        // await fetch('/update', { method: 'POST', body: JSON.stringify(...) });
-
-        alert("Base de datos sincronizada correctamente.");
-        init(); // Refrescar vista
-        closeModal();
-    }
-
-    init();
 </script>
 
 </body>
