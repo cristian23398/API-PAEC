@@ -76,7 +76,7 @@ async def registro(
         })
 
     return RedirectResponse(
-        url="/actividades",
+        url="/base",
         status_code=303
     )
 
