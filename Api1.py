@@ -4,6 +4,8 @@ from fastapi.staticfiles import StaticFiles
 from bson import ObjectId
 from db import collection, db
 import os
+from fastapi.responses import HTMLResponse, RedirectResponse
+from db import usuarios
 
 app = FastAPI()
 
@@ -13,9 +15,11 @@ if not os.path.exists("static"):
     os.makedirs("static")
 
 @app.get("/", response_class=HTMLResponse)
-async def home():
-    with open("templates/base.html", "r", encoding="utf-8") as f:
+async def login():
+
+    with open("templates/login.html", "r", encoding="utf-8") as f:
         return f.read()
+    
 
 @app.get("/estudiantes")
 async def obtener_estudiantes():
@@ -53,3 +57,36 @@ async def eliminar(id: str):
     await collection.delete_one({"_id": obj_id})
     await db.asistencias.delete_many({"estudiante_id": id})
     return {"mensaje": "borrado"}
+
+@app.post("/registro")
+async def registro(
+    usuario: str = Form(...),
+    password: str = Form(...)
+):
+
+    existe = await usuarios.find_one({
+        "usuario": usuario
+    })
+
+    if not existe:
+
+        await usuarios.insert_one({
+            "usuario": usuario,
+            "password": password
+        })
+
+    return RedirectResponse(
+        url="/actividades",
+        status_code=303
+    )
+
+@app.get("/base", response_class=HTMLResponse)
+async def actividades():
+
+    with open(
+        "templates/base.html",
+        "r",
+        encoding="utf-8"
+    ) as f:
+
+        return f.read()
