@@ -1,12 +1,123 @@
-data.forEach(est => {
-    const div = document.createElement("div");
-    div.className = "estudiante-card";
-    
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Actividades</title>
+    <style>
 
-        <img src="/static/plt.jpg" alt="Imagen Estudiante" style="width:100%; max-width:200px; border-radius:8px;">
-        <br>
-        <strong>ID:</strong> ${est._id}<br>
-        <strong>Nombre:</strong> ${est.nombre || 'Sin nombre'}
-    `;
-    contenedor.appendChild(div);
-});
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .gallery-container {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .photo-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .photo-info {
+            padding: 15px;
+        }
+
+        .photo-info h3 {
+            margin: 0 0 10px 0;
+            color: #444;
+            font-size: 1.2em;
+        }
+
+        .photo-info p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        footer {
+            background-color: #222;
+            color: #bbb;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+        }
+
+        footer strong {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Bitácora de Actividades</h1>
+    </header>
+
+    <main class="gallery-container">
+        
+        <div class="photo-card">
+            <img src="/static/plt.jpg" alt="Actividad 1">
+            <div class="photo-info">
+                <h3>Instalación de Equipos</h3>
+                <p>El día de hoy se realizó el montaje de los servidores y la configuración inicial de la red local.</p>
+            </div>
+        </div>
+
+        <div class="photo-card">
+            <img src="/static/plt.jpg" alt="Actividad 2">
+            <div class="photo-info">
+                <h3>Pruebas de Software</h3>
+                <p>Se ejecutaron los tests de conexión con MongoDB Atlas y se verificó el despliegue en Render.</p>
+            </div>
+        </div>
+
+        <div class="photo-card">
+            <img src="/static/plt.jpg" alt="Actividad 3">
+            <div class="photo-info">
+                <h3>Capacitación</h3>
+                <p>Sesión grupal para explicar el funcionamiento de la nueva API desarrollada con FastAPI.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>Reporte Diario de Actividades - <strong>Realizado el: 6 de Mayo, 2024</strong></p>
+        <p>Resumen: Se cumplieron los objetivos técnicos de conexión y visualización de datos exitosamente.</p>
+    </footer>
+
+</body>
+</html>
