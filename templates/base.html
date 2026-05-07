@@ -3,121 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galería de Actividades</title>
+    <title>Bitácora de 8 Semanas - Dinámica</title>
     <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --bg: #f4f7f6;
+        }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg);
             margin: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            color: #333;
         }
 
         header {
-            background-color: #333;
+            background: var(--primary);
             color: white;
-            padding: 20px;
+            padding: 2rem;
             text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .gallery-container {
-            flex: 1;
+        .semana-section {
+            max-width: 1100px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .semana-header {
+            background: #ecf0f1;
+            padding: 15px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .semana-header:hover { background: #e0e6e8; }
+
+        .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
-            padding: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
+            padding: 20px;
+            display: none; /* Oculto por defecto */
         }
 
         .photo-card {
-            background: white;
+            background: #fff;
+            border: 1px solid #eee;
             border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
         }
 
-        .photo-card:hover {
-            transform: translateY(-10px);
+        .photo-card:hover { transform: scale(1.02); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+        .photo-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px 10px 0 0; }
+
+        .info-mini { padding: 10px; text-align: center; }
+
+        /* MODALES */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center; align-items: center;
         }
 
-        .photo-card img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%; max-width: 600px;
+            max-height: 80vh; overflow-y: auto;
         }
 
-        .photo-info {
-            padding: 15px;
-        }
+        .btn { padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px; }
+        .btn-edit { background: var(--accent); color: white; }
+        .btn-close { background: #95a5a6; color: white; }
+        .btn-save { background: #27ae60; color: white; width: 100%; }
 
-        .photo-info h3 {
-            margin: 0 0 10px 0;
-            color: #444;
-            font-size: 1.2em;
-        }
-
-        .photo-info p {
-            margin: 0;
-            color: #666;
-            font-size: 0.9em;
-            line-height: 1.4;
-        }
-
-        footer {
-            background-color: #222;
-            color: #bbb;
-            text-align: center;
-            padding: 20px;
-            margin-top: auto;
-        }
-
-        footer strong {
-            color: white;
-        }
+        input, textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Bitácora de Actividades</h1>
-    </header>
+<header>
+    <h1>Bitácora de Proyecto (8 Semanas)</h1>
+    <p>Haz clic en una semana para ver las actividades</p>
+</header>
 
-    <main class="gallery-container">
+<div id="bitacora-container">
+    </div>
+
+<div id="mainModal" class="modal">
+    <div class="modal-content">
+        <div id="viewMode">
+            <h2 id="viewTitle"></h2>
+            <p><strong>Fecha de registro:</strong> <span id="viewDate"></span></p>
+            <hr>
+            <p id="viewDesc"></p>
+            <button class="btn btn-edit" onclick="toggleEdit(true)">Editar este registro</button>
+            <button class="btn btn-close" onclick="closeModal()">Cerrar</button>
+        </div>
+
+        <div id="editMode" style="display:none;">
+            <h2>Editar Actividad</h2>
+            <input type="hidden" id="editId">
+            <label>Título:</label>
+            <input type="text" id="editTitle">
+            <label>Descripción detallada:</label>
+            <textarea id="editDesc" rows="5"></textarea>
+            <button class="btn btn-save" onclick="saveData()">Guardar cambios en MongoDB</button>
+            <button class="btn btn-close" onclick="toggleEdit(false)">Volver</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Generamos datos de prueba para las 8 semanas
+    let datosBitacora = [];
+    for (let s = 1; s <= 8; s++) {
+        datosBitacora.push({
+            semana: s,
+            actividades: [
+                { id: `s${s}a1`, titulo: `Actividad Principal Sem ${s}`, desc: `Descripción detallada de lo que se hizo en la semana ${s}. Aquí puedes poner mucho más texto.`, fecha: "2026-05-06", img: "/static/plt.jpg" },
+                { id: `s${s}a2`, titulo: `Reporte Técnico ${s}`, desc: `Análisis de resultados de la semana ${s}.`, fecha: "2026-05-07", img: "/static/plt.jpg" }
+            ]
+        });
+    }
+
+    function init() {
+        const container = document.getElementById('bitacora-container');
+        container.innerHTML = "";
+
+        datosBitacora.forEach(bloque => {
+            const section = document.createElement('div');
+            section.className = 'semana-section';
+            section.innerHTML = `
+                <div class="semana-header" onclick="toggleSemana(this)">
+                    <span><strong>SEMANA ${bloque.semana}</strong> - Resumen de actividades</span>
+                    <span>▼</span>
+                </div>
+                <div class="gallery-grid">
+                    ${bloque.actividades.map(act => `
+                        <div class="photo-card" onclick="showDetails('${bloque.semana}', '${act.id}')">
+                            <img src="${act.img}" alt="Evidencia">
+                            <div class="info-mini">
+                                <strong>${act.titulo}</strong>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            container.appendChild(section);
+        });
+    }
+
+    function toggleSemana(header) {
+        const grid = header.nextElementSibling;
+        const isVisible = grid.style.display === "grid";
+        grid.style.display = isVisible ? "none" : "grid";
+        header.querySelector('span:last-child').innerText = isVisible ? "▼" : "▲";
+    }
+
+    function showDetails(numSemana, idAct) {
+        const semana = datosBitacora.find(s => s.semana == numSemana);
+        const act = semana.actividades.find(a => a.id == idAct);
+
+        document.getElementById('viewTitle').innerText = act.titulo;
+        document.getElementById('viewDesc').innerText = act.desc;
+        document.getElementById('viewDate').innerText = act.fecha;
         
-        <div class="photo-card">
-            <img src="/static/plt.jpg" alt="Actividad 1">
-            <div class="photo-info">
-                <h3>Instalación de Equipos</h3>
-                <p>El día de hoy se realizó el montaje de los servidores y la configuración inicial de la red local.</p>
-            </div>
-        </div>
+        // Cargar datos en el formulario de edición por si acaso
+        document.getElementById('editId').value = `${numSemana}|${idAct}`;
+        document.getElementById('editTitle').value = act.titulo;
+        document.getElementById('editDesc').value = act.desc;
 
-        <div class="photo-card">
-            <img src="/static/plt.jpg" alt="Actividad 2">
-            <div class="photo-info">
-                <h3>Pruebas de Software</h3>
-                <p>Se ejecutaron los tests de conexión con MongoDB Atlas y se verificó el despliegue en Render.</p>
-            </div>
-        </div>
+        toggleEdit(false);
+        document.getElementById('mainModal').style.display = 'flex';
+    }
 
-        <div class="photo-card">
-            <img src="/static/plt.jpg" alt="Actividad 3">
-            <div class="photo-info">
-                <h3>Capacitación</h3>
-                <p>Sesión grupal para explicar el funcionamiento de la nueva API desarrollada con FastAPI.</p>
-            </div>
-        </div>
+    function toggleEdit(show) {
+        document.getElementById('viewMode').style.display = show ? 'none' : 'block';
+        document.getElementById('editMode').style.display = show ? 'block' : 'none';
+    }
 
-    </main>
+    function closeModal() {
+        document.getElementById('mainModal').style.display = 'none';
+    }
 
-    <footer>
-        <p>Reporte Diario de Actividades - <strong>Realizado el: 6 de Mayo, 2024</strong></p>
-        <p>Resumen: Se cumplieron los objetivos técnicos de conexión y visualización de datos exitosamente.</p>
-    </footer>
+    async function saveData() {
+        const [numSemana, idAct] = document.getElementById('editId').value.split('|');
+        const nuevoTit = document.getElementById('editTitle').value;
+        const nuevaDesc = document.getElementById('editDesc').value;
+
+        // Actualización local
+        const semanaIdx = datosBitacora.findIndex(s => s.semana == numSemana);
+        const actIdx = datosBitacora[semanaIdx].actividades.findIndex(a => a.id == idAct);
+        
+        datosBitacora[semanaIdx].actividades[actIdx].titulo = nuevoTit;
+        datosBitacora[semanaIdx].actividades[actIdx].desc = nuevaDesc;
+
+        // Aquí iría tu fetch real a MongoDB:
+        // await fetch('/update', { method: 'POST', body: JSON.stringify(...) });
+
+        alert("Base de datos sincronizada correctamente.");
+        init(); // Refrescar vista
+        closeModal();
+    }
+
+    init();
+</script>
 
 </body>
 </html>
