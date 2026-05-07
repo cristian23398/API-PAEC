@@ -1,11 +1,9 @@
-from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
-from db import collection
-from fastapi.staticfiles import StaticFiles
 from fastapi import FastAPI, Form, HTTPException
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from bson import ObjectId
+from db import collection, db
 import os
-from db import collection, db 
 
 app = FastAPI()
 
