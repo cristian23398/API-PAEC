@@ -300,5 +300,17 @@
 
     </script>
 
+    <script>
+        const userEmail = localStorage.getItem('userEmail');
+        const admins = ["admin@correo.com", "tu_email@especial.com"];
+
+        if (!admins.includes(userEmail)) {
+            // Oculta el formulario de agregar
+            document.getElementById('tu-formulario-id').style.display = 'none';
+            // Oculta botones de eliminar (si usas una clase específica)
+            document.querySelectorAll('.btn-eliminar').forEach(b => b.style.display = 'none');
+        }
+    </script>
+
 </body>
 </html>
