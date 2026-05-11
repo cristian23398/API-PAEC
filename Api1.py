@@ -1,53 +1,102 @@
-from fastapi import FastAPI, Form, HTTPException
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI, Form, HTTPException, Depends
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from bson import ObjectId
-from db import collection, db
 import os
-from fastapi.responses import HTMLResponse, RedirectResponse
-from db import usuarios
+
+# Importamos desde tu archivo db.py
+from db import collection, db, usuarios
 
 app = FastAPI()
 
+# Configuración de estáticos
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 if not os.path.exists("static"):
     os.makedirs("static")
 
+# --- CONFIGURACIÓN DE ROLES ---
+# Agrega aquí los correos que quieres que sean Administradores
+ADMIN_EMAILS = ["admin@correo.com", "tu_email@especial.com"]
+
+# --- RUTAS DE NAVEGACIÓN ---
+
 @app.get("/", response_class=HTMLResponse)
 async def login():
-
     with open("templates/login.html", "r", encoding="utf-8") as f:
         return f.read()
+
+@app.get("/base", response_class=HTMLResponse)
+async def actividades():
+    with open("templates/base.html", "r", encoding="utf-8") as f:
+        return f.read()
+
+# --- LÓGICA DE USUARIOS ---
+
+@app.post("/registro")
+async def registro(
+    usuario: str = Form(...),
+    password: str = Form(...)
+):
+    usuario = usuario.strip().lower()
     
+    # Verificamos si ya existe
+    existe = await usuarios.find_one({"usuario": usuario})
+    
+    if not existe:
+        # Determinamos el rol al momento de guardar
+        rol = "admin" if usuario in ADMIN_EMAILS else "lector"
+        
+        await usuarios.insert_one({
+            "usuario": usuario,
+            "password": password,
+            "rol": rol
+        })
+
+    # Redirigimos a la base (en un sistema real aquí crearías una cookie de sesión)
+    return RedirectResponse(url="/base", status_code=303)
+
+# --- RUTAS DE DATOS (ESTUDIANTES) ---
 
 @app.get("/estudiantes")
 async def obtener_estudiantes():
     try:
         datos = []
-
         cursor = collection.find({})
-
         async for doc in cursor:
             doc["_id"] = str(doc["_id"])
             datos.append(doc)
-
-        print(f"Se encontraron {len(datos)} estudiantes")
         return datos
-
     except Exception as e:
         return {"error": str(e)}
-    
+
 @app.post("/agregar")
-async def agregar(nombre: str = Form(...)):
+async def agregar(
+    nombre: str = Form(...),
+    correo_usuario: str = Form(...) # El frontend debe enviar quién intenta agregar
+):
+    # VALIDACIÓN DE SEGURIDAD
+    if correo_usuario.lower() not in ADMIN_EMAILS:
+        raise HTTPException(
+            status_code=403, 
+            detail="Acceso denegado: Solo administradores pueden agregar."
+        )
+
     nombre = nombre.strip()
     if not nombre:
         raise HTTPException(status_code=400, detail="Nombre vacío")
+    
     res = await collection.insert_one({"nombre": nombre})
     return {"id": str(res.inserted_id), "nombre": nombre}
 
 @app.delete("/eliminar/{id}")
-async def eliminar(id: str):
+async def eliminar(id: str, correo_usuario: str):
+    # VALIDACIÓN DE SEGURIDAD
+    if correo_usuario.lower() not in ADMIN_EMAILS:
+        raise HTTPException(
+            status_code=403, 
+            detail="Acceso denegado: Solo administradores pueden eliminar."
+        )
 
     try:
         obj_id = ObjectId(id)
@@ -55,38 +104,7 @@ async def eliminar(id: str):
         raise HTTPException(status_code=400, detail="ID inválido")
         
     await collection.delete_one({"_id": obj_id})
+    # También borramos asistencias relacionadas
     await db.asistencias.delete_many({"estudiante_id": id})
-    return {"mensaje": "borrado"}
-
-@app.post("/registro")
-async def registro(
-    usuario: str = Form(...),
-    password: str = Form(...)
-):
-
-    existe = await usuarios.find_one({
-        "usuario": usuario
-    })
-
-    if not existe:
-
-        await usuarios.insert_one({
-            "usuario": usuario,
-            "password": password
-        })
-
-    return RedirectResponse(
-        url="/base",
-        status_code=303
-    )
-
-@app.get("/base", response_class=HTMLResponse)
-async def actividades():
-
-    with open(
-        "templates/base.html",
-        "r",
-        encoding="utf-8"
-    ) as f:
-
-        return f.read()
+    
+    return {"mensaje": "borrado con éxito"}
