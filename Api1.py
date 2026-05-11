@@ -17,7 +17,7 @@ if not os.path.exists("static"):
 
 # --- CONFIGURACIÓN DE ROLES ---
 # Agrega aquí los correos que quieres que sean Administradores
-ADMIN_EMAILS = ["admin@correo.com", "tu_email@especial.com"]
+ADMIN_EMAILS = ["oscar24540@cbtis75.edu.mx"]
 
 # --- RUTAS DE NAVEGACIÓN ---
 
