@@ -156,24 +156,29 @@
         <p>Reporte Diario de Actividades - <strong>2024</strong></p>
     </footer>
 
+    <section class="form-container" id="adminSection">
+        <h2>Agregar Actividad</h2>
+        <form id="formAgregar">
+            <input type="text" id="nombre" placeholder="Nombre de la actividad" required>
+            <input type="file" id="inputImagen" accept="image/*" required style="margin-top:10px;">
+            <button type="submit" class="btn-agregar">Agregar Actividad</button>
+        </form>
+    </section>
+
+    <main class="gallery-container" id="contenedor"></main>
+
     <script>
-        // 1. Configuración de Identidad
         const userEmail = localStorage.getItem('userEmail') || "";
-        // IMPORTANTE: Estos correos deben ser los mismos que en tu main.py
-        const ADMINS = ["oscar24540@cbtis75.edu.mx"]; 
+        const ADMINS = ["admin@correo.com", "tu_email@especial.com"]; 
         const esAdmin = ADMINS.includes(userEmail.toLowerCase().trim());
 
-        // 2. Control Inicial de la Interfaz
         window.onload = () => {
-            if (esAdmin) {
-                document.getElementById('adminSection').style.display = 'block';
-            }
+            if (esAdmin) document.getElementById('adminSection').style.display = 'block';
             cargarActividades();
         };
 
-        // 3. Cargar Actividades desde el Servidor
         async function cargarActividades() {
-            const res = await fetch('/estudiantes'); // Usamos tu ruta de estudiantes
+            const res = await fetch('/estudiantes');
             const datos = await res.json();
             const contenedor = document.getElementById("contenedor");
             contenedor.innerHTML = "";
@@ -182,20 +187,18 @@
                 const card = document.createElement("div");
                 card.classList.add("photo-card");
 
-                // Construimos el HTML. Solo añadimos el botón si esAdmin es true.
+                // Usamos act.imagen_url que viene de la DB, o una por defecto
+                const imgUrl = act.imagen_url || "/static/plt.jpg";
+
                 let html = `
-                    <img src="/static/plt.jpg" alt="Actividad">
+                    <img src="${imgUrl}" alt="Actividad">
                     <div class="photo-info">
                         <h3>${act.nombre}</h3>
                         <p>Actividad registrada en el sistema.</p>
                 `;
 
                 if (esAdmin) {
-                    html += `
-                        <button class="btn-eliminar" onclick="eliminarActividad('${act._id}')">
-                            Eliminar
-                        </button>
-                    `;
+                    html += `<button class="btn-eliminar" onclick="eliminarActividad('${act._id}')">Eliminar</button>`;
                 }
 
                 html += `</div>`;
@@ -204,46 +207,34 @@
             });
         }
 
-        // 4. Agregar Actividad (Solo Admin)
         document.getElementById("formAgregar").addEventListener("submit", async function(e) {
             e.preventDefault();
+            
             const nombre = document.getElementById("nombre").value;
+            const imagenFile = document.getElementById("inputImagen").files[0];
 
             const formData = new FormData();
             formData.append('nombre', nombre);
-            formData.append('correo_solicitante', userEmail); // Validación para el servidor
+            formData.append('correo_solicitante', userEmail);
+            formData.append('imagen', imagenFile); // Enviamos el archivo binario
 
             const res = await fetch('/agregar', {
                 method: 'POST',
-                body: formData
+                body: formData // Fetch detecta automáticamente que es multipart/form-data
             });
 
             if (res.ok) {
-                document.getElementById("nombre").value = "";
+                document.getElementById("formAgregar").reset();
                 cargarActividades();
             } else {
-                alert("Error: No tienes permisos para realizar esta acción.");
+                alert("Error al subir. Verifica tus permisos.");
             }
         });
 
-        // 5. Eliminar Actividad (Solo Admin)
         async function eliminarActividad(id) {
-            if (!confirm("¿Deseas eliminar esta actividad?")) return;
-
-            const res = await fetch(`/eliminar/${id}?correo_solicitante=${encodeURIComponent(userEmail)}`, {
-                method: 'DELETE'
-            });
-
-            if (res.ok) {
-                cargarActividades();
-            } else {
-                alert("No tienes permisos para eliminar.");
-            }
-        }
-
-        function cerrarSesion() {
-            localStorage.clear();
-            window.location.href = "/";
+            if (!confirm("¿Eliminar?")) return;
+            const res = await fetch(`/eliminar/${id}?correo_solicitante=${userEmail}`, { method: 'DELETE' });
+            if (res.ok) cargarActividades();
         }
     </script>
 </body>
