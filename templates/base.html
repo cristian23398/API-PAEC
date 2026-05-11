@@ -301,55 +301,60 @@
     </script>
 
     <script>
-        // 1. Obtener el correo guardado en el login
+        // 1. Configuración inicial
         const userEmail = localStorage.getItem('userEmail') || "";
-        const ADMINS = ["oscar24540@cbtis75.edu.mx"]; // Deben ser los mismos que en Python
+        const ADMINS = ["admin@correo.com", "tu_email@especial.com"]; // Mismos que en Python
+        const esAdmin = ADMINS.includes(userEmail.toLowerCase().trim());
 
-        // 2. Lógica para ocultar botones si NO es admin
+        // 2. Al cargar la página, ocultar el formulario de agregar si no es admin
         document.addEventListener("DOMContentLoaded", () => {
-            if (!ADMINS.includes(userEmail)) {
-                const formAgregar = document.getElementById('formulario-agregar');
-                if (formAgregar) formAgregar.style.display = 'none';
-
-                // Ocultar botones de eliminar (usando un intervalo por si la lista carga después)
-                setInterval(() => {
-                    document.querySelectorAll('.btn-eliminar').forEach(btn => btn.style.display = 'none');
-                }, 500);
+            const formAgregar = document.getElementById('formulario-agregar');
+            if (formAgregar && !esAdmin) {
+                formAgregar.remove(); // Eliminamos el elemento por completo por seguridad visual
             }
+            cargarEstudiantes();
         });
 
-        // 3. Función corregida para AGREGAR
-        async function agregarEstudiante() {
-            const nombreInput = document.getElementById('nombre-estudiante');
-            const formData = new FormData();
-            formData.append('nombre', nombreInput.value);
-            formData.append('correo_solicitante', userEmail); // <--- ENVIAMOS EL CORREO
+        // 3. Función para cargar estudiantes (Modificada)
+        async function cargarEstudiantes() {
+            const response = await fetch('/estudiantes');
+            const estudiantes = await response.json();
+            
+            const lista = document.getElementById('lista-estudiantes');
+            lista.innerHTML = ""; // Limpiar lista
 
-            const response = await fetch('/agregar', {
-                method: 'POST',
-                body: formData
+            estudiantes.forEach(est => {
+                const li = document.createElement('li');
+                
+                // Creamos el texto del estudiante
+                li.innerHTML = `<span>${est.nombre}</span>`;
+
+                // SOLO si es admin, creamos y añadimos el botón de eliminar
+                if (esAdmin) {
+                    const btnEliminar = document.createElement('button');
+                    btnEliminar.innerText = "Eliminar";
+                    btnEliminar.className = "btn-eliminar"; // Para tus estilos CSS
+                    btnEliminar.onclick = () => eliminarEstudiante(est._id);
+                    li.appendChild(btnEliminar);
+                }
+
+                lista.appendChild(li);
             });
-
-            if (response.ok) {
-                location.reload(); 
-            } else {
-                alert("Error: No tienes permisos o el nombre es inválido.");
-            }
         }
 
-        // 4. Función corregida para ELIMINAR
+        // 4. Función para eliminar (Asegurando que envíe el correo)
         async function eliminarEstudiante(id) {
-            if (!confirm("¿Seguro que deseas eliminar?")) return;
+            if (!confirm("¿Borrar estudiante?")) return;
 
-            // Enviamos el correo como parámetro en la URL (Query String)
-            const response = await fetch(`/eliminar/${id}?correo_solicitante=${encodeURIComponent(userEmail)}`, {
-                method: 'DELETE'
-            });
+            // Pasamos el correo como 'correo_solicitante' en la URL
+            const url = `/eliminar/${id}?correo_solicitante=${encodeURIComponent(userEmail)}`;
+            
+            const response = await fetch(url, { method: 'DELETE' });
 
             if (response.ok) {
-                location.reload();
+                cargarEstudiantes(); // Recargar la lista sin refrescar toda la página
             } else {
-                alert("Error: No tienes permisos para eliminar.");
+                alert("Error: No tienes permiso para esta acción.");
             }
         }
     </script>
