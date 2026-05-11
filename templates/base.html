@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galería de Actividades</title>
-
     <style>
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f0f2f5;
@@ -21,6 +19,19 @@
             color: white;
             padding: 20px;
             text-align: center;
+            position: relative;
+        }
+
+        .btn-logout {
+            position: absolute;
+            right: 20px;
+            top: 25px;
+            background: #555;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
         }
 
         .form-container {
@@ -31,12 +42,11 @@
             width: 90%;
             max-width: 500px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            /* Por defecto oculto, se muestra solo a admins */
+            display: none; 
         }
 
-        .form-container h2 {
-            margin-top: 0;
-            color: #333;
-        }
+        .form-container h2 { margin-top: 0; color: #333; }
 
         .form-container input {
             width: 100%;
@@ -61,9 +71,7 @@
             transition: background 0.3s;
         }
 
-        .btn-agregar:hover {
-            background-color: #218838;
-        }
+        .btn-agregar:hover { background-color: #218838; }
 
         .gallery-container {
             flex: 1;
@@ -81,12 +89,9 @@
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
-            position: relative;
         }
 
-        .photo-card:hover {
-            transform: translateY(-10px);
-        }
+        .photo-card:hover { transform: translateY(-10px); }
 
         .photo-card img {
             width: 100%;
@@ -94,15 +99,9 @@
             object-fit: cover;
         }
 
-        .photo-info {
-            padding: 15px;
-        }
+        .photo-info { padding: 15px; }
 
-        .photo-info h3 {
-            margin: 0 0 10px 0;
-            color: #444;
-            font-size: 1.2em;
-        }
+        .photo-info h3 { margin: 0 0 10px 0; color: #444; font-size: 1.2em; }
 
         .photo-info p {
             margin: 0;
@@ -124,9 +123,7 @@
             transition: background 0.3s;
         }
 
-        .btn-eliminar:hover {
-            background-color: #b52a37;
-        }
+        .btn-eliminar:hover { background-color: #b52a37; }
 
         footer {
             background-color: #222;
@@ -135,229 +132,119 @@
             padding: 20px;
             margin-top: auto;
         }
-
-        footer strong {
-            color: white;
-        }
-
     </style>
 </head>
 <body>
 
     <header>
         <h1>Bitácora de Actividades</h1>
+        <button class="btn-logout" onclick="cerrarSesion()">Cerrar Sesión</button>
     </header>
 
-    <section class="form-container">
-
+    <section class="form-container" id="adminSection">
         <h2>Agregar Actividad</h2>
-
         <form id="formAgregar">
-
-            <input 
-                type="text" 
-                id="nombre"
-                placeholder="Nombre de la actividad"
-                required
-            >
-
-            <button type="submit" class="btn-agregar">
-                Agregar Actividad
-            </button>
-
+            <input type="text" id="nombre" placeholder="Nombre de la actividad" required>
+            <button type="submit" class="btn-agregar">Agregar Actividad</button>
         </form>
-
     </section>
 
     <main class="gallery-container" id="contenedor">
-
-        <div class="photo-card" data-id="1">
-
-            <img src="/static/plt.jpg" alt="Actividad 1">
-
-            <div class="photo-info">
-
-                <h3>Instalación de Equipos</h3>
-
-                <p>
-                    El día de hoy se realizó el montaje de los servidores 
-                    y la configuración inicial de la red local.
-                </p>
-
-                <button class="btn-eliminar" onclick="eliminarActividad(this)">
-                    Eliminar
-                </button>
-
-            </div>
-
-        </div>
-
-        <div class="photo-card" data-id="2">
-
-            <img src="/static/plt.jpg" alt="Actividad 2">
-
-            <div class="photo-info">
-
-                <h3>Pruebas de Software</h3>
-
-                <p>
-                    Se ejecutaron los tests de conexión con MongoDB Atlas 
-                    y se verificó el despliegue en Render.
-                </p>
-
-                <button class="btn-eliminar" onclick="eliminarActividad(this)">
-                    Eliminar
-                </button>
-
-            </div>
-
-        </div>
-
-        <div class="photo-card" data-id="3">
-
-            <img src="/static/plt.jpg" alt="Actividad 3">
-
-            <div class="photo-info">
-
-                <h3>Capacitación</h3>
-
-                <p>
-                    Sesión grupal para explicar el funcionamiento 
-                    de la nueva API desarrollada con FastAPI.
-                </p>
-
-                <button class="btn-eliminar" onclick="eliminarActividad(this)">
-                    Eliminar
-                </button>
-
-            </div>
-
-        </div>
-
-    </main>
+        </main>
 
     <footer>
-
-        <p>
-            Reporte Diario de Actividades - 
-            <strong>Realizado el: 6 de Mayo, 2024</strong>
-        </p>
-
-        <p>
-            Resumen: Se cumplieron los objetivos técnicos de conexión 
-            y visualización de datos exitosamente.
-        </p>
-
+        <p>Reporte Diario de Actividades - <strong>2024</strong></p>
     </footer>
 
     <script>
-
-        document.getElementById("formAgregar")
-        .addEventListener("submit", function(e) {
-
-            e.preventDefault();
-
-            const nombre = document.getElementById("nombre").value;
-
-            const contenedor = document.getElementById("contenedor");
-
-            const nuevaCard = document.createElement("div");
-
-            nuevaCard.classList.add("photo-card");
-
-            nuevaCard.innerHTML = `
-            
-                <img src="/static/plt.jpg" alt="Nueva Actividad">
-
-                <div class="photo-info">
-
-                    <h3>${nombre}</h3>
-
-                    <p>
-                        Nueva actividad agregada dinámicamente.
-                    </p>
-
-                    <button class="btn-eliminar" onclick="eliminarActividad(this)">
-                        Eliminar
-                    </button>
-
-                </div>
-            `;
-
-            contenedor.appendChild(nuevaCard);
-
-            document.getElementById("nombre").value = "";
-
-        });
-
-        function eliminarActividad(boton) {
-
-            const card = boton.closest(".photo-card");
-
-            card.remove();
-
-        }
-
-    </script>
-
-    <script>
-        // 1. Configuración inicial
+        // 1. Configuración de Identidad
         const userEmail = localStorage.getItem('userEmail') || "";
-        const ADMINS = ["admin@correo.com", "tu_email@especial.com"]; // Mismos que en Python
+        // IMPORTANTE: Estos correos deben ser los mismos que en tu main.py
+        const ADMINS = ["admin@correo.com", "tu_email@especial.com"]; 
         const esAdmin = ADMINS.includes(userEmail.toLowerCase().trim());
 
-        // 2. Al cargar la página, ocultar el formulario de agregar si no es admin
-        document.addEventListener("DOMContentLoaded", () => {
-            const formAgregar = document.getElementById('formulario-agregar');
-            if (formAgregar && !esAdmin) {
-                formAgregar.remove(); // Eliminamos el elemento por completo por seguridad visual
+        // 2. Control Inicial de la Interfaz
+        window.onload = () => {
+            if (esAdmin) {
+                document.getElementById('adminSection').style.display = 'block';
             }
-            cargarEstudiantes();
-        });
+            cargarActividades();
+        };
 
-        // 3. Función para cargar estudiantes (Modificada)
-        async function cargarEstudiantes() {
-            const response = await fetch('/estudiantes');
-            const estudiantes = await response.json();
-            
-            const lista = document.getElementById('lista-estudiantes');
-            lista.innerHTML = ""; // Limpiar lista
+        // 3. Cargar Actividades desde el Servidor
+        async function cargarActividades() {
+            const res = await fetch('/estudiantes'); // Usamos tu ruta de estudiantes
+            const datos = await res.json();
+            const contenedor = document.getElementById("contenedor");
+            contenedor.innerHTML = "";
 
-            estudiantes.forEach(est => {
-                const li = document.createElement('li');
-                
-                // Creamos el texto del estudiante
-                li.innerHTML = `<span>${est.nombre}</span>`;
+            datos.forEach(act => {
+                const card = document.createElement("div");
+                card.classList.add("photo-card");
 
-                // SOLO si es admin, creamos y añadimos el botón de eliminar
+                // Construimos el HTML. Solo añadimos el botón si esAdmin es true.
+                let html = `
+                    <img src="/static/plt.jpg" alt="Actividad">
+                    <div class="photo-info">
+                        <h3>${act.nombre}</h3>
+                        <p>Actividad registrada en el sistema.</p>
+                `;
+
                 if (esAdmin) {
-                    const btnEliminar = document.createElement('button');
-                    btnEliminar.innerText = "Eliminar";
-                    btnEliminar.className = "btn-eliminar"; // Para tus estilos CSS
-                    btnEliminar.onclick = () => eliminarEstudiante(est._id);
-                    li.appendChild(btnEliminar);
+                    html += `
+                        <button class="btn-eliminar" onclick="eliminarActividad('${act._id}')">
+                            Eliminar
+                        </button>
+                    `;
                 }
 
-                lista.appendChild(li);
+                html += `</div>`;
+                card.innerHTML = html;
+                contenedor.appendChild(card);
             });
         }
 
-        // 4. Función para eliminar (Asegurando que envíe el correo)
-        async function eliminarEstudiante(id) {
-            if (!confirm("¿Borrar estudiante?")) return;
+        // 4. Agregar Actividad (Solo Admin)
+        document.getElementById("formAgregar").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            const nombre = document.getElementById("nombre").value;
 
-            // Pasamos el correo como 'correo_solicitante' en la URL
-            const url = `/eliminar/${id}?correo_solicitante=${encodeURIComponent(userEmail)}`;
-            
-            const response = await fetch(url, { method: 'DELETE' });
+            const formData = new FormData();
+            formData.append('nombre', nombre);
+            formData.append('correo_solicitante', userEmail); // Validación para el servidor
 
-            if (response.ok) {
-                cargarEstudiantes(); // Recargar la lista sin refrescar toda la página
+            const res = await fetch('/agregar', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (res.ok) {
+                document.getElementById("nombre").value = "";
+                cargarActividades();
             } else {
-                alert("Error: No tienes permiso para esta acción.");
+                alert("Error: No tienes permisos para realizar esta acción.");
+            }
+        });
+
+        // 5. Eliminar Actividad (Solo Admin)
+        async function eliminarActividad(id) {
+            if (!confirm("¿Deseas eliminar esta actividad?")) return;
+
+            const res = await fetch(`/eliminar/${id}?correo_solicitante=${encodeURIComponent(userEmail)}`, {
+                method: 'DELETE'
+            });
+
+            if (res.ok) {
+                cargarActividades();
+            } else {
+                alert("No tienes permisos para eliminar.");
             }
         }
-    </script>
 
+        function cerrarSesion() {
+            localStorage.clear();
+            window.location.href = "/";
+        }
+    </script>
 </body>
 </html>
