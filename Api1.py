@@ -90,21 +90,15 @@ async def agregar(
     return {"id": str(res.inserted_id), "nombre": nombre}
 
 @app.delete("/eliminar/{id}")
-async def eliminar(id: str, correo_usuario: str):
-    # VALIDACIÓN DE SEGURIDAD
-    if correo_usuario.lower() not in ADMIN_EMAILS:
-        raise HTTPException(
-            status_code=403, 
-            detail="Acceso denegado: Solo administradores pueden eliminar."
-        )
+async def eliminar(id: str, correo_solicitante: str): # FastAPI leerá esto del Query String (?correo_solicitante=...)
+    usuario_clean = correo_solicitante.lower().strip()
+    
+    if usuario_clean not in ADMIN_EMAILS:
+        raise HTTPException(status_code=403, detail="Acceso denegado")
 
     try:
         obj_id = ObjectId(id)
+        await collection.delete_one({"_id": obj_id})
+        return {"mensaje": "borrado"}
     except:
-        raise HTTPException(status_code=400, detail="ID inválido")
-        
-    await collection.delete_one({"_id": obj_id})
-    # También borramos asistencias relacionadas
-    await db.asistencias.delete_many({"estudiante_id": id})
-    
-    return {"mensaje": "borrado con éxito"}
+        raise HTTPException(status_code=400, detail="ID no válido")

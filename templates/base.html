@@ -301,14 +301,56 @@
     </script>
 
     <script>
-        const userEmail = localStorage.getItem('userEmail');
-        const admins = ["admin@correo.com", "tu_email@especial.com"];
+        // 1. Obtener el correo guardado en el login
+        const userEmail = localStorage.getItem('userEmail') || "";
+        const ADMINS = ["oscar24540@cbtis75.edu.mx"]; // Deben ser los mismos que en Python
 
-        if (!admins.includes(userEmail)) {
-            // Oculta el formulario de agregar
-            document.getElementById('tu-formulario-id').style.display = 'none';
-            // Oculta botones de eliminar (si usas una clase específica)
-            document.querySelectorAll('.btn-eliminar').forEach(b => b.style.display = 'none');
+        // 2. Lógica para ocultar botones si NO es admin
+        document.addEventListener("DOMContentLoaded", () => {
+            if (!ADMINS.includes(userEmail)) {
+                const formAgregar = document.getElementById('formulario-agregar');
+                if (formAgregar) formAgregar.style.display = 'none';
+
+                // Ocultar botones de eliminar (usando un intervalo por si la lista carga después)
+                setInterval(() => {
+                    document.querySelectorAll('.btn-eliminar').forEach(btn => btn.style.display = 'none');
+                }, 500);
+            }
+        });
+
+        // 3. Función corregida para AGREGAR
+        async function agregarEstudiante() {
+            const nombreInput = document.getElementById('nombre-estudiante');
+            const formData = new FormData();
+            formData.append('nombre', nombreInput.value);
+            formData.append('correo_solicitante', userEmail); // <--- ENVIAMOS EL CORREO
+
+            const response = await fetch('/agregar', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                location.reload(); 
+            } else {
+                alert("Error: No tienes permisos o el nombre es inválido.");
+            }
+        }
+
+        // 4. Función corregida para ELIMINAR
+        async function eliminarEstudiante(id) {
+            if (!confirm("¿Seguro que deseas eliminar?")) return;
+
+            // Enviamos el correo como parámetro en la URL (Query String)
+            const response = await fetch(`/eliminar/${id}?correo_solicitante=${encodeURIComponent(userEmail)}`, {
+                method: 'DELETE'
+            });
+
+            if (response.ok) {
+                location.reload();
+            } else {
+                alert("Error: No tienes permisos para eliminar.");
+            }
         }
     </script>
 
