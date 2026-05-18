@@ -44,7 +44,6 @@
             position: relative;
         }
 
-        /* El moñito rosa decorativo en el título 🎀 */
         header h1::after {
             content: " 🎀";
             font-size: 0.9em;
@@ -113,7 +112,6 @@
             border-color: var(--primary-pink);
         }
 
-        /* Estilizado lindo para el input de archivo */
         .form-container input[type="file"] {
             width: 100%;
             padding: 10px;
@@ -238,7 +236,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Responsivo para móviles */
         @media (max-width: 600px) {
             header h1 { font-size: 1.6em; }
             .btn-logout { position: static; transform: none; margin-top: 15px; display: block; width: fit-content; margin-left: auto; margin-right: auto; }
@@ -348,7 +345,7 @@
 
         function cerrarSesion() {
             localStorage.removeItem('userEmail');
-            window.location.reload(); // O redirige a tu login
+            window.location.reload();
         }
     </script>
 </body>
