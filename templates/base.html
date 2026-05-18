@@ -3,11 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galería de Actividades</title>
+    <title>🌸 Galería de Actividades 🌸</title>
     <style>
+        :root {
+            --primary-pink: #ff85a2;
+            --dark-pink: #f45b7e;
+            --soft-pink: #ffeef2;
+            --accent-gold: #e5ad35;
+            --text-dark: #4a3b40;
+            --bg-gradient: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-dark);
             margin: 0;
             display: flex;
             flex-direction: column;
@@ -15,122 +25,224 @@
         }
 
         header {
-            background-color: #333;
-            color: white;
-            padding: 20px;
+            background-color: white;
+            color: var(--text-dark);
+            padding: 25px 20px;
             text-align: center;
             position: relative;
+            box-shadow: 0 4px 20px rgba(255, 133, 162, 0.15);
+            border-bottom: 3px solid var(--primary-pink);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2em;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--dark-pink);
+            display: inline-block;
+            position: relative;
+        }
+
+        /* El moñito rosa decorativo en el título 🎀 */
+        header h1::after {
+            content: " 🎀";
+            font-size: 0.9em;
+            vertical-align: middle;
         }
 
         .btn-logout {
             position: absolute;
-            right: 20px;
-            top: 25px;
-            background: #555;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            color: var(--dark-pink);
+            border: 2px solid var(--primary-pink);
+            padding: 8px 18px;
+            border-radius: 20px;
             cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background: var(--primary-pink);
+            color: white;
+            box-shadow: 0 4px 10px rgba(255, 133, 162, 0.3);
         }
 
         .form-container {
             background: white;
-            margin: 30px auto 10px auto;
-            padding: 20px;
-            border-radius: 10px;
+            margin: 40px auto 20px auto;
+            padding: 30px;
+            border-radius: 20px;
             width: 90%;
-            max-width: 500px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            /* Por defecto oculto, se muestra solo a admins */
+            max-width: 480px;
+            box-shadow: 0 10px 30px rgba(244, 91, 126, 0.1);
+            border: 1px solid rgba(255, 133, 162, 0.2);
+            /* Por defecto oculto, controlado por JS */
             display: none; 
+            animation: fadeIn 0.5s ease;
         }
 
-        .form-container h2 { margin-top: 0; color: #333; }
+        .form-container h2 { 
+            margin-top: 0; 
+            color: var(--dark-pink); 
+            font-size: 1.5em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-        .form-container input {
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-container input[type="text"] {
             width: 100%;
-            padding: 12px;
-            margin-top: 10px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
+            padding: 12px 15px;
+            border-radius: 12px;
+            border: 2px solid #eedad3;
             font-size: 1em;
             box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-container input[type="text"]:focus {
+            border-color: var(--primary-pink);
+        }
+
+        /* Estilizado lindo para el input de archivo */
+        .form-container input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            background: var(--soft-pink);
+            border-radius: 12px;
+            border: 1px dashed var(--primary-pink);
+            box-sizing: border-box;
+            cursor: pointer;
         }
 
         .btn-agregar {
             width: 100%;
-            margin-top: 15px;
-            padding: 12px;
-            background-color: #28a745;
+            margin-top: 10px;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--primary-pink) 0%, var(--dark-pink) 100%);
             color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 12px;
             cursor: pointer;
             font-size: 1em;
-            transition: background 0.3s;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(244, 91, 126, 0.3);
+            transition: all 0.3s ease;
         }
 
-        .btn-agregar:hover { background-color: #218838; }
+        .btn-agregar:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(244, 91, 126, 0.4);
+        }
 
         .gallery-container {
             flex: 1;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            gap: 30px;
             padding: 40px;
             max-width: 1200px;
             margin: 0 auto;
+            width: 90%;
         }
 
         .photo-card {
             background: white;
-            border-radius: 10px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: 1px solid rgba(255, 133, 162, 0.05);
         }
 
-        .photo-card:hover { transform: translateY(-10px); }
+        .photo-card:hover { 
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(244, 91, 126, 0.15);
+        }
 
         .photo-card img {
             width: 100%;
-            height: 250px;
+            height: 260px;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .photo-card:hover img {
+            transform: scale(1.03);
         }
 
-        .photo-info { padding: 15px; }
+        .photo-info { 
+            padding: 20px; 
+            position: relative;
+        }
 
-        .photo-info h3 { margin: 0 0 10px 0; color: #444; font-size: 1.2em; }
+        .photo-info h3 { 
+            margin: 0 0 10px 0; 
+            color: var(--text-dark); 
+            font-size: 1.25em; 
+            font-weight: 600;
+        }
 
         .photo-info p {
             margin: 0;
-            color: #666;
+            color: #8a7a80;
             font-size: 0.9em;
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
         .btn-eliminar {
-            margin-top: 15px;
+            margin-top: 18px;
             width: 100%;
             padding: 10px;
-            border: none;
-            background-color: #dc3545;
-            color: white;
-            border-radius: 6px;
+            border: 1px solid #ffccd5;
+            background-color: #fff5f6;
+            color: #d93856;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 0.95em;
-            transition: background 0.3s;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.2s ease;
         }
 
-        .btn-eliminar:hover { background-color: #b52a37; }
+        .btn-eliminar:hover { 
+            background-color: #d93856;
+            color: white;
+            border-color: #d93856;
+        }
 
         footer {
-            background-color: #222;
-            color: #bbb;
+            background-color: white;
+            color: #8a7a80;
             text-align: center;
-            padding: 20px;
+            padding: 25px;
             margin-top: auto;
+            border-top: 1px solid rgba(255, 133, 162, 0.15);
+            font-size: 0.95em;
+        }
+
+        footer strong {
+            color: var(--dark-pink);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsivo para móviles */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.6em; }
+            .btn-logout { position: static; transform: none; margin-top: 15px; display: block; width: fit-content; margin-left: auto; margin-right: auto; }
+            .gallery-container { padding: 20px 10px; gap: 20px; }
         }
     </style>
 </head>
@@ -142,10 +254,15 @@
     </header>
 
     <section class="form-container" id="adminSection">
-        <h2>Agregar Actividad</h2>
+        <h2>✨ Agregar Nueva Actividad ✨</h2>
         <form id="formAgregar">
-            <input type="text" id="nombre" placeholder="Nombre de la actividad" required>
-            <button type="submit" class="btn-agregar">Agregar Actividad</button>
+            <div class="form-group">
+                <input type="text" id="nombre" placeholder="Nombre de la actividad" required>
+            </div>
+            <div class="form-group">
+                <input type="file" id="inputImagen" accept="image/*" required>
+            </div>
+            <button type="submit" class="btn-agregar">Guardar Actividad</button>
         </form>
     </section>
 
@@ -153,19 +270,8 @@
         </main>
 
     <footer>
-        <p>Reporte Diario de Actividades - <strong>2024</strong></p>
+        <p>Reporte Diario de Actividades - <strong>2026</strong> 🌸</p>
     </footer>
-
-    <section class="form-container" id="adminSection">
-        <h2>Agregar Actividad</h2>
-        <form id="formAgregar">
-            <input type="text" id="nombre" placeholder="Nombre de la actividad" required>
-            <input type="file" id="inputImagen" accept="image/*" required style="margin-top:10px;">
-            <button type="submit" class="btn-agregar">Agregar Actividad</button>
-        </form>
-    </section>
-
-    <main class="gallery-container" id="contenedor"></main>
 
     <script>
         const userEmail = localStorage.getItem('userEmail') || "";
@@ -178,33 +284,36 @@
         };
 
         async function cargarActividades() {
-            const res = await fetch('/estudiantes');
-            const datos = await res.json();
-            const contenedor = document.getElementById("contenedor");
-            contenedor.innerHTML = "";
+            try {
+                const res = await fetch('/estudiantes');
+                const datos = await res.json();
+                const contenedor = document.getElementById("contenedor");
+                contenedor.innerHTML = "";
 
-            datos.forEach(act => {
-                const card = document.createElement("div");
-                card.classList.add("photo-card");
+                datos.forEach(act => {
+                    const card = document.createElement("div");
+                    card.classList.add("photo-card");
 
-                // Usamos act.imagen_url que viene de la DB, o una por defecto
-                const imgUrl = act.imagen_url || "/static/plt.jpg";
+                    const imgUrl = act.imagen_url || "/static/plt.jpg";
 
-                let html = `
-                    <img src="${imgUrl}" alt="Actividad">
-                    <div class="photo-info">
-                        <h3>${act.nombre}</h3>
-                        <p>Actividad registrada en el sistema.</p>
-                `;
+                    let html = `
+                        <img src="${imgUrl}" alt="Actividad">
+                        <div class="photo-info">
+                            <h3>${act.nombre}</h3>
+                            <p>Actividad registrada en el sistema.</p>
+                    `;
 
-                if (esAdmin) {
-                    html += `<button class="btn-eliminar" onclick="eliminarActividad('${act._id}')">Eliminar</button>`;
-                }
+                    if (esAdmin) {
+                        html += `<button class="btn-eliminar" onclick="eliminarActividad('${act._id}')">Eliminar Actividad</button>`;
+                    }
 
-                html += `</div>`;
-                card.innerHTML = html;
-                contenedor.appendChild(card);
-            });
+                    html += `</div>`;
+                    card.innerHTML = html;
+                    contenedor.appendChild(card);
+                });
+            } catch (error) {
+                console.error("Error cargando actividades:", error);
+            }
         }
 
         document.getElementById("formAgregar").addEventListener("submit", async function(e) {
@@ -216,11 +325,11 @@
             const formData = new FormData();
             formData.append('nombre', nombre);
             formData.append('correo_solicitante', userEmail);
-            formData.append('imagen', imagenFile); // Enviamos el archivo binario
+            formData.append('imagen', imagenFile);
 
             const res = await fetch('/agregar', {
                 method: 'POST',
-                body: formData // Fetch detecta automáticamente que es multipart/form-data
+                body: formData
             });
 
             if (res.ok) {
@@ -232,9 +341,14 @@
         });
 
         async function eliminarActividad(id) {
-            if (!confirm("¿Eliminar?")) return;
+            if (!confirm("¿Estás segura de que deseas eliminar esta actividad? 🎀")) return;
             const res = await fetch(`/eliminar/${id}?correo_solicitante=${userEmail}`, { method: 'DELETE' });
             if (res.ok) cargarActividades();
+        }
+
+        function cerrarSesion() {
+            localStorage.removeItem('userEmail');
+            window.location.reload(); // O redirige a tu login
         }
     </script>
 </body>
