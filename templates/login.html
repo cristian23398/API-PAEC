@@ -3,28 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>🌸 Iniciar Sesión 🌸</title>
     <style>
-        body{ margin:0; height:100vh; display:flex; justify-content:center; align-items:center; background:#f0f2f5; font-family:Arial; }
-        .login-box{ background:white; padding:40px; border-radius:10px; width:350px; box-shadow:0 4px 15px rgba(0,0,0,0.1); }
-        h1{ text-align:center; color:#333; }
-        input{ width:100%; padding:12px; margin-top:15px; border:1px solid #ccc; border-radius:6px; box-sizing:border-box; }
-        button{ width:100%; padding:12px; margin-top:20px; background:#007bff; border:none; color:white; border-radius:6px; cursor:pointer; font-size:16px; }
-        button:hover{ background:#0056b3; }
+        :root {
+            --primary-pink: #ff85a2;
+            --dark-pink: #f45b7e;
+            --soft-pink: #ffeef2;
+            --text-dark: #4a3b40;
+            --bg-gradient: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
+        }
+
+        body { 
+            margin: 0; 
+            height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            background: var(--bg-gradient); 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-dark);
+        }
+
+        .login-box { 
+            background: white; 
+            padding: 40px; 
+            border-radius: 24px; 
+            width: 90%;
+            max-width: 360px; 
+            box-shadow: 0 12px 35px rgba(244, 91, 126, 0.12); 
+            border: 1px solid rgba(255, 133, 162, 0.2);
+            animation: cardFadeIn 0.6s ease;
+        }
+
+        h1 { 
+            text-align: center; 
+            color: var(--dark-pink); 
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        h1::after {
+            content: " 🎀";
+            font-size: 0.9em;
+            vertical-align: middle;
+        }
+
+        .input-group {
+            position: relative;
+            margin-top: 18px;
+        }
+
+        input { 
+            width: 100%; 
+            padding: 14px 16px; 
+            border: 2px solid #eedad3; 
+            border-radius: 14px; 
+            box-sizing: border-box; 
+            font-size: 1em;
+            outline: none;
+            transition: all 0.3s ease;
+            color: var(--text-dark);
+        }
+
+        input:focus { 
+            border-color: var(--primary-pink);
+            box-shadow: 0 0 8px rgba(255, 133, 162, 0.2);
+        }
+
+        input::placeholder {
+            color: #bfaab1;
+        }
+
+        button { 
+            width: 100%; 
+            padding: 14px; 
+            margin-top: 28px; 
+            background: linear-gradient(135deg, var(--primary-pink) 0%, var(--dark-pink) 100%); 
+            border: none; 
+            color: white; 
+            border-radius: 14px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(244, 91, 126, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        button:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(244, 91, 126, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
+
     <div class="login-box">
-        <h1>Registro / Login</h1>
+        <h1>Bienvenido</h1>
         <form id="loginForm" action="/registro" method="post">
-            <input type="email" name="usuario" id="emailInput" placeholder="Correo electrónico" required>
-            <input type="password" name="password" placeholder="Contraseña" required>
+            <div class="input-group">
+                <input type="email" name="usuario" id="emailInput" placeholder="Correo electrónico" required>
+            </div>
+            <div class="input-group">
+                <input type="password" name="password" placeholder="Contraseña" required>
+            </div>
             <button type="submit">Entrar</button>
         </form>
     </div>
 
     <script>
-        // Guardamos el correo localmente para que la siguiente página sepa quién eres
         document.getElementById('loginForm').onsubmit = function() {
             const email = document.getElementById('emailInput').value;
             localStorage.setItem('userEmail', email.toLowerCase().trim());
