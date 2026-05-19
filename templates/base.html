@@ -32,6 +32,11 @@
             padding: 8px 15px;
             border-radius: 5px;
             cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-logout:hover {
+            background: #777;
         }
 
         .form-container {
@@ -145,21 +150,6 @@
         <h2>Agregar Actividad</h2>
         <form id="formAgregar">
             <input type="text" id="nombre" placeholder="Nombre de la actividad" required>
-            <button type="submit" class="btn-agregar">Agregar Actividad</button>
-        </form>
-    </section>
-
-    <main class="gallery-container" id="contenedor">
-        </main>
-
-    <footer>
-        <p>Reporte Diario de Actividades - <strong>2024</strong></p>
-    </footer>
-
-    <section class="form-container" id="adminSection">
-        <h2>Agregar Actividad</h2>
-        <form id="formAgregar">
-            <input type="text" id="nombre" placeholder="Nombre de la actividad" required>
             <input type="file" id="inputImagen" accept="image/*" required style="margin-top:10px;">
             <button type="submit" class="btn-agregar">Agregar Actividad</button>
         </form>
@@ -167,13 +157,19 @@
 
     <main class="gallery-container" id="contenedor"></main>
 
+    <footer>
+        <p>Reporte Diario de Actividades - <strong>2026</strong></p>
+    </footer>
+
     <script>
         const userEmail = localStorage.getItem('userEmail') || "";
         const ADMINS = ["oscar24540@cbtis75.edu.mx"]; 
         const esAdmin = ADMINS.includes(userEmail.toLowerCase().trim());
 
         window.onload = () => {
-            if (esAdmin) document.getElementById('adminSection').style.display = 'block';
+            if (esAdmin) {
+                document.getElementById('adminSection').style.display = 'block';
+            }
             cargarActividades();
         };
 
@@ -187,7 +183,7 @@
                 const card = document.createElement("div");
                 card.classList.add("photo-card");
 
-                // Usamos act.imagen_url que viene de la DB, o una por defecto
+                // Lee la URL de la imagen guardada en la base de datos o usa una genérica
                 const imgUrl = act.imagen_url || "/static/plt.jpg";
 
                 let html = `
@@ -213,28 +209,42 @@
             const nombre = document.getElementById("nombre").value;
             const imagenFile = document.getElementById("inputImagen").files[0];
 
+            if (!imagenFile) {
+                alert("Por favor, selecciona una imagen.");
+                return;
+            }
+
             const formData = new FormData();
             formData.append('nombre', nombre);
             formData.append('correo_solicitante', userEmail);
-            formData.append('imagen', imagenFile); // Enviamos el archivo binario
+            formData.append('imagen', imagenFile); // El archivo binario de la galería
 
             const res = await fetch('/agregar', {
                 method: 'POST',
-                body: formData // Fetch detecta automáticamente que es multipart/form-data
+                body: formData 
             });
 
             if (res.ok) {
                 document.getElementById("formAgregar").reset();
                 cargarActividades();
             } else {
-                alert("Error al subir. Verifica tus permisos.");
+                alert("Error al subir la actividad. Verifica tus permisos en el sistema.");
             }
         });
 
         async function eliminarActividad(id) {
-            if (!confirm("¿Eliminar?")) return;
-            const res = await fetch(`/eliminar/${id}?correo_solicitante=${userEmail}`, { method: 'DELETE' });
-            if (res.ok) cargarActividades();
+            if (!confirm("¿Estás seguro de que deseas eliminar esta actividad?")) return;
+            const res = await fetch(`/eliminar/${id}?correo_solicitante=${encodeURIComponent(userEmail)}`, { method: 'DELETE' });
+            if (res.ok) {
+                cargarActividades();
+            } else {
+                alert("No tienes permisos para eliminar.");
+            }
+        }
+
+        function cerrarSesion() {
+            localStorage.clear();
+            window.location.href = "/";
         }
     </script>
 </body>
