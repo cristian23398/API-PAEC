@@ -262,23 +262,27 @@
         </form>
     </section>
 
-    <main class="gallery-container" id="contenedor">
-        </main>
+    <main class="gallery-container" id="contenedor"></main>
 
     <footer>
         <p>Reporte Diario de Actividades - <strong>2026</strong> 🌸</p>
     </footer>
 
     <script>
+        // Lógica de Autenticación y Variables Globales
         const userEmail = localStorage.getItem('userEmail') || "";
-        const ADMINS = ["admin@correo.com", "tu_email@especial.com"]; 
+        const ADMINS = ["oscar24540@cbtis75.edu.mx", "admin@correo.com"]; 
         const esAdmin = ADMINS.includes(userEmail.toLowerCase().trim());
 
+        // Al iniciar la página, validar rol y renderizar la galería
         window.onload = () => {
-            if (esAdmin) document.getElementById('adminSection').style.display = 'block';
+            if (esAdmin) {
+                document.getElementById('adminSection').style.display = 'block';
+            }
             cargarActividades();
         };
 
+        // Función para obtener y renderizar las actividades desde el Servidor
         async function cargarActividades() {
             try {
                 const res = await fetch('/estudiantes');
@@ -299,6 +303,7 @@
                             <p>Actividad registrada en el sistema.</p>
                     `;
 
+                    // Si es administrador, inyectar el botón con diseño estilizado rosa
                     if (esAdmin) {
                         html += `<button class="btn-eliminar" onclick="eliminarActividad('${act._id}')">Eliminar Actividad</button>`;
                     }
@@ -312,11 +317,17 @@
             }
         }
 
+        // Evento para procesar el envío del Formulario (Agregar Actividad)
         document.getElementById("formAgregar").addEventListener("submit", async function(e) {
             e.preventDefault();
             
             const nombre = document.getElementById("nombre").value;
             const imagenFile = document.getElementById("inputImagen").files[0];
+
+            if (!imagenFile) {
+                alert("Por favor, selecciona una imagen.");
+                return;
+            }
 
             const formData = new FormData();
             formData.append('nombre', nombre);
@@ -332,19 +343,33 @@
                 document.getElementById("formAgregar").reset();
                 cargarActividades();
             } else {
-                alert("Error al subir. Verifica tus permisos.");
+                alert("Error al subir la actividad. Verifica tus permisos en el sistema.");
             }
         });
 
+        // Función para eliminar actividades (Protegida por ID y Correo del solicitante)
         async function eliminarActividad(id) {
             if (!confirm("¿Estás segura de que deseas eliminar esta actividad? 🎀")) return;
-            const res = await fetch(`/eliminar/${id}?correo_solicitante=${userEmail}`, { method: 'DELETE' });
-            if (res.ok) cargarActividades();
+            
+            try {
+                const res = await fetch(`/eliminar/${id}?correo_solicitante=${encodeURIComponent(userEmail)}`, { 
+                    method: 'DELETE' 
+                });
+                
+                if (res.ok) {
+                    cargarActividades();
+                } else {
+                    alert("No tienes permisos para eliminar.");
+                }
+            } catch (error) {
+                console.error("Error al eliminar la actividad:", error);
+            }
         }
 
+        // Función para borrar la sesión y redirigir
         function cerrarSesion() {
-            localStorage.removeItem('userEmail');
-            window.location.reload();
+            localStorage.clear();
+            window.location.href = "/";
         }
     </script>
 </body>

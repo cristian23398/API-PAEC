@@ -109,7 +109,7 @@
 <body>
 
     <div class="login-box">
-        <h1>Bienvenido</h1>
+        <h1>Registro / Login</h1>
         <form id="loginForm" action="/registro" method="post">
             <div class="input-group">
                 <input type="email" name="usuario" id="emailInput" placeholder="Correo electrónico" required>
@@ -122,8 +122,10 @@
     </div>
 
     <script>
+        // Guardamos el correo localmente para que la siguiente página sepa quién eres
         document.getElementById('loginForm').onsubmit = function() {
             const email = document.getElementById('emailInput').value;
+            // Limpia espacios y convierte a minúsculas antes de guardar
             localStorage.setItem('userEmail', email.toLowerCase().trim());
         };
     </script>
