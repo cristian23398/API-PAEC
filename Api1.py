@@ -5,6 +5,8 @@ from bson import ObjectId
 import os
 import cloudinary
 import cloudinary.uploader
+from PIL import Image
+import io
 
 from db import collection, db, usuarios
 
@@ -56,8 +58,19 @@ async def agregar(
         raise HTTPException(status_code=403)
 
     contenido = await imagen.read()
+
+    # Comprimir imagen para que no supere el límite de 10MB de Cloudinary
+    img = Image.open(io.BytesIO(contenido))
+    # Convertir a RGB por si es PNG con transparencia
+    if img.mode in ("RGBA", "P"):
+        img = img.convert("RGB")
+    buffer = io.BytesIO()
+    img.save(buffer, format="JPEG", quality=70)
+    buffer.seek(0)
+    contenido_comprimido = buffer.read()
+
     resultado = cloudinary.uploader.upload(
-        contenido,
+        contenido_comprimido,
         folder="estudiantes",
         public_id=imagen.filename.rsplit(".", 1)[0],
         overwrite=True
