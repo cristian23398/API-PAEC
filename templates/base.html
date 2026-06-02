@@ -172,6 +172,13 @@
             object-fit: cover;
             transition: transform 0.5s ease;
         }
+
+        .photo-card video {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            background: #000;
+        }
         
         .photo-card:hover img {
             transform: scale(1.03);
@@ -256,7 +263,8 @@
                 <input type="text" id="nombre" placeholder="Nombre de la actividad" required>
             </div>
             <div class="form-group">
-                <input type="file" id="inputImagen" accept="image/*" required>
+                <!-- ✅ Ahora acepta imágenes y videos -->
+                <input type="file" id="inputImagen" accept="image/*,video/*" required>
             </div>
             <button type="submit" class="btn-agregar">Guardar Actividad</button>
         </form>
@@ -269,12 +277,10 @@
     </footer>
 
     <script>
-        // Lógica de Autenticación y Variables Globales
         const userEmail = localStorage.getItem('userEmail') || "";
         const ADMINS = ["oscar24540@cbtis75.edu.mx", "admin@correo.com"]; 
         const esAdmin = ADMINS.includes(userEmail.toLowerCase().trim());
 
-        // Al iniciar la página, validar rol y renderizar la galería
         window.onload = () => {
             if (esAdmin) {
                 document.getElementById('adminSection').style.display = 'block';
@@ -282,7 +288,6 @@
             cargarActividades();
         };
 
-        // Función para obtener y renderizar las actividades desde el Servidor
         async function cargarActividades() {
             try {
                 const res = await fetch('/estudiantes');
@@ -294,16 +299,19 @@
                     const card = document.createElement("div");
                     card.classList.add("photo-card");
 
-                    const imgUrl = act.imagen_url || "/static/plt.jpg";
+                    // ✅ Mostrar video o imagen según el tipo
+                    const esVideo = act.tipo === "video";
+                    const mediaHtml = esVideo
+                        ? `<video src="${act.imagen_url}" controls></video>`
+                        : `<img src="${act.imagen_url || '/static/plt.jpg'}" alt="Actividad">`;
 
                     let html = `
-                        <img src="${imgUrl}" alt="Actividad">
+                        ${mediaHtml}
                         <div class="photo-info">
                             <h3>${act.nombre}</h3>
                             <p>Actividad registrada en el sistema.</p>
                     `;
 
-                    // Si es administrador, inyectar el botón con diseño estilizado rosa
                     if (esAdmin) {
                         html += `<button class="btn-eliminar" onclick="eliminarActividad('${act._id}')">Eliminar Actividad</button>`;
                     }
@@ -317,22 +325,21 @@
             }
         }
 
-        // Evento para procesar el envío del Formulario (Agregar Actividad)
         document.getElementById("formAgregar").addEventListener("submit", async function(e) {
             e.preventDefault();
             
             const nombre = document.getElementById("nombre").value;
-            const imagenFile = document.getElementById("inputImagen").files[0];
+            const archivoFile = document.getElementById("inputImagen").files[0];
 
-            if (!imagenFile) {
-                alert("Por favor, selecciona una imagen.");
+            if (!archivoFile) {
+                alert("Por favor, selecciona una imagen o video.");
                 return;
             }
 
             const formData = new FormData();
             formData.append('nombre', nombre);
             formData.append('correo_solicitante', userEmail);
-            formData.append('imagen', imagenFile);
+            formData.append('imagen', archivoFile);
 
             const res = await fetch('/agregar', {
                 method: 'POST',
@@ -347,7 +354,6 @@
             }
         });
 
-        // Función para eliminar actividades (Protegida por ID y Correo del solicitante)
         async function eliminarActividad(id) {
             if (!confirm("¿Estás segura de que deseas eliminar esta actividad? 🎀")) return;
             
@@ -366,7 +372,6 @@
             }
         }
 
-        // Función para borrar la sesión y redirigir
         function cerrarSesion() {
             localStorage.clear();
             window.location.href = "/";
