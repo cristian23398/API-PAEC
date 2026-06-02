@@ -35,12 +35,26 @@
             animation: cardFadeIn 0.6s ease;
         }
 
+        /* ✅ Logo centrado */
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-container img {
+            width: 130px;
+            height: 130px;
+            object-fit: contain;
+        }
+
         h1 { 
             text-align: center; 
             color: var(--dark-pink); 
             font-size: 1.8em;
             font-weight: 700;
             margin-bottom: 30px;
+            margin-top: 0;
             position: relative;
         }
 
@@ -107,8 +121,11 @@
     </style>
 </head>
 <body>
-
     <div class="login-box">
+        <!-- ✅ Logo -->
+        <div class="logo-container">
+            <img src="/static/logo.png" alt="Logo PAEC">
+        </div>
         <h1>Registro / Login</h1>
         <form id="loginForm" action="/registro" method="post">
             <div class="input-group">
@@ -122,10 +139,8 @@
     </div>
 
     <script>
-        // Guardamos el correo localmente para que la siguiente página sepa quién eres
         document.getElementById('loginForm').onsubmit = function() {
             const email = document.getElementById('emailInput').value;
-            // Limpia espacios y convierte a minúsculas antes de guardar
             localStorage.setItem('userEmail', email.toLowerCase().trim());
         };
     </script>
