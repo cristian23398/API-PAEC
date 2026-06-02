@@ -3,74 +3,63 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from bson import ObjectId
 import os
-import shutil # Para guardar la imagen en el disco
+import cloudinary
+import cloudinary.uploader
 
 from db import collection, db, usuarios
 
 app = FastAPI()
-
-# Carpeta para guardar las imágenes subidas
-UPLOAD_DIR = "static/uploads"
-if not os.path.exists(UPLOAD_DIR):
-    os.makedirs(UPLOAD_DIR)
-
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# ✅ Configurar Cloudinary con variables de entorno
+cloudinary.config(
+    cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.getenv("CLOUDINARY_API_KEY"),
+    api_secret=os.getenv("CLOUDINARY_API_SECRET")
+)
 
 ADMIN_EMAILS = ["oscar24540@cbtis75.edu.mx"]
 
-@app.get("/", response_class=HTMLResponse)
-async def login():
-    with open("templates/login.html", "r", encoding="utf-8") as f:
-        return f.read()
-
-@app.get("/base", response_class=HTMLResponse)
-async def actividades():
-    with open("templates/base.html", "r", encoding="utf-8") as f:
-        return f.read()
-
-@app.post("/registro")
-async def registro(usuario: str = Form(...), password: str = Form(...)):
-    usuario = usuario.strip().lower()
-    user_db = await usuarios.find_one({"usuario": usuario})
-    if not user_db:
-        rol = "admin" if usuario in ADMIN_EMAILS else "lector"
-        await usuarios.insert_one({"usuario": usuario, "password": password, "rol": rol})
-    return RedirectResponse(url="/base", status_code=303)
-
-@app.get("/estudiantes")
-async def obtener_estudiantes():
-    datos = []
-    async for doc in collection.find({}):
-        doc["_id"] = str(doc["_id"])
-        datos.append(doc)
-    return datos
+# ... tus rutas GET sin cambios ...
 
 @app.post("/agregar")
 async def agregar(
-    nombre: str = Form(...), 
+    nombre: str = Form(...),
     correo_solicitante: str = Form(...),
-    imagen: UploadFile = File(...) # Recibimos el archivo
+    imagen: UploadFile = File(...)
 ):
     if correo_solicitante.lower().strip() not in ADMIN_EMAILS:
         raise HTTPException(status_code=403)
 
-    # Guardar la imagen físicamente
-    file_path = f"{UPLOAD_DIR}/{imagen.filename}"
-    with open(file_path, "wb") as buffer:
-        shutil.copyfileobj(imagen.file, buffer)
-    
-    # Guardar en la base de datos la ruta de la imagen
+    # ✅ Subir imagen a Cloudinary en lugar del disco local
+    contenido = await imagen.read()
+    resultado = cloudinary.uploader.upload(
+        contenido,
+        folder="estudiantes",          # carpeta opcional en Cloudinary
+        public_id=imagen.filename.rsplit(".", 1)[0],  # nombre sin extensión
+        overwrite=True
+    )
+
+    # Guardamos la URL permanente que devuelve Cloudinary
+    imagen_url = resultado["secure_url"]
+
     res = await collection.insert_one({
         "nombre": nombre,
-        "imagen_url": f"/static/uploads/{imagen.filename}"
+        "imagen_url": imagen_url,
+        "cloudinary_id": resultado["public_id"]  # ✅ guardamos el ID para poder borrarla
     })
     return {"id": str(res.inserted_id)}
+
 
 @app.delete("/eliminar/{id}")
 async def eliminar(id: str, correo_solicitante: str):
     if correo_solicitante.lower().strip() not in ADMIN_EMAILS:
         raise HTTPException(status_code=403)
-    
-    # Opcional: Podrías buscar el documento y borrar el archivo de /static/uploads antes de borrar el doc
+
+    # ✅ Buscar el documento para obtener el cloudinary_id
+    doc = await collection.find_one({"_id": ObjectId(id)})
+    if doc and "cloudinary_id" in doc:
+        cloudinary.uploader.destroy(doc["cloudinary_id"])  # borra de Cloudinary
+
     await collection.delete_one({"_id": ObjectId(id)})
     return {"mensaje": "borrado"}

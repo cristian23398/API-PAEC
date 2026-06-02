@@ -3,3 +3,4 @@ uvicorn
 motor
 dnspython
 python-multipart
+cloudinary
