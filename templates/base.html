@@ -36,9 +36,25 @@
             align-items: center;
             justify-content: center;
             gap: 15px;
+            flex-wrap: wrap;
         }
 
-        /* ✅ Logo en el header */
+        .header-logos-left {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-logos-left img {
+            height: 55px;
+            width: auto;
+            object-fit: contain;
+        }
+
         .header-logo {
             height: 70px;
             width: 70px;
@@ -63,7 +79,7 @@
 
         .btn-logout {
             position: absolute;
-            right: 30px;
+            right: 20px;
             top: 50%;
             transform: translateY(-50%);
             background: transparent;
@@ -80,6 +96,46 @@
             background: var(--primary-pink);
             color: white;
             box-shadow: 0 4px 10px rgba(255, 133, 162, 0.3);
+        }
+
+        /* Banner equipo debajo del header */
+        .equipo-banner {
+            background: white;
+            border-bottom: 1px solid rgba(255, 133, 162, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 12px 30px;
+        }
+
+        .equipo-banner img.foto-equipo {
+            height: 80px;
+            width: 80px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid var(--primary-pink);
+            box-shadow: 0 4px 12px rgba(244, 91, 126, 0.2);
+        }
+
+        .equipo-banner img.ods-mini {
+            height: 55px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .equipo-banner p {
+            margin: 0;
+            font-size: 0.9em;
+            color: #8a7a80;
+            max-width: 300px;
+            line-height: 1.5;
+        }
+
+        .equipo-banner p strong {
+            color: var(--dark-pink);
+            font-size: 1em;
         }
 
         .form-container {
@@ -103,9 +159,7 @@
             margin-bottom: 20px;
         }
 
-        .form-group {
-            margin-bottom: 15px;
-        }
+        .form-group { margin-bottom: 15px; }
 
         .form-container input[type="text"] {
             width: 100%;
@@ -190,15 +244,10 @@
             object-fit: cover;
             background: #000;
         }
-        
-        .photo-card:hover img {
-            transform: scale(1.03);
-        }
 
-        .photo-info { 
-            padding: 20px; 
-            position: relative;
-        }
+        .photo-card:hover img { transform: scale(1.03); }
+
+        .photo-info { padding: 20px; position: relative; }
 
         .photo-info h3 { 
             margin: 0 0 10px 0; 
@@ -238,15 +287,31 @@
             background-color: white;
             color: #8a7a80;
             text-align: center;
-            padding: 25px;
+            padding: 20px;
             margin-top: auto;
             border-top: 1px solid rgba(255, 133, 162, 0.15);
             font-size: 0.95em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
         }
 
-        footer strong {
-            color: var(--dark-pink);
+        .footer-logos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
         }
+
+        .footer-logos img {
+            height: 45px;
+            width: auto;
+            object-fit: contain;
+            opacity: 0.85;
+        }
+
+        footer strong { color: var(--dark-pink); }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -254,10 +319,11 @@
         }
 
         @media (max-width: 600px) {
-            header { flex-wrap: wrap; padding: 15px; }
+            .header-logos-left { display: none; }
             header h1 { font-size: 1.4em; }
             .header-logo { height: 50px; width: 50px; }
             .btn-logout { position: static; transform: none; margin-top: 10px; }
+            .equipo-banner { flex-direction: column; text-align: center; }
             .gallery-container { padding: 20px 10px; gap: 20px; }
         }
     </style>
@@ -265,11 +331,23 @@
 <body>
 
     <header>
-        <!-- ✅ Logo en el header -->
+        <!-- Logos institucionales a la izquierda -->
+        <div class="header-logos-left">
+            <img src="/static/logo_cbtis.png" alt="CBTIS 75">
+            <img src="/static/logo_dgeti.png" alt="DGETI">
+        </div>
+        <!-- Logo PAEC centrado -->
         <img src="/static/logo.png" alt="Logo PAEC" class="header-logo">
         <h1>Bitácora de Actividades</h1>
         <button class="btn-logout" onclick="cerrarSesion()">Cerrar Sesión</button>
     </header>
+
+    <!-- Franja con foto del equipo y ODS -->
+    <div class="equipo-banner">
+        <img src="/static/foto_equipo.jpg" alt="Equipo PAEC" class="foto-equipo">
+        <p><strong>Proyecto PAEC</strong><br>Jardín Polinizador · Ciencias Experimentales<br>CBTis 75 · Guanajuato</p>
+        <img src="/static/logo_ods.png" alt="ODS" class="ods-mini">
+    </div>
 
     <section class="form-container" id="adminSection">
         <h2>✨ Agregar Nueva Actividad ✨</h2>
@@ -287,7 +365,13 @@
     <main class="gallery-container" id="contenedor"></main>
 
     <footer>
-        <p>Reporte Diario de Actividades - <strong>2026</strong> 🌸</p>
+        <div class="footer-logos">
+            <img src="/static/logo_cbtis.png" alt="CBTIS 75">
+            <img src="/static/logo.png" alt="PAEC">
+            <img src="/static/logo_dgeti.png" alt="DGETI">
+            <img src="/static/logo_ods.png" alt="ODS">
+        </div>
+        <p>Reporte Diario de Actividades · <strong>CBTis 75</strong> · 2026 🌸</p>
     </footer>
 
     <script>
