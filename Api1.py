@@ -148,7 +148,3 @@ async def eliminar(id: str, correo_solicitante: str):
         cloudinary.uploader.destroy(doc["cloudinary_id"], resource_type=resource_type)
     await collection.delete_one({"_id": ObjectId(id)})
     return {"mensaje": "borrado"}
-@app.get("/reset-usuarios")
-async def reset_usuarios():
-    await usuarios.delete_many({})
-    return {"mensaje": "Usuarios borrados. Ya puedes registrarte de nuevo."}

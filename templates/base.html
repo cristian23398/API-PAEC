@@ -22,7 +22,6 @@
             color: var(--text-dark);
         }
 
-        /* ─── TOP BAR ─── */
         .top-bar {
             background: var(--nav-bg);
             color: white;
@@ -30,110 +29,72 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 10px;
         }
 
         .top-bar-left { display: flex; align-items: center; gap: 12px; }
-        .top-bar-left img { height: 48px; width: auto; object-fit: contain; }
-
+        .top-bar-left img { height: 48px; object-fit: contain; }
         .top-bar-right { display: flex; align-items: center; gap: 16px; }
 
         .top-bar-right a {
-            color: white;
-            text-decoration: none;
-            font-size: 0.85em;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2px;
-            transition: color 0.2s;
-            cursor: pointer;
+            color: white; text-decoration: none; font-size: 0.85em;
+            display: flex; flex-direction: column; align-items: center;
+            gap: 2px; cursor: pointer; transition: color 0.2s;
         }
 
         .top-bar-right a:hover { color: var(--primary-pink); }
         .top-bar-right a .icon { font-size: 1.3em; }
 
-        /* ─── NAV ─── */
         nav {
             background: #5c2d3e;
-            display: flex;
-            overflow-x: auto;
-            padding: 0 10px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            display: flex; overflow-x: auto; padding: 0 10px;
+            position: sticky; top: 0; z-index: 100;
         }
 
         nav button {
-            color: white;
-            background: none;
-            border: none;
-            padding: 12px 18px;
-            font-size: 0.9em;
-            white-space: nowrap;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: background 0.2s;
+            color: white; background: none; border: none;
+            padding: 12px 18px; font-size: 0.9em; white-space: nowrap;
+            cursor: pointer; border-radius: 4px; transition: background 0.2s;
             font-family: inherit;
         }
 
         nav button:hover, nav button.active { background: var(--dark-pink); }
 
-        /* ─── SECCIONES ─── */
         .page-section { display: none; animation: fadeIn 0.4s ease; }
         .page-section.active { display: block; }
 
-        /* ─── HERO ─── */
+        /* HERO */
         .hero {
             background: linear-gradient(135deg, #f45b7e 0%, #c2185b 100%);
-            color: white;
-            padding: 55px 60px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 30px;
-            flex-wrap: wrap;
-            min-height: 280px;
+            color: white; padding: 55px 60px;
+            display: flex; align-items: center;
+            justify-content: space-between; gap: 30px; flex-wrap: wrap;
         }
 
         .hero-text h2 { font-size: 2.8em; font-weight: 800; line-height: 1.2; margin-bottom: 12px; }
         .hero-text p { font-size: 1.1em; opacity: 0.9; margin-bottom: 22px; }
 
         .hero-text a {
-            background: white;
-            color: var(--dark-pink);
-            padding: 13px 30px;
-            border-radius: 25px;
+            background: white; color: var(--dark-pink);
+            padding: 13px 30px; border-radius: 25px;
+            font-weight: 700; cursor: pointer;
+            display: inline-block; transition: transform 0.2s;
             text-decoration: none;
-            font-weight: 700;
-            transition: transform 0.2s;
-            display: inline-block;
-            cursor: pointer;
         }
 
         .hero-text a:hover { transform: scale(1.05); }
 
-        .hero-foto-wrapper { display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-
         .hero-foto {
-            width: 220px;
-            height: 220px;
-            border-radius: 50%;
-            object-fit: cover;
-            object-position: center center;
+            width: 220px; height: 220px; border-radius: 50%;
+            object-fit: cover; object-position: center;
             border: 5px solid white;
             box-shadow: 0 10px 35px rgba(0,0,0,0.25);
         }
 
-        /* ─── VIDEO INTRO ─── */
+        /* VIDEO INTRO */
         .video-intro-wrapper {
-            background: #1a0a10;
-            padding: 35px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
+            background: #1a0a10; padding: 35px 40px;
+            display: flex; align-items: center;
+            justify-content: center; gap: 40px; flex-wrap: wrap;
         }
 
         .video-intro-text { color: white; max-width: 380px; }
@@ -141,89 +102,56 @@
         .video-intro-text p { font-size: 0.95em; opacity: 0.8; line-height: 1.6; }
 
         #videoIntro {
-            width: 480px;
-            max-width: 100%;
+            width: 460px; max-width: 100%;
             border-radius: 16px;
             box-shadow: 0 12px 40px rgba(0,0,0,0.5);
         }
 
-        /* ─── VIDEO FLOTANTE ─── */
+        /* VIDEO FLOTANTE — más pequeño y discreto */
         .floating-video {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            width: 320px;
-            background: #1a0a10;
-            border-radius: 14px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            z-index: 9999;
-            display: none;
-            overflow: hidden;
+            position: fixed; bottom: 20px; right: 20px;
+            width: 240px;
+            background: #1a0a10; border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+            z-index: 9999; display: none; overflow: hidden;
             border: 2px solid var(--primary-pink);
         }
 
         .floating-video-header {
-            background: var(--nav-bg);
-            padding: 8px 12px;
-            display: flex;
-            align-items: center;
+            background: var(--nav-bg); padding: 6px 10px;
+            display: flex; align-items: center;
             justify-content: space-between;
-            color: white;
-            font-size: 0.85em;
-            font-weight: 600;
+            color: white; font-size: 0.78em; font-weight: 600;
         }
 
         .floating-video-header button {
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-            font-size: 1.1em;
-            padding: 2px 6px;
-            border-radius: 4px;
-            transition: background 0.2s;
+            background: none; border: none; color: white;
+            cursor: pointer; font-size: 1em; padding: 2px 6px;
+            border-radius: 4px; transition: background 0.2s;
         }
 
         .floating-video-header button:hover { background: var(--dark-pink); }
+        #videoFlotante { width: 100%; display: block; }
 
-        #videoFlotante {
-            width: 100%;
-            display: block;
-            border-radius: 0 0 12px 12px;
-        }
-
-        /* ─── SECCIÓN GENÉRICA ─── */
+        /* SECCIONES */
         .section { padding: 40px 30px; max-width: 1200px; margin: 0 auto; }
 
         .section-title {
-            font-size: 1.6em;
-            font-weight: 700;
-            color: var(--nav-bg);
-            margin-bottom: 20px;
-            padding-bottom: 8px;
+            font-size: 1.6em; font-weight: 700; color: var(--nav-bg);
+            margin-bottom: 20px; padding-bottom: 8px;
             border-bottom: 3px solid var(--primary-pink);
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            display: flex; align-items: center; gap: 10px;
         }
 
-        /* ─── SUBSECCIONES ACTIVIDADES ─── */
-        .subseccion {
-            margin-bottom: 45px;
-        }
+        .subseccion { margin-bottom: 45px; }
 
         .subseccion-title {
-            font-size: 1.2em;
-            font-weight: 700;
-            color: white;
+            font-size: 1.1em; font-weight: 700; color: white;
             background: linear-gradient(135deg, var(--dark-pink), #c2185b);
-            padding: 10px 20px;
-            border-radius: 10px;
-            margin-bottom: 18px;
-            display: inline-block;
+            padding: 10px 20px; border-radius: 10px;
+            margin-bottom: 18px; display: inline-block;
         }
 
-        /* ─── CARDS ─── */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -231,228 +159,194 @@
         }
 
         .card {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
+            background: white; border-radius: 16px; overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.06);
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(244,91,126,0.15); }
-
         .card img, .card video { width: 100%; height: 190px; object-fit: cover; }
-
         .card-body { padding: 15px; }
         .card-body h3 { font-size: 1em; font-weight: 700; margin-bottom: 6px; }
         .card-body p { font-size: 0.85em; color: #8a7a80; line-height: 1.4; }
 
-        /* ─── LIKES Y COMENTARIOS ─── */
         .card-actions {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 12px;
-            padding-top: 10px;
+            display: flex; align-items: center; gap: 10px;
+            margin-top: 12px; padding-top: 10px;
             border-top: 1px solid #ffeef2;
         }
 
         .btn-like {
-            background: none;
-            border: 1px solid #ffccd5;
-            border-radius: 20px;
-            padding: 5px 12px;
-            cursor: pointer;
-            font-size: 0.85em;
-            color: #d93856;
-            font-weight: 600;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            background: none; border: 1px solid #ffccd5;
+            border-radius: 20px; padding: 5px 12px;
+            cursor: pointer; font-size: 0.85em; color: #d93856;
+            font-weight: 600; transition: all 0.2s;
+            display: flex; align-items: center; gap: 5px;
         }
 
         .btn-like.liked { background: #fff0f3; border-color: var(--dark-pink); }
         .btn-like:hover { background: #fff0f3; }
 
         .btn-comentar {
-            background: none;
-            border: 1px solid #eedad3;
-            border-radius: 20px;
-            padding: 5px 12px;
-            cursor: pointer;
-            font-size: 0.85em;
-            color: #8a7a80;
-            font-weight: 600;
-            transition: all 0.2s;
+            background: none; border: 1px solid #eedad3;
+            border-radius: 20px; padding: 5px 12px;
+            cursor: pointer; font-size: 0.85em;
+            color: #8a7a80; font-weight: 600; transition: all 0.2s;
         }
 
         .btn-comentar:hover { background: var(--soft-pink); border-color: var(--primary-pink); }
 
-        .comentarios-section {
-            margin-top: 10px;
-            display: none;
-        }
-
+        .comentarios-section { margin-top: 10px; display: none; }
         .comentarios-section.open { display: block; }
 
         .comentario-item {
-            padding: 7px 10px;
-            background: #fff9fa;
-            border-radius: 8px;
-            margin-bottom: 6px;
-            font-size: 0.82em;
+            padding: 7px 10px; background: #fff9fa;
+            border-radius: 8px; margin-bottom: 6px; font-size: 0.82em;
         }
 
         .comentario-item strong { color: var(--dark-pink); }
 
-        .comentario-input {
-            display: flex;
-            gap: 8px;
-            margin-top: 8px;
-        }
+        .comentario-input { display: flex; gap: 8px; margin-top: 8px; }
 
         .comentario-input input {
-            flex: 1;
-            padding: 7px 12px;
-            border: 1px solid #eedad3;
-            border-radius: 20px;
-            font-size: 0.85em;
-            outline: none;
+            flex: 1; padding: 7px 12px;
+            border: 1px solid #eedad3; border-radius: 20px;
+            font-size: 0.85em; outline: none;
         }
 
         .comentario-input input:focus { border-color: var(--primary-pink); }
 
         .comentario-input button {
-            padding: 7px 14px;
-            background: var(--primary-pink);
-            color: white;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.85em;
-            font-weight: 600;
+            padding: 7px 14px; background: var(--primary-pink);
+            color: white; border: none; border-radius: 20px;
+            cursor: pointer; font-size: 0.85em; font-weight: 600;
         }
 
         .btn-eliminar {
-            margin-top: 10px;
-            width: 100%;
-            padding: 7px;
-            border: 1px solid #ffccd5;
-            background: #fff5f6;
-            color: #d93856;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.82em;
-            font-weight: 600;
-            transition: all 0.2s;
+            margin-top: 10px; width: 100%; padding: 7px;
+            border: 1px solid #ffccd5; background: #fff5f6;
+            color: #d93856; border-radius: 8px; cursor: pointer;
+            font-size: 0.82em; font-weight: 600; transition: all 0.2s;
         }
 
         .btn-eliminar:hover { background: #d93856; color: white; }
 
-        /* ─── FORMULARIO ADMIN ─── */
+        /* FORMULARIO ADMIN */
         .form-container {
-            background: white;
-            margin: 0 auto 30px auto;
-            padding: 25px;
-            border-radius: 16px;
-            max-width: 500px;
+            background: white; margin: 0 auto 30px auto;
+            padding: 25px; border-radius: 16px; max-width: 500px;
             box-shadow: 0 6px 20px rgba(244,91,126,0.1);
-            border: 1px solid rgba(255,133,162,0.2);
-            display: none;
+            border: 1px solid rgba(255,133,162,0.2); display: none;
         }
 
         .form-container h2 { color: var(--dark-pink); font-size: 1.3em; text-align: center; margin-bottom: 16px; }
 
         .form-container input[type="text"],
         .form-container select {
-            width: 100%;
-            padding: 11px 14px;
-            border-radius: 10px;
-            border: 2px solid #eedad3;
-            font-size: 0.95em;
-            outline: none;
-            margin-bottom: 12px;
-            transition: border-color 0.3s;
-            font-family: inherit;
+            width: 100%; padding: 11px 14px; border-radius: 10px;
+            border: 2px solid #eedad3; font-size: 0.95em; outline: none;
+            margin-bottom: 12px; transition: border-color 0.3s; font-family: inherit;
         }
 
         .form-container input[type="text"]:focus,
         .form-container select:focus { border-color: var(--primary-pink); }
 
         .form-container input[type="file"] {
-            width: 100%;
-            padding: 9px;
-            background: var(--soft-pink);
-            border-radius: 10px;
-            border: 1px dashed var(--primary-pink);
-            cursor: pointer;
-            margin-bottom: 12px;
+            width: 100%; padding: 9px; background: var(--soft-pink);
+            border-radius: 10px; border: 1px dashed var(--primary-pink);
+            cursor: pointer; margin-bottom: 12px;
         }
 
         .btn-agregar {
-            width: 100%;
-            padding: 13px;
+            width: 100%; padding: 13px;
             background: linear-gradient(135deg, var(--primary-pink), var(--dark-pink));
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 0.95em;
-            font-weight: 600;
-            transition: all 0.3s;
+            color: white; border: none; border-radius: 10px;
+            cursor: pointer; font-size: 0.95em; font-weight: 600; transition: all 0.3s;
         }
 
         .btn-agregar:hover { transform: translateY(-2px); }
 
-        /* ─── CRONOGRAMA ─── */
+        /* CRONOGRAMA */
         .cronograma-wrapper {
-            overflow-x: auto;
-            background: white;
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-            margin-top: 20px;
+            overflow-x: auto; background: white; border-radius: 16px;
+            padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); margin-top: 20px;
         }
 
         #tablaCronograma {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.88em;
-            min-width: 700px;
+            width: 100%; border-collapse: collapse;
+            font-size: 0.88em; min-width: 700px;
         }
 
         #tablaCronograma th {
             background: linear-gradient(135deg, var(--dark-pink), #c2185b);
-            color: white;
-            padding: 10px 14px;
-            text-align: center;
-            font-weight: 600;
+            color: white; padding: 10px 14px; text-align: center; font-weight: 600;
         }
 
         #tablaCronograma td {
-            padding: 9px 14px;
-            border-bottom: 1px solid #ffeef2;
-            text-align: center;
+            padding: 9px 14px; border-bottom: 1px solid #ffeef2; text-align: center;
         }
 
         #tablaCronograma tr:nth-child(even) td { background: #fff9fa; }
         #tablaCronograma tr:hover td { background: #ffeef2; }
+        .celda-check { color: var(--dark-pink); font-size: 1.2em; }
 
-        .celda-check {
-            color: var(--dark-pink);
-            font-size: 1.2em;
+        /* RECETARIO */
+        .receta-cera {
+            background: white; border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(244,91,126,0.1);
+            overflow: hidden; max-width: 800px; margin: 20px auto;
         }
 
-        /* ─── LAVANDA ─── */
+        .receta-header {
+            background: linear-gradient(135deg, #f45b7e, #c2185b);
+            padding: 30px 35px; color: white;
+            display: flex; align-items: center; gap: 20px;
+        }
+
+        .receta-header .receta-icon { font-size: 3.5em; }
+
+        .receta-header h2 { font-size: 1.8em; margin-bottom: 5px; }
+        .receta-header p { opacity: 0.85; font-size: 0.95em; }
+
+        .pasos-lista { padding: 30px 35px; }
+
+        .paso-item {
+            display: flex; gap: 18px; margin-bottom: 22px;
+            padding-bottom: 22px; border-bottom: 1px solid #ffeef2;
+        }
+
+        .paso-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+        .paso-numero {
+            width: 38px; height: 38px; min-width: 38px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--dark-pink));
+            color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 1em;
+        }
+
+        .paso-contenido h4 { color: var(--nav-bg); font-size: 1em; margin-bottom: 6px; }
+
+        .paso-contenido ul {
+            padding-left: 16px; color: #6d4c6e;
+            font-size: 0.9em; line-height: 1.8;
+        }
+
+        .paso-contenido p { color: #6d4c6e; font-size: 0.9em; line-height: 1.7; }
+
+        .paso-tip {
+            margin-top: 8px; padding: 8px 12px;
+            background: #fff9fa; border-left: 3px solid var(--primary-pink);
+            border-radius: 0 8px 8px 0; font-size: 0.85em; color: #8a7a80;
+        }
+
+        /* LAVANDA */
         .lavanda-hero { background: linear-gradient(135deg, #f3e5f5, #e8f5e9); padding: 50px 40px; }
 
         .lavanda-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: center;
+            max-width: 1100px; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 40px; align-items: center;
         }
 
         .lavanda-inner img { width: 100%; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
@@ -461,30 +355,22 @@
         .lavanda-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 
         .lavanda-tags span {
-            background: #ce93d8;
-            color: white;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: 600;
+            background: #ce93d8; color: white;
+            padding: 6px 16px; border-radius: 20px;
+            font-size: 0.85em; font-weight: 600;
         }
 
-        /* ─── PRODUCTOS ─── */
+        /* PRODUCTOS */
         .producto-cards {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+            gap: 20px; margin-top: 20px;
         }
 
         .producto-card {
-            border: 1px solid #f0dde3;
-            border-radius: 16px;
-            padding: 24px;
-            text-align: center;
-            background: #fff9fa;
-            transition: box-shadow 0.3s;
-            cursor: pointer;
+            border: 1px solid #f0dde3; border-radius: 16px;
+            padding: 24px; text-align: center; background: #fff9fa;
+            transition: box-shadow 0.3s; cursor: pointer;
         }
 
         .producto-card:hover { box-shadow: 0 8px 20px rgba(244,91,126,0.15); }
@@ -492,29 +378,7 @@
         .producto-card h3 { color: var(--nav-bg); font-size: 1.1em; margin-bottom: 8px; }
         .producto-card p { color: #8a7a80; font-size: 0.88em; line-height: 1.5; }
 
-        /* ─── RECETARIO ─── */
-        .receta-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .receta-card { background: white; border-radius: 16px; padding: 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); }
-        .receta-card .receta-emoji { font-size: 2.5em; margin-bottom: 8px; }
-        .receta-card h3 { color: var(--dark-pink); font-size: 1.1em; margin-bottom: 8px; }
-        .receta-card ul { padding-left: 18px; color: #8a7a80; font-size: 0.88em; line-height: 1.8; }
-
-        .receta-card .pasos {
-            margin-top: 10px;
-            font-size: 0.85em;
-            color: #6d4c6e;
-            line-height: 1.6;
-            border-top: 1px solid #ffd6e0;
-            padding-top: 10px;
-        }
-
-        /* ─── REDES ─── */
+        /* REDES */
         .redes-hero { background: var(--nav-bg); padding: 50px 30px; text-align: center; }
         .redes-hero h2 { color: white; font-size: 1.8em; margin-bottom: 8px; }
         .redes-hero p { color: #d4a0b0; margin-bottom: 30px; }
@@ -522,18 +386,10 @@
         .redes-grid { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
 
         .red-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 16px;
-            padding: 25px 35px;
-            color: white;
-            transition: all 0.3s;
-            min-width: 150px;
+            display: flex; flex-direction: column; align-items: center; gap: 10px;
+            text-decoration: none; background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.15); border-radius: 16px;
+            padding: 25px 35px; color: white; transition: all 0.3s; min-width: 150px;
         }
 
         .red-card:hover { background: var(--dark-pink); transform: translateY(-5px); }
@@ -541,22 +397,62 @@
         .red-card span { font-size: 1em; font-weight: 600; }
         .red-card small { color: #d4a0b0; font-size: 0.8em; }
 
-        /* ─── FOOTER ─── */
+        /* FOOTER */
         footer {
-            background: #2b1520;
-            color: #c09aaa;
-            text-align: center;
-            padding: 25px 20px;
-            font-size: 0.9em;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
+            background: #2b1520; color: #c09aaa; text-align: center;
+            padding: 25px 20px; font-size: 0.9em;
+            display: flex; flex-direction: column; align-items: center; gap: 15px;
         }
 
         .footer-logos { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
-        .footer-logos img { height: 40px; width: auto; object-fit: contain; opacity: 0.75; filter: brightness(1.5); }
+        .footer-logos img { height: 40px; object-fit: contain; opacity: 0.75; filter: brightness(1.5); }
         footer strong { color: var(--primary-pink); }
+
+        /* MODAL LOGIN REQUERIDO */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+            z-index: 10000; display: flex; align-items: center;
+            justify-content: center; animation: fadeIn 0.2s ease;
+        }
+
+        .modal-box {
+            background: white; border-radius: 24px; padding: 35px;
+            max-width: 360px; width: 90%; text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .modal-box .modal-icon { font-size: 3em; margin-bottom: 12px; }
+        .modal-box h3 { color: var(--nav-bg); font-size: 1.3em; margin-bottom: 8px; }
+        .modal-box p { color: #8a7a80; font-size: 0.9em; line-height: 1.5; margin-bottom: 20px; }
+
+        .modal-btns { display: flex; gap: 10px; justify-content: center; }
+
+        .modal-btns a {
+            flex: 1; padding: 12px; border-radius: 12px;
+            text-decoration: none; font-weight: 600; font-size: 0.95em;
+            transition: all 0.2s; text-align: center;
+        }
+
+        .btn-modal-login {
+            background: linear-gradient(135deg, var(--primary-pink), var(--dark-pink));
+            color: white !important;
+        }
+
+        .btn-modal-registro {
+            background: var(--soft-pink);
+            color: var(--dark-pink) !important;
+            border: 2px solid var(--primary-pink);
+        }
+
+        .btn-modal-login:hover { transform: translateY(-2px); }
+        .btn-modal-registro:hover { background: #ffd6e0; }
+
+        .btn-modal-cerrar {
+            display: block; margin-top: 14px;
+            color: #bfaab1; font-size: 0.85em;
+            background: none; border: none;
+            cursor: pointer; font-family: inherit;
+        }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(12px); }
@@ -569,13 +465,29 @@
             .hero-foto { width: 150px; height: 150px; }
             .lavanda-inner { grid-template-columns: 1fr; }
             #videoIntro { width: 100%; }
-            .floating-video { width: 260px; }
+            .floating-video { width: 200px; }
+            .receta-header { flex-direction: column; text-align: center; }
+            .pasos-lista { padding: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ─── TOP BAR ─── -->
+    <!-- MODAL REQUERIDO -->
+    <div class="modal-overlay" id="modalLogin" style="display:none;">
+        <div class="modal-box">
+            <div class="modal-icon">🔒</div>
+            <h3>Únete a la comunidad PAEC</h3>
+            <p>Para dar like o comentar necesitas iniciar sesión o crear una cuenta. ¡Es gratis y rápido!</p>
+            <div class="modal-btns">
+                <a href="/login" class="btn-modal-login">Iniciar Sesión</a>
+                <a href="/login#registro" class="btn-modal-registro">Crear Cuenta</a>
+            </div>
+            <button class="btn-modal-cerrar" onclick="cerrarModal()">Ahora no</button>
+        </div>
+    </div>
+
+    <!-- TOP BAR -->
     <div class="top-bar">
         <div class="top-bar-left">
             <img src="/static/logo.png" alt="PAEC">
@@ -594,7 +506,7 @@
         </div>
     </div>
 
-    <!-- ─── NAV ─── -->
+    <!-- NAV -->
     <nav>
         <button class="active" onclick="mostrarSeccion('inicio')">🏠 Inicio</button>
         <button onclick="mostrarSeccion('galeria')">📸 Actividades</button>
@@ -604,11 +516,11 @@
         <button onclick="mostrarSeccion('redes')">📲 Redes Sociales</button>
     </nav>
 
-    <!-- ─── VIDEO FLOTANTE ─── -->
+    <!-- VIDEO FLOTANTE -->
     <div class="floating-video" id="floatingVideo">
         <div class="floating-video-header">
-            <span>🎬 PAEC · Video Introductorio</span>
-            <button onclick="cerrarFlotante()" title="Cerrar">✕</button>
+            <span>🎬 PAEC</span>
+            <button onclick="cerrarFlotante()">✕</button>
         </div>
         <video id="videoFlotante" controls></video>
     </div>
@@ -621,23 +533,21 @@
                 <p>Proyecto PAEC · Jardín Polinizador · CBTis 75 Guanajuato</p>
                 <a onclick="mostrarSeccion('galeria')">Ver Actividades</a>
             </div>
-            <div class="hero-foto-wrapper">
+            <div style="display:flex;align-items:center;justify-content:center;">
                 <img src="/static/foto_equipo.jpg" alt="Equipo PAEC" class="hero-foto">
             </div>
         </div>
 
-        <!-- VIDEO INTRO -->
         <div class="video-intro-wrapper">
             <div class="video-intro-text">
                 <h3>🎬 Conoce el Proyecto</h3>
-                <p>Descubre cómo el Proyecto PAEC está transformando la educación científica en el CBTis 75 a través del cultivo de lavanda y la producción de productos naturales.</p>
+                <p>Descubre cómo el Proyecto PAEC transforma la educación científica en CBTis 75 a través del cultivo de lavanda y la producción de productos naturales.</p>
             </div>
             <video id="videoIntro" controls>
                 <source src="/static/intro.mp4" type="video/mp4">
             </video>
         </div>
 
-        <!-- EXPLORAR -->
         <div class="section">
             <div class="section-title">🚀 Explorar</div>
             <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;">
@@ -664,8 +574,6 @@
     <div id="sec-galeria" class="page-section">
         <div class="section">
             <div class="section-title">📸 Bitácora de Actividades</div>
-
-            <!-- Formulario admin -->
             <div class="form-container" id="adminSection">
                 <h2>✨ Agregar Nueva Actividad ✨</h2>
                 <input type="text" id="nombre" placeholder="Nombre de la actividad">
@@ -678,23 +586,16 @@
                 <button class="btn-agregar" id="btnGuardar">Guardar Actividad</button>
             </div>
 
-            <!-- Sección 1 -->
             <div class="subseccion">
                 <div class="subseccion-title">🌱 Sección 1 · Cuidados y Cosecha de Lavanda</div>
-                <div class="cards-grid" id="contenedor-seccion1">
-                    <p style="color:#8a7a80;padding:20px;">Cargando...</p>
-                </div>
+                <div class="cards-grid" id="contenedor-seccion1"><p style="color:#8a7a80;padding:15px;">Cargando...</p></div>
             </div>
 
-            <!-- Sección 2 -->
             <div class="subseccion">
                 <div class="subseccion-title">🧴 Sección 2 · Creación y Distribución del Producto</div>
-                <div class="cards-grid" id="contenedor-seccion2">
-                    <p style="color:#8a7a80;padding:20px;">Cargando...</p>
-                </div>
+                <div class="cards-grid" id="contenedor-seccion2"><p style="color:#8a7a80;padding:15px;">Cargando...</p></div>
             </div>
 
-            <!-- Sección 3 · Cronograma -->
             <div class="subseccion">
                 <div class="subseccion-title">📊 Sección 3 · Cronograma y Diagrama</div>
                 <div class="cards-grid" id="contenedor-seccion3"></div>
@@ -702,12 +603,10 @@
                     <table id="tablaCronograma">
                         <thead>
                             <tr>
-                                <th>Actividad</th>
-                                <th>Responsable</th>
-                                <th>Enero</th><th>Febrero</th><th>Marzo</th>
-                                <th>Abril</th><th>Mayo</th><th>Junio</th>
-                                <th>Julio</th><th>Agosto</th><th>Septiembre</th>
-                                <th>Octubre</th><th>Noviembre</th><th>Diciembre</th>
+                                <th>Actividad</th><th>Responsable</th>
+                                <th>Ene</th><th>Feb</th><th>Mar</th><th>Abr</th>
+                                <th>May</th><th>Jun</th><th>Jul</th><th>Ago</th>
+                                <th>Sep</th><th>Oct</th><th>Nov</th><th>Dic</th>
                             </tr>
                         </thead>
                         <tbody id="cronogramaBody"></tbody>
@@ -724,13 +623,11 @@
                 <img src="/static/logo.png" alt="Lavanda PAEC">
                 <div class="lavanda-info">
                     <h2>🌿 Nuestra Lavanda</h2>
-                    <p>La lavanda (<em>Lavandula angustifolia</em>) es una planta aromática cultivada en nuestro jardín polinizador. Atrae polinizadores como abejas y mariposas.</p>
+                    <p>La lavanda (<em>Lavandula angustifolia</em>) es cultivada en nuestro jardín polinizador. Atrae abejas y mariposas, siendo clave en nuestro ecosistema escolar.</p>
                     <p>En PAEC la usamos para investigar sus propiedades medicinales, cosméticas y su impacto en la biodiversidad de Guanajuato.</p>
                     <div class="lavanda-tags">
-                        <span>🐝 Polinizadora</span>
-                        <span>💜 Aromática</span>
-                        <span>🔬 Experimental</span>
-                        <span>🌱 Sostenible</span>
+                        <span>🐝 Polinizadora</span><span>💜 Aromática</span>
+                        <span>🔬 Experimental</span><span>🌱 Sostenible</span>
                     </div>
                 </div>
             </div>
@@ -742,63 +639,92 @@
         <div class="section">
             <div class="section-title">🧴 Nuestros Productos</div>
             <div class="producto-cards">
-                <div class="producto-card">
-                    <div class="emoji">🕯️</div><h3>Cera de Lavanda</h3>
-                    <p>Velas artesanales con cera de abeja y aceite esencial de lavanda.</p>
-                </div>
-                <div class="producto-card">
-                    <div class="emoji">🧴</div><h3>Aceite Esencial</h3>
-                    <p>Extraído por destilación. Ideal para aromaterapia y cuidado personal.</p>
-                </div>
-                <div class="producto-card">
-                    <div class="emoji">🌸</div><h3>Jabón Natural</h3>
-                    <p>Con flores de lavanda deshidratadas. 100% libre de químicos.</p>
-                </div>
-                <div class="producto-card">
-                    <div class="emoji">🍵</div><h3>Té de Lavanda</h3>
-                    <p>Mezcla herbal relajante con propiedades antioxidantes naturales.</p>
-                </div>
+                <div class="producto-card"><div class="emoji">🕯️</div><h3>Cera de Lavanda</h3><p>Velas artesanales con cera de abeja y aceite esencial de lavanda.</p></div>
+                <div class="producto-card"><div class="emoji">🧴</div><h3>Aceite Esencial</h3><p>Extraído por destilación. Ideal para aromaterapia y cuidado personal.</p></div>
+                <div class="producto-card"><div class="emoji">🌸</div><h3>Jabón Natural</h3><p>Con flores de lavanda deshidratadas. 100% libre de químicos.</p></div>
+                <div class="producto-card"><div class="emoji">🍵</div><h3>Té de Lavanda</h3><p>Mezcla herbal relajante con propiedades antioxidantes naturales.</p></div>
             </div>
         </div>
     </div>
 
     <!-- ─── RECETARIO ─── -->
     <div id="sec-recetario" class="page-section">
-        <div style="background:var(--bg-gradient);padding:40px 60px;">
-            <div style="max-width:1200px;margin:0 auto;">
+        <div style="background:var(--bg-gradient);padding:40px 30px;min-height:60vh;">
+            <div style="max-width:800px;margin:0 auto;">
                 <div class="section-title">📖 Recetario PAEC</div>
-                <div class="receta-cards">
-                    <div class="receta-card">
-                        <div class="receta-emoji">🧁</div>
-                        <h3>Cupcakes de Lavanda</h3>
-                        <ul>
-                            <li>2 tazas de harina</li>
-                            <li>1 taza de azúcar</li>
-                            <li>2 cdas flores de lavanda</li>
-                            <li>3 huevos, mantequilla, leche</li>
-                        </ul>
-                        <div class="pasos">Mezcla secos, incorpora húmedos y flores. Hornea 180°C por 20 min.</div>
+                <div class="receta-cera">
+                    <div class="receta-header">
+                        <div class="receta-icon">🕯️</div>
+                        <div>
+                            <h2>Cera Curativa de Lavanda</h2>
+                            <p>Receta artesanal del Proyecto PAEC · CBTis 75</p>
+                        </div>
                     </div>
-                    <div class="receta-card">
-                        <div class="receta-emoji">🍋</div>
-                        <h3>Limonada de Lavanda</h3>
-                        <ul>
-                            <li>4 limones frescos</li>
-                            <li>2 cdas de miel</li>
-                            <li>1 cda flores de lavanda</li>
-                            <li>1 litro de agua fría</li>
-                        </ul>
-                        <div class="pasos">Infusiona lavanda 5 min, enfría, mezcla con limón y miel.</div>
-                    </div>
-                    <div class="receta-card">
-                        <div class="receta-emoji">🍯</div>
-                        <h3>Miel Infusionada</h3>
-                        <ul>
-                            <li>250g de miel de abeja</li>
-                            <li>3 cdas flores de lavanda secas</li>
-                            <li>1 frasco de vidrio</li>
-                        </ul>
-                        <div class="pasos">Calienta a baño maría, agrega flores, reposa 1 semana sellado.</div>
+                    <div class="pasos-lista">
+                        <div class="paso-item">
+                            <div class="paso-numero">1</div>
+                            <div class="paso-contenido">
+                                <h4>Preparar el baño maría</h4>
+                                <p>Llena una olla con unos centímetros de agua y calienta a fuego medio. Coloca encima el recipiente donde derretirás la mezcla.</p>
+                                <div class="paso-tip">⚠️ Evita el fuego directo en todo momento.</div>
+                            </div>
+                        </div>
+                        <div class="paso-item">
+                            <div class="paso-numero">2</div>
+                            <div class="paso-contenido">
+                                <h4>Derretir la parafina</h4>
+                                <ul>
+                                    <li>Agrega primero la parafina al recipiente</li>
+                                    <li>Mezcla lentamente hasta que quede totalmente líquida</li>
+                                </ul>
+                                <div class="paso-tip">⚠️ No dejes que humee.</div>
+                            </div>
+                        </div>
+                        <div class="paso-item">
+                            <div class="paso-numero">3</div>
+                            <div class="paso-contenido">
+                                <h4>Incorporar la cera de abeja</h4>
+                                <ul>
+                                    <li>Agrega la cera de abeja poco a poco</li>
+                                    <li>Revuelve constantemente para integrar bien</li>
+                                    <li>La mezcla debe quedar homogénea y brillante</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="paso-item">
+                            <div class="paso-numero">4</div>
+                            <div class="paso-contenido">
+                                <h4>Añadir extracto alcohólico de propóleo</h4>
+                                <p>Primero debes evaporar casi todo el alcohol: colócalo aparte a baja temperatura, nunca directo al fuego fuerte. Revuelve durante 5–10 minutos.</p>
+                                <div class="paso-tip">⚠️ Nunca apliques fuego fuerte al alcohol.</div>
+                            </div>
+                        </div>
+                        <div class="paso-item">
+                            <div class="paso-numero">5</div>
+                            <div class="paso-contenido">
+                                <h4>Retirar del calor</h4>
+                                <p>Cuando todo esté integrado, apaga el fuego y deja bajar la mezcla a unos 55–60 °C.</p>
+                                <div class="paso-tip">💡 Esto es importante: el aceite de lavanda pierde aroma y propiedades con demasiado calor.</div>
+                            </div>
+                        </div>
+                        <div class="paso-item">
+                            <div class="paso-numero">6</div>
+                            <div class="paso-contenido">
+                                <h4>Vaciado en moldes</h4>
+                                <ul>
+                                    <li>Vacía lentamente para evitar burbujas</li>
+                                    <li>Golpea suavemente el molde sobre la mesa para sacar el aire atrapado</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="paso-item">
+                            <div class="paso-numero">7</div>
+                            <div class="paso-contenido">
+                                <h4>Curado y enfriamiento</h4>
+                                <p>Deja enfriar 12–24 horas a temperatura ambiente.</p>
+                                <div class="paso-tip">❌ No metas al refrigerador: puede agrietarse o separarse internamente.</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -824,7 +750,7 @@
         </div>
     </div>
 
-    <!-- ─── FOOTER ─── -->
+    <!-- FOOTER -->
     <footer>
         <div class="footer-logos">
             <img src="/static/logo_cbtis.png" alt="CBTIS 75">
@@ -842,30 +768,42 @@
         const esAdmin = ADMINS.includes(userEmail.toLowerCase().trim());
         const estaLogueado = !!userEmail;
 
-        // ─── SESIÓN ───
         window.onload = () => {
             if (userEmail) {
                 const nombre = userEmail.split("@")[0];
-                document.getElementById('lblSesion').innerHTML = `${nombre} · Salir`;
-            } else {
-                document.getElementById('lblSesion').textContent = "Iniciar Sesión";
+                document.getElementById('lblSesion').textContent = `${nombre} · Salir`;
             }
             if (esAdmin) document.getElementById('adminSection').style.display = 'block';
             mostrarSeccion('inicio');
             iniciarVideoFlotante();
             cargarCronograma();
+
+            // Si viene de /login#registro abrir tab registro
+            if (window.location.hash === '#registro') {
+                // ya está en base, nada que hacer
+            }
         };
 
         function accionSesion() {
-            if (estaLogueado) {
-                localStorage.clear();
-                window.location.reload();
-            } else {
-                window.location.href = "/login";
-            }
+            if (estaLogueado) { localStorage.clear(); window.location.reload(); }
+            else window.location.href = "/login";
         }
 
-        // ─── NAVEGACIÓN SPA ───
+        // MODAL
+        function mostrarModal() {
+            document.getElementById('modalLogin').style.display = 'flex';
+        }
+
+        function cerrarModal() {
+            document.getElementById('modalLogin').style.display = 'none';
+        }
+
+        // Cerrar modal al hacer clic fuera
+        document.getElementById('modalLogin').addEventListener('click', function(e) {
+            if (e.target === this) cerrarModal();
+        });
+
+        // NAVEGACIÓN SPA
         function mostrarSeccion(id) {
             document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
@@ -877,25 +815,23 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // ─── VIDEO FLOTANTE ───
+        // VIDEO FLOTANTE
         function iniciarVideoFlotante() {
             const videoOrigen = document.getElementById('videoIntro');
             const flotante = document.getElementById('floatingVideo');
             const videoFlotante = document.getElementById('videoFlotante');
 
-            // Sincronizar src
-            videoFlotante.src = videoOrigen.querySelector('source')?.src || videoOrigen.src;
+            const source = videoOrigen.querySelector('source');
+            if (source) videoFlotante.src = source.src;
 
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
                     if (!entry.isIntersecting && !videoOrigen.paused) {
-                        // Sale de vista y está reproduciendo → mostrar flotante
                         flotante.style.display = 'block';
                         videoFlotante.currentTime = videoOrigen.currentTime;
                         videoOrigen.pause();
                         videoFlotante.play();
                     } else if (entry.isIntersecting && !videoFlotante.paused) {
-                        // Vuelve a vista → regresar al original
                         videoOrigen.currentTime = videoFlotante.currentTime;
                         videoFlotante.pause();
                         flotante.style.display = 'none';
@@ -908,15 +844,14 @@
         }
 
         function cerrarFlotante() {
-            const flotante = document.getElementById('floatingVideo');
             const videoFlotante = document.getElementById('videoFlotante');
             const videoOrigen = document.getElementById('videoIntro');
             videoOrigen.currentTime = videoFlotante.currentTime;
             videoFlotante.pause();
-            flotante.style.display = 'none';
+            document.getElementById('floatingVideo').style.display = 'none';
         }
 
-        // ─── CRONOGRAMA ───
+        // CRONOGRAMA
         function cargarCronograma() {
             const datos = [
                 { actividad: "Preparación del terreno", responsable: "Equipo completo", meses: [1,1,0,0,0,0,0,0,0,0,0,0] },
@@ -926,33 +861,28 @@
                 { actividad: "Extracción de aceite", responsable: "Laboratorio", meses: [0,0,0,0,0,1,1,0,0,0,1,1] },
                 { actividad: "Elaboración de productos", responsable: "Equipo PAEC", meses: [0,0,0,0,0,0,1,1,1,0,0,1] },
                 { actividad: "Distribución / Venta", responsable: "Eder", meses: [0,0,0,0,0,0,0,1,1,1,1,1] },
-                { actividad: "Documentación y reportes", responsable: "Oscar", meses: [1,1,1,1,1,1,1,1,1,1,1,1] },
+                { actividad: "Documentación", responsable: "Oscar", meses: [1,1,1,1,1,1,1,1,1,1,1,1] },
                 { actividad: "Presentación de resultados", responsable: "Equipo completo", meses: [0,0,0,0,0,1,0,0,0,0,0,1] },
             ];
-
             const tbody = document.getElementById('cronogramaBody');
             tbody.innerHTML = "";
             datos.forEach(row => {
                 const tr = document.createElement('tr');
                 let html = `<td style="text-align:left;font-weight:600;">${row.actividad}</td><td>${row.responsable}</td>`;
-                row.meses.forEach(m => {
-                    html += `<td class="${m ? 'celda-check' : ''}">${m ? '✔' : ''}</td>`;
-                });
+                row.meses.forEach(m => { html += `<td class="${m?'celda-check':''}">${m?'✔':''}</td>`; });
                 tr.innerHTML = html;
                 tbody.appendChild(tr);
             });
         }
 
-        // ─── ACTIVIDADES ───
+        // ACTIVIDADES
         async function cargarActividades() {
             try {
                 const res = await fetch('/estudiantes');
                 const datos = await res.json();
-
                 ['seccion1','seccion2','seccion3'].forEach(sec => {
                     document.getElementById('contenedor-' + sec).innerHTML = "";
                 });
-
                 const vacios = { seccion1: true, seccion2: true, seccion3: true };
 
                 datos.forEach(act => {
@@ -978,7 +908,7 @@
                         <div class="card-body">
                             <h3>${act.nombre}</h3>
                             <div class="card-actions">
-                                <button class="btn-like ${yaLikeo ? 'liked' : ''}" onclick="toggleLike('${act._id}', this)">
+                                <button class="btn-like ${yaLikeo?'liked':''}" onclick="toggleLike('${act._id}', this)">
                                     ❤️ <span class="like-count">${likes.length}</span>
                                 </button>
                                 <button class="btn-comentar" onclick="toggleComentarios('${act._id}')">
@@ -997,42 +927,30 @@
                             <div class="comentario-input">
                                 <input type="text" id="inp-${act._id}" placeholder="Escribe un comentario...">
                                 <button onclick="enviarComentario('${act._id}')">Enviar</button>
-                            </div>
-                        `;
+                            </div>`;
                     } else {
-                        html += `<p style="font-size:0.82em;color:#8a7a80;margin-top:8px;">
-                            <a href="/login" style="color:var(--dark-pink);font-weight:600;">Inicia sesión</a> para comentar.
+                        html += `<p style="font-size:0.82em;color:#8a7a80;margin-top:8px;padding:6px 0;">
+                            <a href="#" onclick="mostrarModal();return false;" style="color:var(--dark-pink);font-weight:600;">Inicia sesión</a> para comentar.
                         </p>`;
                     }
 
                     html += `</div>`;
-
-                    if (esAdmin) {
-                        html += `<button class="btn-eliminar" onclick="eliminarActividad('${act._id}')">Eliminar</button>`;
-                    }
-
+                    if (esAdmin) html += `<button class="btn-eliminar" onclick="eliminarActividad('${act._id}')">Eliminar</button>`;
                     html += `</div>`;
                     card.innerHTML = html;
                     contenedor.appendChild(card);
                 });
 
                 Object.entries(vacios).forEach(([sec, vacio]) => {
-                    if (vacio) {
-                        document.getElementById('contenedor-' + sec).innerHTML =
-                            '<p style="color:#8a7a80;padding:15px;">No hay actividades en esta sección aún.</p>';
-                    }
+                    if (vacio) document.getElementById('contenedor-' + sec).innerHTML =
+                        '<p style="color:#8a7a80;padding:15px;">No hay actividades en esta sección aún.</p>';
                 });
 
-            } catch (error) {
-                console.error("Error cargando actividades:", error);
-            }
+            } catch (error) { console.error("Error:", error); }
         }
 
         async function toggleLike(id, btn) {
-            if (!estaLogueado) {
-                if (confirm("¿Deseas iniciar sesión para dar like?")) window.location.href = "/login";
-                return;
-            }
+            if (!estaLogueado) { mostrarModal(); return; }
             const formData = new FormData();
             formData.append('usuario', userEmail);
             const res = await fetch(`/like/${id}`, { method: 'POST', body: formData });
@@ -1044,19 +962,16 @@
         }
 
         function toggleComentarios(id) {
-            const sec = document.getElementById('com-' + id);
-            sec.classList.toggle('open');
+            document.getElementById('com-' + id).classList.toggle('open');
         }
 
         async function enviarComentario(id) {
             const input = document.getElementById('inp-' + id);
             const texto = input.value.trim();
             if (!texto) return;
-
             const formData = new FormData();
             formData.append('usuario', userEmail);
             formData.append('texto', texto);
-
             const res = await fetch(`/comentar/${id}`, { method: 'POST', body: formData });
             if (res.ok) {
                 const data = await res.json();
@@ -1074,33 +989,25 @@
             const nombre = document.getElementById("nombre").value;
             const seccion = document.getElementById("seccionSelect").value;
             const archivoFile = document.getElementById("inputImagen").files[0];
-
-            if (!nombre || !archivoFile) {
-                alert("Por favor completa todos los campos.");
-                return;
-            }
-
+            if (!nombre || !archivoFile) { alert("Completa todos los campos."); return; }
             const formData = new FormData();
             formData.append('nombre', nombre);
             formData.append('correo_solicitante', userEmail);
             formData.append('seccion', seccion);
             formData.append('imagen', archivoFile);
-
             const res = await fetch('/agregar', { method: 'POST', body: formData });
             if (res.ok) {
                 document.getElementById("nombre").value = "";
                 document.getElementById("inputImagen").value = "";
                 cargarActividades();
-            } else {
-                alert("Error al subir. Verifica tus permisos.");
-            }
+            } else alert("Error al subir. Verifica permisos.");
         });
 
         async function eliminarActividad(id) {
             if (!confirm("¿Eliminar esta actividad? 🎀")) return;
             const res = await fetch(`/eliminar/${id}?correo_solicitante=${encodeURIComponent(userEmail)}`, { method: 'DELETE' });
             if (res.ok) cargarActividades();
-            else alert("No tienes permisos para eliminar.");
+            else alert("Sin permisos.");
         }
     </script>
 </body>
