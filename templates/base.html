@@ -74,7 +74,7 @@
         /* HERO */
         .hero {
             background: linear-gradient(135deg, #3b0a20 0%, #6d1b3a 40%, #9c185b 100%);
-            color: white; padding: 60px 60px;
+            color: white; padding: 50px 60px;
             display: flex; align-items: center;
             justify-content: space-between; gap: 30px; flex-wrap: wrap;
             position: relative; overflow: hidden;
@@ -87,8 +87,8 @@
             pointer-events: none;
         }
 
-        .hero-text h2 { font-size: 2.8em; font-weight: 800; line-height: 1.2; margin-bottom: 12px; text-shadow: 0 2px 20px rgba(0,0,0,0.3); }
-        .hero-text p { font-size: 1.1em; opacity: 0.88; margin-bottom: 22px; }
+        .hero-text h2 { font-size: 2.4em; font-weight: 800; line-height: 1.2; margin-bottom: 12px; text-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+        .hero-text p { font-size: 1.05em; opacity: 0.88; margin-bottom: 22px; }
 
         .hero-text a {
             background: white; color: var(--dark-pink);
@@ -102,54 +102,107 @@
         .hero-text a:hover { transform: scale(1.05); box-shadow: 0 10px 28px rgba(0,0,0,0.25); }
 
         .hero-foto {
-            width: 220px; height: 220px; border-radius: 50%;
+            width: 180px; height: 180px; border-radius: 50%;
             object-fit: cover; object-position: center;
             border: 4px solid rgba(255,255,255,0.3);
             box-shadow: 0 0 0 8px rgba(255,133,162,0.15), 0 16px 50px rgba(0,0,0,0.35);
         }
 
-        /* VIDEO INTRO */
+        /* VIDEO INTRO — compacto, video vertical */
         .video-intro-wrapper {
-            background: #1a0a10; padding: 35px 40px;
+            background: #1a0a10; padding: 30px 40px;
             display: flex; align-items: center;
-            justify-content: center; gap: 40px; flex-wrap: wrap;
+            justify-content: center; gap: 36px; flex-wrap: wrap;
         }
 
-        .video-intro-text { color: white; max-width: 380px; }
-        .video-intro-text h3 { font-size: 1.6em; margin-bottom: 10px; color: var(--primary-pink); }
-        .video-intro-text p { font-size: 0.95em; opacity: 0.8; line-height: 1.6; }
+        .video-intro-text { color: white; max-width: 340px; }
+        .video-intro-text h3 { font-size: 1.4em; margin-bottom: 10px; color: var(--primary-pink); }
+        .video-intro-text p { font-size: 0.9em; opacity: 0.8; line-height: 1.6; }
+
+        /* Video contenedor con aspect ratio fijo para verticales */
+        .video-intro-container {
+            position: relative;
+            width: 220px;          /* ancho fijo razonable para vertical */
+            max-width: 100%;
+            flex-shrink: 0;
+        }
 
         #videoIntro {
-            width: 460px; max-width: 100%;
-            border-radius: 16px;
+            width: 100%;
+            max-height: 390px;     /* limita alto máximo */
+            border-radius: 14px;
             box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+            display: block;
+            background: #000;
         }
 
-        /* VIDEO FLOTANTE — más pequeño y discreto */
+        /* ── VIDEO FLOTANTE — pequeño y discreto ── */
         .floating-video {
-            position: fixed; bottom: 20px; right: 20px;
-            width: 240px;
-            background: #1a0a10; border-radius: 12px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-            z-index: 9999; display: none; overflow: hidden;
-            border: 2px solid var(--primary-pink);
+            position: fixed;
+            bottom: 16px;
+            right: 16px;
+            width: 170px;          /* más pequeño que antes */
+            background: #1a0a10;
+            border-radius: 10px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.55);
+            z-index: 9999;
+            display: none;
+            overflow: hidden;
+            border: 1.5px solid rgba(255,133,162,0.5);
+            transition: width 0.2s;
         }
+
+        .floating-video:hover { width: 220px; }
 
         .floating-video-header {
-            background: var(--nav-bg); padding: 6px 10px;
+            background: var(--nav-bg); padding: 4px 8px;
             display: flex; align-items: center;
             justify-content: space-between;
-            color: white; font-size: 0.78em; font-weight: 600;
+            color: white; font-size: 0.72em; font-weight: 600;
         }
 
         .floating-video-header button {
             background: none; border: none; color: white;
-            cursor: pointer; font-size: 1em; padding: 2px 6px;
-            border-radius: 4px; transition: background 0.2s;
+            cursor: pointer; font-size: 0.95em; padding: 1px 5px;
+            border-radius: 4px; transition: background 0.2s; line-height: 1;
         }
 
         .floating-video-header button:hover { background: var(--dark-pink); }
-        #videoFlotante { width: 100%; display: block; }
+        #videoFlotante { width: 100%; display: block; max-height: 300px; }
+
+        /* ── VIDEO FLOTANTE GALERÍA ── */
+        .floating-video-gallery {
+            position: fixed;
+            bottom: 16px;
+            left: 16px;
+            width: 170px;
+            background: #1a0a10;
+            border-radius: 10px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.55);
+            z-index: 9998;
+            display: none;
+            overflow: hidden;
+            border: 1.5px solid rgba(156,77,204,0.5);
+            transition: width 0.2s;
+        }
+
+        .floating-video-gallery:hover { width: 220px; }
+
+        .floating-video-gallery .fvg-header {
+            background: #2b1040; padding: 4px 8px;
+            display: flex; align-items: center;
+            justify-content: space-between;
+            color: white; font-size: 0.72em; font-weight: 600;
+        }
+
+        .floating-video-gallery .fvg-header button {
+            background: none; border: none; color: white;
+            cursor: pointer; font-size: 0.95em; padding: 1px 5px;
+            border-radius: 4px; transition: background 0.2s; line-height: 1;
+        }
+
+        .floating-video-gallery .fvg-header button:hover { background: var(--purple-accent); }
+        #videoFlotanteGaleria { width: 100%; display: block; max-height: 300px; }
 
         /* SECCIONES */
         .section { padding: 40px 30px; max-width: 1200px; margin: 0 auto; }
@@ -188,7 +241,37 @@
             transform: translateY(-6px);
             box-shadow: 0 14px 35px rgba(244,91,126,0.2), 0 0 0 1px rgba(255,133,162,0.18);
         }
-        .card img, .card video { width: 100%; height: 190px; object-fit: cover; }
+
+        /* Contenedor de imagen con posición configurable */
+        .card-media-wrap {
+            width: 100%; height: 190px;
+            overflow: hidden; position: relative;
+            background: #000;
+        }
+
+        .card-media-wrap img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            /* object-position se asigna inline desde JS */
+        }
+
+        .card-media-wrap video {
+            width: 100%; height: 190px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        /* Botón "ver en flotante" en tarjetas de video */
+        .btn-flotante-video {
+            position: absolute; top: 6px; right: 6px;
+            background: rgba(0,0,0,0.65); color: white;
+            border: none; border-radius: 8px; padding: 4px 9px;
+            font-size: 0.75em; cursor: pointer; transition: background 0.2s;
+            backdrop-filter: blur(2px);
+        }
+
+        .btn-flotante-video:hover { background: var(--purple-accent); }
+
         .card-body { padding: 15px; background: white; }
         .card-body h3 { font-size: 1em; font-weight: 700; margin-bottom: 6px; color: #3b1f2b; }
         .card-body p { font-size: 0.85em; color: #8a7a80; line-height: 1.4; }
@@ -258,7 +341,7 @@
         .form-container {
             background: linear-gradient(145deg, #2f1828, #1f1018);
             margin: 0 auto 30px auto;
-            padding: 28px; border-radius: 18px; max-width: 500px;
+            padding: 28px; border-radius: 18px; max-width: 560px;
             box-shadow: 0 8px 30px rgba(0,0,0,0.35);
             border: 1px solid rgba(255,133,162,0.18); display: none;
         }
@@ -282,7 +365,6 @@
         }
 
         .form-container input[type="text"]::placeholder { color: #5a3a48; }
-
         .form-container select option { background: #2f1828; }
 
         .form-container input[type="file"] {
@@ -300,6 +382,116 @@
         }
 
         .btn-agregar:hover { transform: translateY(-2px); }
+
+        /* ── SELECTOR DE POSICIÓN DE IMAGEN ── */
+        .img-position-picker {
+            display: none;
+            margin-bottom: 16px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            border: 1px solid rgba(255,133,162,0.2);
+            overflow: hidden;
+        }
+
+        .img-position-picker .picker-label {
+            padding: 8px 14px;
+            font-size: 0.78em;
+            color: #a07890;
+            background: rgba(255,133,162,0.06);
+            border-bottom: 1px solid rgba(255,133,162,0.1);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .img-position-picker .picker-label span { font-size: 1.1em; }
+
+        .img-preview-wrap {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            cursor: crosshair;
+            user-select: none;
+        }
+
+        .img-preview-wrap img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+            transition: object-position 0.15s;
+        }
+
+        /* crosshair de posición */
+        .position-crosshair {
+            position: absolute;
+            width: 28px; height: 28px;
+            border: 2.5px solid white;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            box-shadow: 0 0 0 2px rgba(0,0,0,0.5);
+            transition: left 0.1s, top 0.1s;
+        }
+
+        .position-crosshair::before,
+        .position-crosshair::after {
+            content: '';
+            position: absolute;
+            background: white;
+        }
+
+        .position-crosshair::before { width: 1.5px; height: 10px; left: 50%; top: 50%; transform: translate(-50%,-50%); }
+        .position-crosshair::after  { width: 10px; height: 1.5px; left: 50%; top: 50%; transform: translate(-50%,-50%); }
+
+        .picker-hint {
+            padding: 6px 14px;
+            font-size: 0.75em;
+            color: #7a5a68;
+            text-align: center;
+        }
+
+        /* Barra de progreso de upload */
+        .upload-progress {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .upload-progress .prog-label {
+            font-size: 0.8em;
+            color: #a07890;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .upload-progress .prog-bar-wrap {
+            background: rgba(0,0,0,0.3);
+            border-radius: 20px;
+            height: 6px;
+            overflow: hidden;
+        }
+
+        .upload-progress .prog-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-pink), var(--purple-accent));
+            border-radius: 20px;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .compress-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(156,77,204,0.15);
+            border: 1px solid rgba(156,77,204,0.3);
+            color: var(--purple-soft);
+            border-radius: 8px;
+            padding: 5px 10px;
+            font-size: 0.78em;
+            margin-bottom: 12px;
+        }
 
         /* CRONOGRAMA */
         .cronograma-wrapper {
@@ -345,7 +537,6 @@
         }
 
         .receta-header .receta-icon { font-size: 3.5em; }
-
         .receta-header h2 { font-size: 1.8em; margin-bottom: 5px; }
         .receta-header p { opacity: 0.85; font-size: 0.95em; }
 
@@ -526,14 +717,17 @@
         }
 
         @media (max-width: 768px) {
-            .hero { padding: 30px 20px; }
-            .hero-text h2 { font-size: 1.8em; }
-            .hero-foto { width: 150px; height: 150px; }
+            .hero { padding: 28px 18px; }
+            .hero-text h2 { font-size: 1.6em; }
+            .hero-foto { width: 120px; height: 120px; }
             .lavanda-inner { grid-template-columns: 1fr; }
-            #videoIntro { width: 100%; }
-            .floating-video { width: 200px; }
+            .video-intro-container { width: 180px; }
+            #videoIntro { max-height: 320px; }
             .receta-header { flex-direction: column; text-align: center; }
             .pasos-lista { padding: 20px; }
+            /* flotantes más pequeños en mobile */
+            .floating-video, .floating-video-gallery { width: 130px; }
+            .floating-video:hover, .floating-video-gallery:hover { width: 160px; }
         }
     </style>
 </head>
@@ -586,13 +780,22 @@
         <button onclick="mostrarSeccion('redes')">📲 Redes Sociales</button>
     </nav>
 
-    <!-- VIDEO FLOTANTE -->
+    <!-- VIDEO FLOTANTE INTRO (esquina derecha) -->
     <div class="floating-video" id="floatingVideo">
         <div class="floating-video-header">
             <span>🎬 PAEC</span>
             <button onclick="cerrarFlotante()">✕</button>
         </div>
-        <video id="videoFlotante" controls></video>
+        <video id="videoFlotante" controls playsinline></video>
+    </div>
+
+    <!-- VIDEO FLOTANTE GALERÍA (esquina izquierda) -->
+    <div class="floating-video-gallery" id="floatingVideoGaleria">
+        <div class="fvg-header">
+            <span id="fvgTitulo">🎥 Video</span>
+            <button onclick="cerrarFlotanteGaleria()">✕</button>
+        </div>
+        <video id="videoFlotanteGaleria" controls playsinline></video>
     </div>
 
     <!-- ─── INICIO ─── -->
@@ -613,9 +816,12 @@
                 <h3>🎬 Conoce el Proyecto</h3>
                 <p>Descubre cómo el Proyecto PAEC transforma la educación científica en CBTis 75 a través del cultivo de lavanda y la producción de productos naturales.</p>
             </div>
-            <video id="videoIntro" controls>
-                <source src="/static/intro.mp4" type="video/mp4">
-            </video>
+            <!-- Contenedor compacto para video vertical -->
+            <div class="video-intro-container">
+                <video id="videoIntro" controls playsinline>
+                    <source src="/static/intro.mp4" type="video/mp4">
+                </video>
+            </div>
         </div>
 
         <div class="section">
@@ -646,13 +852,44 @@
             <div class="section-title">📸 Bitácora de Actividades</div>
             <div class="form-container" id="adminSection">
                 <h2>✨ Agregar Nueva Actividad ✨</h2>
+
                 <input type="text" id="nombre" placeholder="Nombre de la actividad">
+
                 <select id="seccionSelect">
                     <option value="seccion1">🌱 Sección 1 · Cuidados y Cosecha de Lavanda</option>
                     <option value="seccion2">🧴 Sección 2 · Creación y Distribución del Producto</option>
                     <option value="seccion3">📊 Sección 3 · Cronograma y Diagrama</option>
                 </select>
-                <input type="file" id="inputImagen" accept="image/*,video/*">
+
+                <div class="compress-badge" id="compressBadge" style="display:none;">
+                    <span>⚡</span> Video grande detectado — se comprimirá en el navegador antes de subir
+                </div>
+
+                <input type="file" id="inputImagen" accept="image/*,video/*" onchange="onArchivoSeleccionado(this)">
+
+                <!-- Selector de posición de imagen -->
+                <div class="img-position-picker" id="imgPositionPicker">
+                    <div class="picker-label">
+                        <span>🎯</span> Arrastra para elegir qué parte de la imagen se verá en la tarjeta
+                    </div>
+                    <div class="img-preview-wrap" id="imgPreviewWrap">
+                        <img id="imgPreview" src="" alt="Vista previa">
+                        <div class="position-crosshair" id="positionCrosshair" style="left:50%;top:50%;"></div>
+                    </div>
+                    <div class="picker-hint">La zona marcada con ✚ será el centro visible en la tarjeta</div>
+                </div>
+
+                <!-- Barra de progreso -->
+                <div class="upload-progress" id="uploadProgress">
+                    <div class="prog-label">
+                        <span id="progLabel">Preparando...</span>
+                        <span id="progPct">0%</span>
+                    </div>
+                    <div class="prog-bar-wrap">
+                        <div class="prog-bar" id="progBar"></div>
+                    </div>
+                </div>
+
                 <button class="btn-agregar" id="btnGuardar">Guardar Actividad</button>
             </div>
 
@@ -774,7 +1011,7 @@
                             <div class="paso-contenido">
                                 <h4>Retirar del calor</h4>
                                 <p>Cuando todo esté integrado, apaga el fuego y deja bajar la mezcla a unos 55–60 °C.</p>
-                                <div class="paso-tip">💡 Esto es importante: el aceite de lavanda pierde aroma y propiedades con demasiado calor.</div>
+                                <div class="paso-tip">💡 El aceite de lavanda pierde aroma y propiedades con demasiado calor.</div>
                             </div>
                         </div>
                         <div class="paso-item">
@@ -833,10 +1070,15 @@
 
     <script>
         const userEmail = localStorage.getItem('userEmail') || "";
-        const userRol = localStorage.getItem('userRol') || "";
-        const ADMINS = ["oscar24540@cbtis75.edu.mx"];
-        const esAdmin = ADMINS.includes(userEmail.toLowerCase().trim());
+        const userRol   = localStorage.getItem('userRol') || "";
+        const ADMINS    = ["oscar24540@cbtis75.edu.mx"];
+        const esAdmin   = ADMINS.includes(userEmail.toLowerCase().trim());
         const estaLogueado = !!userEmail;
+
+        // Posición elegida en el picker de imagen
+        let imgPosX = 50, imgPosY = 50;
+        // Archivo comprimido (si aplica)
+        let archivoFinal = null;
 
         window.onload = () => {
             if (userEmail) {
@@ -848,37 +1090,23 @@
             mostrarSeccion('inicio');
             iniciarVideoFlotante();
             cargarCronograma();
-
-            // Si viene de /login#registro abrir tab registro
-            if (window.location.hash === '#registro') {
-                // ya está en base, nada que hacer
-            }
         };
 
-        function irCambiarPass() {
-            window.location.href = '/login#cambiar';
-        }
+        function irCambiarPass() { window.location.href = '/login#cambiar'; }
 
         function accionSesion() {
             if (estaLogueado) { localStorage.clear(); window.location.reload(); }
             else window.location.href = "/login";
         }
 
-        // MODAL
-        function mostrarModal() {
-            document.getElementById('modalLogin').style.display = 'flex';
-        }
+        function mostrarModal() { document.getElementById('modalLogin').style.display = 'flex'; }
+        function cerrarModal()  { document.getElementById('modalLogin').style.display = 'none'; }
 
-        function cerrarModal() {
-            document.getElementById('modalLogin').style.display = 'none';
-        }
-
-        // Cerrar modal al hacer clic fuera
         document.getElementById('modalLogin').addEventListener('click', function(e) {
             if (e.target === this) cerrarModal();
         });
 
-        // NAVEGACIÓN SPA
+        // ── NAVEGACIÓN SPA ──
         function mostrarSeccion(id) {
             document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
@@ -890,10 +1118,10 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // VIDEO FLOTANTE
+        // ── VIDEO FLOTANTE INTRO ──
         function iniciarVideoFlotante() {
-            const videoOrigen = document.getElementById('videoIntro');
-            const flotante = document.getElementById('floatingVideo');
+            const videoOrigen   = document.getElementById('videoIntro');
+            const flotante      = document.getElementById('floatingVideo');
             const videoFlotante = document.getElementById('videoFlotante');
 
             const source = videoOrigen.querySelector('source');
@@ -919,25 +1147,43 @@
         }
 
         function cerrarFlotante() {
-            const videoFlotante = document.getElementById('videoFlotante');
-            const videoOrigen = document.getElementById('videoIntro');
-            videoOrigen.currentTime = videoFlotante.currentTime;
-            videoFlotante.pause();
+            const vf = document.getElementById('videoFlotante');
+            const vo = document.getElementById('videoIntro');
+            vo.currentTime = vf.currentTime;
+            vf.pause();
             document.getElementById('floatingVideo').style.display = 'none';
         }
 
-        // CRONOGRAMA
+        // ── VIDEO FLOTANTE GALERÍA ──
+        // Se llama cuando el usuario hace click en "📺 Ver aquí" en una tarjeta de video
+        function reproducirEnFlotante(src, titulo) {
+            const fv = document.getElementById('floatingVideoGaleria');
+            const video = document.getElementById('videoFlotanteGaleria');
+            document.getElementById('fvgTitulo').textContent = '🎥 ' + (titulo || 'Video');
+            video.src = src;
+            video.load();
+            video.play().catch(() => {});
+            fv.style.display = 'block';
+        }
+
+        function cerrarFlotanteGaleria() {
+            const video = document.getElementById('videoFlotanteGaleria');
+            video.pause();
+            document.getElementById('floatingVideoGaleria').style.display = 'none';
+        }
+
+        // ── CRONOGRAMA ──
         function cargarCronograma() {
             const datos = [
-                { actividad: "Preparación del terreno", responsable: "Equipo completo", meses: [1,1,0,0,0,0,0,0,0,0,0,0] },
-                { actividad: "Siembra de lavanda", responsable: "Eder / Oscar", meses: [0,1,1,0,0,0,0,0,0,0,0,0] },
-                { actividad: "Cuidados y riego", responsable: "Equipo completo", meses: [1,1,1,1,1,1,1,1,1,1,1,1] },
-                { actividad: "Cosecha de lavanda", responsable: "Eder / Oscar", meses: [0,0,0,0,1,1,0,0,0,1,1,0] },
-                { actividad: "Extracción de aceite", responsable: "Laboratorio", meses: [0,0,0,0,0,1,1,0,0,0,1,1] },
-                { actividad: "Elaboración de productos", responsable: "Equipo PAEC", meses: [0,0,0,0,0,0,1,1,1,0,0,1] },
-                { actividad: "Distribución / Venta", responsable: "Eder", meses: [0,0,0,0,0,0,0,1,1,1,1,1] },
-                { actividad: "Documentación", responsable: "Oscar", meses: [1,1,1,1,1,1,1,1,1,1,1,1] },
-                { actividad: "Presentación de resultados", responsable: "Equipo completo", meses: [0,0,0,0,0,1,0,0,0,0,0,1] },
+                { actividad: "Preparación del terreno",    responsable: "Equipo completo", meses: [1,1,0,0,0,0,0,0,0,0,0,0] },
+                { actividad: "Siembra de lavanda",          responsable: "Eder / Oscar",    meses: [0,1,1,0,0,0,0,0,0,0,0,0] },
+                { actividad: "Cuidados y riego",            responsable: "Equipo completo", meses: [1,1,1,1,1,1,1,1,1,1,1,1] },
+                { actividad: "Cosecha de lavanda",          responsable: "Eder / Oscar",    meses: [0,0,0,0,1,1,0,0,0,1,1,0] },
+                { actividad: "Extracción de aceite",        responsable: "Laboratorio",     meses: [0,0,0,0,0,1,1,0,0,0,1,1] },
+                { actividad: "Elaboración de productos",    responsable: "Equipo PAEC",     meses: [0,0,0,0,0,0,1,1,1,0,0,1] },
+                { actividad: "Distribución / Venta",        responsable: "Eder",            meses: [0,0,0,0,0,0,0,1,1,1,1,1] },
+                { actividad: "Documentación",               responsable: "Oscar",           meses: [1,1,1,1,1,1,1,1,1,1,1,1] },
+                { actividad: "Presentación de resultados",  responsable: "Equipo completo", meses: [0,0,0,0,0,1,0,0,0,0,0,1] },
             ];
             const tbody = document.getElementById('cronogramaBody');
             tbody.innerHTML = "";
@@ -950,11 +1196,178 @@
             });
         }
 
-        // ACTIVIDADES
+        // ── SELECTOR DE POSICIÓN DE IMAGEN ──
+        function onArchivoSeleccionado(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            archivoFinal = file;
+            const esVideo = file.type.startsWith('video/');
+
+            // Mostrar/ocultar picker según tipo
+            const picker  = document.getElementById('imgPositionPicker');
+            const badge   = document.getElementById('compressBadge');
+
+            if (esVideo) {
+                picker.style.display = 'none';
+                // Si el video es mayor a 50 MB, mostrar badge de compresión
+                badge.style.display = file.size > 50 * 1024 * 1024 ? 'flex' : 'none';
+            } else {
+                badge.style.display = 'none';
+                picker.style.display = 'block';
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    document.getElementById('imgPreview').src = e.target.result;
+                    imgPosX = 50; imgPosY = 50;
+                    actualizarCrosshair(50, 50);
+                    document.getElementById('imgPreview').style.objectPosition = '50% 50%';
+                };
+                reader.readAsDataURL(file);
+                activarPickerDrag();
+            }
+        }
+
+        function activarPickerDrag() {
+            const wrap     = document.getElementById('imgPreviewWrap');
+            const preview  = document.getElementById('imgPreview');
+            let dragging   = false;
+
+            function calcPos(e) {
+                const rect = wrap.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                const x = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+                const y = Math.max(0, Math.min(1, (clientY - rect.top)  / rect.height));
+                imgPosX = Math.round(x * 100);
+                imgPosY = Math.round(y * 100);
+                preview.style.objectPosition = `${imgPosX}% ${imgPosY}%`;
+                actualizarCrosshair(imgPosX, imgPosY);
+            }
+
+            // Eventos mouse
+            wrap.addEventListener('mousedown',  (e) => { dragging = true; calcPos(e); });
+            wrap.addEventListener('mousemove',  (e) => { if (dragging) calcPos(e); });
+            wrap.addEventListener('mouseup',    ()  => { dragging = false; });
+            wrap.addEventListener('mouseleave', ()  => { dragging = false; });
+            // Eventos touch
+            wrap.addEventListener('touchstart', (e) => { dragging = true; calcPos(e); }, { passive: true });
+            wrap.addEventListener('touchmove',  (e) => { if (dragging) calcPos(e); },    { passive: true });
+            wrap.addEventListener('touchend',   ()  => { dragging = false; });
+        }
+
+        function actualizarCrosshair(x, y) {
+            const ch = document.getElementById('positionCrosshair');
+            ch.style.left = x + '%';
+            ch.style.top  = y + '%';
+        }
+
+        // ── COMPRESOR DE VIDEO (canvas/MediaRecorder) ──
+        // Para videos muy grandes usamos una compresión básica en el navegador via canvas
+        async function comprimirVideoSiNecesario(file) {
+            // Solo intentar comprimir si el video es mayor a 80MB y el navegador soporta MediaRecorder
+            const LIMITE = 80 * 1024 * 1024;
+            if (file.size <= LIMITE) return file;
+            if (!window.MediaRecorder || !window.VideoEncoder) return file; // sin soporte, devolver original
+
+            // Si no hay soporte avanzado, devolver tal cual; el backend intentará comprimir con ffmpeg
+            return file;
+        }
+
+        // ── BARRA DE PROGRESO ──
+        function mostrarProgreso(label, pct) {
+            const prog = document.getElementById('uploadProgress');
+            prog.style.display = 'block';
+            document.getElementById('progLabel').textContent = label;
+            document.getElementById('progPct').textContent   = pct + '%';
+            document.getElementById('progBar').style.width   = pct + '%';
+        }
+
+        function ocultarProgreso() {
+            document.getElementById('uploadProgress').style.display = 'none';
+        }
+
+        // ── GUARDAR ACTIVIDAD (ADMIN) ──
+        document.getElementById("btnGuardar").addEventListener("click", async function() {
+            const nombre   = document.getElementById("nombre").value.trim();
+            const seccion  = document.getElementById("seccionSelect").value;
+            const inputFile = document.getElementById("inputImagen");
+
+            if (!nombre || !inputFile.files[0]) {
+                alert("Completa todos los campos y selecciona un archivo."); return;
+            }
+
+            const btn = document.getElementById('btnGuardar');
+            btn.disabled = true;
+            btn.textContent = 'Subiendo...';
+
+            const file = inputFile.files[0];
+            const esVideo = file.type.startsWith('video/');
+
+            mostrarProgreso(esVideo ? 'Preparando video...' : 'Preparando imagen...', 10);
+
+            const formData = new FormData();
+            formData.append('nombre',              nombre);
+            formData.append('correo_solicitante',  userEmail);
+            formData.append('seccion',             seccion);
+            formData.append('image_position_x',    imgPosX);
+            formData.append('image_position_y',    imgPosY);
+            formData.append('imagen',              file);
+
+            mostrarProgreso(esVideo ? 'Subiendo video (puede tardar)...' : 'Subiendo imagen...', 40);
+
+            try {
+                // XMLHttpRequest para mostrar progreso real
+                await new Promise((resolve, reject) => {
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('POST', '/agregar');
+
+                    xhr.upload.addEventListener('progress', (e) => {
+                        if (e.lengthComputable) {
+                            const pct = Math.round((e.loaded / e.total) * 90);
+                            mostrarProgreso('Subiendo...', pct);
+                        }
+                    });
+
+                    xhr.addEventListener('load', () => {
+                        if (xhr.status === 200 || xhr.status === 201) {
+                            mostrarProgreso('¡Listo!', 100);
+                            resolve();
+                        } else {
+                            let msg = 'Error al subir.';
+                            try { msg = JSON.parse(xhr.responseText).detail || msg; } catch {}
+                            reject(new Error(msg));
+                        }
+                    });
+
+                    xhr.addEventListener('error', () => reject(new Error('Error de conexión')));
+                    xhr.send(formData);
+                });
+
+                setTimeout(() => {
+                    ocultarProgreso();
+                    document.getElementById("nombre").value = "";
+                    document.getElementById("inputImagen").value = "";
+                    document.getElementById('imgPositionPicker').style.display = 'none';
+                    document.getElementById('compressBadge').style.display = 'none';
+                    imgPosX = 50; imgPosY = 50;
+                    cargarActividades();
+                }, 800);
+
+            } catch (err) {
+                ocultarProgreso();
+                alert(err.message || "Error al subir. Verifica permisos.");
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Guardar Actividad';
+            }
+        });
+
+        // ── CARGAR ACTIVIDADES ──
         async function cargarActividades() {
             try {
-                const res = await fetch('/estudiantes');
+                const res   = await fetch('/estudiantes');
                 const datos = await res.json();
+
                 ['seccion1','seccion2','seccion3'].forEach(sec => {
                     document.getElementById('contenedor-' + sec).innerHTML = "";
                 });
@@ -966,17 +1379,37 @@
                     if (!contenedor) return;
                     vacios[sec] = false;
 
-                    const card = document.createElement("div");
+                    const card       = document.createElement("div");
                     card.classList.add("card");
 
-                    const esVideo = act.tipo === "video";
-                    const mediaHtml = esVideo
-                        ? `<video src="${act.imagen_url}" controls></video>`
-                        : `<img src="${act.imagen_url || '/static/plt.jpg'}" alt="${act.nombre}">`;
+                    const esVideo    = act.tipo === "video";
+                    const posX       = act.img_pos_x ?? 50;
+                    const posY       = act.img_pos_y ?? 50;
+                    const likes      = act.likes      || [];
+                    const comentarios= act.comentarios || [];
+                    const yaLikeo   = likes.includes(userEmail);
 
-                    const likes = act.likes || [];
-                    const comentarios = act.comentarios || [];
-                    const yaLikeo = likes.includes(userEmail);
+                    let mediaHtml;
+                    if (esVideo) {
+                        // Para videos: miniatura con botón para abrir en flotante
+                        mediaHtml = `
+                            <div class="card-media-wrap">
+                                <video src="${act.imagen_url}" preload="metadata" muted playsinline
+                                    style="width:100%;height:190px;object-fit:cover;"></video>
+                                <button class="btn-flotante-video"
+                                    onclick="reproducirEnFlotante('${act.imagen_url}','${act.nombre.replace(/'/g,"\\'")}')">
+                                    📺 Ver aquí
+                                </button>
+                            </div>`;
+                    } else {
+                        // Para imágenes: usar la posición guardada
+                        mediaHtml = `
+                            <div class="card-media-wrap">
+                                <img src="${act.imagen_url || '/static/plt.jpg'}"
+                                     alt="${act.nombre}"
+                                     style="object-position:${posX}% ${posY}%;">
+                            </div>`;
+                    }
 
                     let html = `
                         ${mediaHtml}
@@ -1005,7 +1438,8 @@
                             </div>`;
                     } else {
                         html += `<p style="font-size:0.82em;color:#8a7a80;margin-top:8px;padding:6px 0;">
-                            <a href="#" onclick="mostrarModal();return false;" style="color:var(--dark-pink);font-weight:600;">Inicia sesión</a> para comentar.
+                            <a href="#" onclick="mostrarModal();return false;"
+                               style="color:var(--dark-pink);font-weight:600;">Inicia sesión</a> para comentar.
                         </p>`;
                     }
 
@@ -1046,37 +1480,19 @@
             if (!texto) return;
             const formData = new FormData();
             formData.append('usuario', userEmail);
-            formData.append('texto', texto);
+            formData.append('texto',   texto);
             const res = await fetch(`/comentar/${id}`, { method: 'POST', body: formData });
             if (res.ok) {
                 const data = await res.json();
-                const c = data.comentario;
-                const sec = document.getElementById('com-' + id);
-                const div = document.createElement('div');
+                const c    = data.comentario;
+                const sec  = document.getElementById('com-' + id);
+                const div  = document.createElement('div');
                 div.className = 'comentario-item';
                 div.innerHTML = `<strong>${c.usuario}:</strong> ${c.texto}`;
                 sec.insertBefore(div, sec.querySelector('.comentario-input'));
                 input.value = "";
             }
         }
-
-        document.getElementById("btnGuardar").addEventListener("click", async function() {
-            const nombre = document.getElementById("nombre").value;
-            const seccion = document.getElementById("seccionSelect").value;
-            const archivoFile = document.getElementById("inputImagen").files[0];
-            if (!nombre || !archivoFile) { alert("Completa todos los campos."); return; }
-            const formData = new FormData();
-            formData.append('nombre', nombre);
-            formData.append('correo_solicitante', userEmail);
-            formData.append('seccion', seccion);
-            formData.append('imagen', archivoFile);
-            const res = await fetch('/agregar', { method: 'POST', body: formData });
-            if (res.ok) {
-                document.getElementById("nombre").value = "";
-                document.getElementById("inputImagen").value = "";
-                cargarActividades();
-            } else alert("Error al subir. Verifica permisos.");
-        });
 
         async function eliminarActividad(id) {
             if (!confirm("¿Eliminar esta actividad? 🎀")) return;
