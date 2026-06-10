@@ -9,8 +9,15 @@
             --primary-pink: #ff85a2;
             --dark-pink: #f45b7e;
             --soft-pink: #ffeef2;
-            --text-dark: #4a3b40;
-            --bg-gradient: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
+            --nav-bg: #3b1f2b;
+            --deep-bg: #1a0a10;
+            --mid-bg: #2b1520;
+            --card-bg: #2f1828;
+            --border-color: rgba(255, 133, 162, 0.25);
+            --text-light: #e8cfd8;
+            --text-muted: #a07890;
+            --purple-accent: #9c4dcc;
+            --purple-soft: #ce93d8;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -19,236 +26,744 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            background: var(--bg-gradient);
+            justify-content: center;
+            background: var(--deep-bg);
+            background-image:
+                radial-gradient(ellipse at 20% 20%, rgba(156, 77, 204, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(244, 91, 126, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 0%, rgba(255, 133, 162, 0.07) 0%, transparent 40%);
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            color: var(--text-dark);
-            padding: 20px;
+            color: var(--text-light);
+            padding: 24px 16px;
         }
 
+        /* Partículas decorativas */
+        .bg-dots {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .bg-dots span {
+            position: absolute;
+            width: 3px; height: 3px;
+            border-radius: 50%;
+            background: var(--primary-pink);
+            opacity: 0;
+            animation: twinkle 4s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.5); }
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 420px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+
+        /* Logos top */
         .logos-top {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 20px;
-            margin-bottom: 25px;
+            gap: 18px;
+            margin-bottom: 22px;
         }
 
         .logos-top img {
-            height: 65px;
+            height: 52px;
             width: auto;
             object-fit: contain;
-            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.1));
+            filter: drop-shadow(0 2px 8px rgba(255,133,162,0.3)) brightness(1.15);
         }
 
         .logos-top .divider {
             width: 1px;
-            height: 55px;
-            background: rgba(244, 91, 126, 0.3);
+            height: 45px;
+            background: linear-gradient(to bottom, transparent, rgba(255,133,162,0.4), transparent);
         }
 
+        /* Card principal */
         .login-box {
-            background: white;
-            padding: 35px;
+            background: var(--card-bg);
+            padding: 36px 32px;
             border-radius: 24px;
             width: 100%;
-            max-width: 380px;
-            box-shadow: 0 12px 35px rgba(244, 91, 126, 0.12);
-            border: 1px solid rgba(255, 133, 162, 0.2);
-            animation: cardFadeIn 0.6s ease;
+            box-shadow:
+                0 0 0 1px var(--border-color),
+                0 20px 60px rgba(0,0,0,0.5),
+                0 0 40px rgba(244, 91, 126, 0.06);
+            animation: cardFadeIn 0.5s ease;
         }
 
         .logo-container {
             display: flex;
             justify-content: center;
-            margin-bottom: 20px;
+            margin-bottom: 8px;
         }
 
         .logo-container img {
-            width: 160px;
-            height: 160px;
+            width: 110px;
+            height: 110px;
             object-fit: contain;
+            filter: drop-shadow(0 4px 16px rgba(255,133,162,0.35));
+        }
+
+        .brand-title {
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            background: linear-gradient(135deg, var(--primary-pink), var(--purple-soft));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 6px;
+        }
+
+        .brand-sub {
+            text-align: center;
+            font-size: 0.78em;
+            color: var(--text-muted);
+            letter-spacing: 0.04em;
+            margin-bottom: 24px;
         }
 
         /* Tabs */
         .tabs {
             display: flex;
-            border-radius: 12px;
+            border-radius: 14px;
             overflow: hidden;
-            border: 2px solid #eedad3;
-            margin-bottom: 25px;
+            background: rgba(0,0,0,0.25);
+            border: 1px solid var(--border-color);
+            margin-bottom: 26px;
+            padding: 4px;
+            gap: 4px;
         }
 
         .tab-btn {
             flex: 1;
-            padding: 11px;
+            padding: 10px;
             border: none;
-            background: white;
+            background: transparent;
             cursor: pointer;
-            font-size: 0.95em;
+            font-size: 0.88em;
             font-weight: 600;
-            color: #bfaab1;
+            color: var(--text-muted);
             transition: all 0.3s;
             font-family: inherit;
+            border-radius: 10px;
         }
 
         .tab-btn.active {
-            background: linear-gradient(135deg, var(--primary-pink), var(--dark-pink));
+            background: linear-gradient(135deg, var(--dark-pink), #c2185b);
             color: white;
+            box-shadow: 0 4px 12px rgba(244,91,126,0.35);
         }
 
         .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        .tab-content.active { display: block; animation: fadeSlide 0.3s ease; }
 
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Inputs */
         .input-group { margin-bottom: 14px; }
 
         label {
             display: block;
-            font-size: 0.85em;
+            font-size: 0.78em;
             font-weight: 600;
-            color: #8a7a80;
-            margin-bottom: 5px;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .input-wrap .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1em;
+            pointer-events: none;
         }
 
         input {
             width: 100%;
-            padding: 13px 16px;
-            border: 2px solid #eedad3;
+            padding: 12px 16px 12px 40px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,133,162,0.18);
             border-radius: 12px;
-            font-size: 1em;
+            font-size: 0.95em;
             outline: none;
             transition: all 0.3s;
-            color: var(--text-dark);
+            color: var(--text-light);
+            font-family: inherit;
         }
 
         input:focus {
             border-color: var(--primary-pink);
-            box-shadow: 0 0 8px rgba(255, 133, 162, 0.2);
+            background: rgba(255,133,162,0.06);
+            box-shadow: 0 0 0 3px rgba(255,133,162,0.1);
         }
 
-        input::placeholder { color: #bfaab1; }
+        input::placeholder { color: #5a3a48; }
 
+        /* Botón submit */
         .btn-submit {
             width: 100%;
-            padding: 14px;
-            margin-top: 8px;
-            background: linear-gradient(135deg, var(--primary-pink) 0%, var(--dark-pink) 100%);
+            padding: 13px;
+            margin-top: 6px;
+            background: linear-gradient(135deg, var(--dark-pink) 0%, #c2185b 100%);
             border: none;
             color: white;
             border-radius: 14px;
             cursor: pointer;
-            font-size: 1em;
-            font-weight: 600;
-            box-shadow: 0 5px 15px rgba(244, 91, 126, 0.3);
+            font-size: 0.95em;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            box-shadow: 0 6px 20px rgba(244,91,126,0.35);
             transition: all 0.3s;
         }
 
         .btn-submit:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(244, 91, 126, 0.4);
+            box-shadow: 0 10px 28px rgba(244,91,126,0.5);
         }
 
+        .btn-submit:active { transform: translateY(0); }
+
+        /* Link olvide contraseña */
+        .forgot-link {
+            display: block;
+            text-align: right;
+            font-size: 0.78em;
+            color: var(--primary-pink);
+            cursor: pointer;
+            margin-top: -6px;
+            margin-bottom: 12px;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .forgot-link:hover { color: var(--purple-soft); }
+
+        /* Mensajes */
         .msg {
             margin-top: 12px;
             padding: 10px 14px;
             border-radius: 10px;
-            font-size: 0.9em;
+            font-size: 0.85em;
             text-align: center;
             display: none;
         }
 
-        .msg.error { background: #fff0f0; color: #d93856; border: 1px solid #ffccd5; }
-        .msg.success { background: #f0fff4; color: #2e7d32; border: 1px solid #a5d6a7; }
+        .msg.error { background: rgba(217,56,86,0.15); color: #ff8fa3; border: 1px solid rgba(217,56,86,0.3); }
+        .msg.success { background: rgba(46,125,50,0.15); color: #81c784; border: 1px solid rgba(46,125,50,0.3); }
+        .msg.info { background: rgba(156,77,204,0.15); color: var(--purple-soft); border: 1px solid rgba(156,77,204,0.3); }
 
+        /* Divider */
+        .divider-line {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 16px 0;
+        }
+
+        .divider-line::before, .divider-line::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-color);
+        }
+
+        .divider-line span {
+            font-size: 0.75em;
+            color: var(--text-muted);
+        }
+
+        /* ODS banner */
         .ods-banner {
-            margin-top: 20px;
+            margin-top: 16px;
             width: 100%;
-            max-width: 380px;
             border-radius: 14px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
         }
 
         .ods-banner img {
             width: 100%;
-            height: 80px;
+            height: 70px;
             object-fit: cover;
-            object-position: center top;
+            object-position: center;
             display: block;
+            opacity: 0.85;
+        }
+
+        /* ─── MODAL CAMBIAR / RECUPERAR CONTRASEÑA ─── */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .modal-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 34px 30px;
+            max-width: 380px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            animation: cardFadeIn 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 1.15em;
+            font-weight: 700;
+            color: white;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.3em;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .modal-close:hover { background: rgba(255,255,255,0.08); color: white; }
+
+        .modal-desc {
+            font-size: 0.85em;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .modal-box .input-group { margin-bottom: 14px; }
+
+        .modal-box input {
+            width: 100%;
+            padding: 12px 16px 12px 40px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,133,162,0.18);
+            border-radius: 12px;
+            font-size: 0.9em;
+            outline: none;
+            transition: all 0.3s;
+            color: var(--text-light);
+            font-family: inherit;
+        }
+
+        .modal-box input:focus {
+            border-color: var(--primary-pink);
+            box-shadow: 0 0 0 3px rgba(255,133,162,0.1);
+        }
+
+        .modal-box input::placeholder { color: #5a3a48; }
+
+        .modal-box label {
+            display: block;
+            font-size: 0.75em;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .btn-modal-primary {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--dark-pink), #c2185b);
+            border: none;
+            color: white;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.92em;
+            font-weight: 700;
+            box-shadow: 0 4px 16px rgba(244,91,126,0.3);
+            transition: all 0.3s;
+            margin-top: 4px;
+        }
+
+        .btn-modal-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(244,91,126,0.45); }
+
+        .btn-modal-secondary {
+            width: 100%;
+            padding: 11px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.88em;
+            font-weight: 600;
+            transition: all 0.2s;
+            margin-top: 8px;
+            font-family: inherit;
+        }
+
+        .btn-modal-secondary:hover { border-color: var(--primary-pink); color: var(--primary-pink); }
+
+        .modal-msg {
+            margin-top: 12px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 0.83em;
+            text-align: center;
+            display: none;
+        }
+
+        .modal-msg.error { background: rgba(217,56,86,0.15); color: #ff8fa3; border: 1px solid rgba(217,56,86,0.3); }
+        .modal-msg.success { background: rgba(46,125,50,0.15); color: #81c784; border: 1px solid rgba(46,125,50,0.3); }
+
+        /* step indicator */
+        .step-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .step-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: rgba(255,133,162,0.2);
+            transition: all 0.3s;
+        }
+
+        .step-dot.active {
+            background: var(--primary-pink);
+            width: 22px;
+            border-radius: 4px;
         }
 
         @keyframes cardFadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(16px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Pill link en la tab de cambiar pass */
+        .pill-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(156,77,204,0.12);
+            border: 1px solid rgba(156,77,204,0.25);
+            color: var(--purple-soft);
+            border-radius: 20px;
+            padding: 5px 14px;
+            font-size: 0.78em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 12px;
+        }
+
+        .pill-link:hover { background: rgba(156,77,204,0.2); }
+
+        /* Ocultar/mostrar password btn */
+        .eye-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1em;
+            padding: 2px 4px;
+            transition: color 0.2s;
+        }
+
+        .eye-btn:hover { color: var(--primary-pink); }
     </style>
 </head>
 <body>
 
-    <div class="logos-top">
-        <img src="/static/logo_cbtis.png" alt="CBTIS 75">
-        <div class="divider"></div>
-        <img src="/static/logo_dgeti.png" alt="DGETI Guanajuato">
+    <!-- Partículas decorativas de fondo -->
+    <div class="bg-dots" id="bgDots"></div>
+
+    <!-- ─── MODAL: RECUPERAR CONTRASEÑA ─── -->
+    <div class="modal-overlay" id="modalOlvide" style="display:none;">
+        <div class="modal-box">
+            <div class="modal-header">
+                <span class="modal-title">🔑 Recuperar Contraseña</span>
+                <button class="modal-close" onclick="cerrarModal('modalOlvide')">✕</button>
+            </div>
+
+            <!-- Paso 1: ingresa correo -->
+            <div id="olvide-step1">
+                <div class="step-dots">
+                    <div class="step-dot active"></div>
+                    <div class="step-dot"></div>
+                    <div class="step-dot"></div>
+                </div>
+                <p class="modal-desc">Ingresa tu correo registrado. Te enviaremos un código de verificación para restablecer tu contraseña.</p>
+                <div class="input-group">
+                    <label>Correo registrado</label>
+                    <div class="input-wrap">
+                        <span class="input-icon">📧</span>
+                        <input type="email" id="olvide-email" placeholder="tu@correo.com">
+                    </div>
+                </div>
+                <button class="btn-modal-primary" onclick="olvideStep1()">Verificar correo</button>
+                <div class="modal-msg" id="olvide-msg1"></div>
+            </div>
+
+            <!-- Paso 2: código simulado -->
+            <div id="olvide-step2" style="display:none;">
+                <div class="step-dots">
+                    <div class="step-dot"></div>
+                    <div class="step-dot active"></div>
+                    <div class="step-dot"></div>
+                </div>
+                <p class="modal-desc">Hemos verificado tu cuenta. Ahora crea tu nueva contraseña.</p>
+                <div class="input-group">
+                    <label>Nueva contraseña</label>
+                    <div class="input-wrap">
+                        <span class="input-icon">🔒</span>
+                        <input type="password" id="olvide-pass1" placeholder="Mínimo 6 caracteres">
+                        <button class="eye-btn" onclick="toggleEye('olvide-pass1',this)" type="button">👁️</button>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Confirmar contraseña</label>
+                    <div class="input-wrap">
+                        <span class="input-icon">🔒</span>
+                        <input type="password" id="olvide-pass2" placeholder="Repite la contraseña">
+                    </div>
+                </div>
+                <button class="btn-modal-primary" onclick="olvideStep2()">Guardar nueva contraseña</button>
+                <button class="btn-modal-secondary" onclick="olvideBack()">← Volver</button>
+                <div class="modal-msg" id="olvide-msg2"></div>
+            </div>
+
+            <!-- Paso 3: éxito -->
+            <div id="olvide-step3" style="display:none;text-align:center;">
+                <div style="font-size:3em;margin-bottom:12px;">✅</div>
+                <p style="color:white;font-weight:700;margin-bottom:8px;">¡Contraseña actualizada!</p>
+                <p class="modal-desc" style="margin-bottom:20px;">Ya puedes iniciar sesión con tu nueva contraseña.</p>
+                <button class="btn-modal-primary" onclick="cerrarModal('modalOlvide');cambiarTab('login')">Ir al inicio de sesión</button>
+            </div>
+        </div>
     </div>
 
-    <div class="login-box">
-        <div class="logo-container">
-            <img src="/static/logo.png" alt="Logo PAEC">
-        </div>
-
-        <!-- Tabs -->
-        <div class="tabs">
-            <button class="tab-btn active" onclick="cambiarTab('login')">Iniciar Sesión</button>
-            <button class="tab-btn" onclick="cambiarTab('registro')">Crear Cuenta</button>
-        </div>
-
-        <!-- LOGIN -->
-        <div id="tab-login" class="tab-content active">
+    <!-- ─── MODAL: CAMBIAR CONTRASEÑA (usuario logueado) ─── -->
+    <div class="modal-overlay" id="modalCambiar" style="display:none;">
+        <div class="modal-box">
+            <div class="modal-header">
+                <span class="modal-title">🔐 Cambiar Contraseña</span>
+                <button class="modal-close" onclick="cerrarModal('modalCambiar')">✕</button>
+            </div>
+            <p class="modal-desc">Ingresa tu contraseña actual y la nueva para actualizarla.</p>
             <div class="input-group">
-                <label>Correo electrónico</label>
-                <input type="email" id="login-email" placeholder="tu@correo.com" required>
+                <label>Contraseña actual</label>
+                <div class="input-wrap">
+                    <span class="input-icon">🔑</span>
+                    <input type="password" id="cambiar-actual" placeholder="Tu contraseña actual">
+                    <button class="eye-btn" onclick="toggleEye('cambiar-actual',this)" type="button">👁️</button>
+                </div>
             </div>
             <div class="input-group">
-                <label>Contraseña</label>
-                <input type="password" id="login-pass" placeholder="••••••••" required>
-            </div>
-            <button class="btn-submit" onclick="hacerLogin()">Entrar</button>
-            <div class="msg" id="login-msg"></div>
-        </div>
-
-        <!-- REGISTRO -->
-        <div id="tab-registro" class="tab-content">
-            <div class="input-group">
-                <label>Correo electrónico</label>
-                <input type="email" id="reg-email" placeholder="tu@correo.com" required>
+                <label>Nueva contraseña</label>
+                <div class="input-wrap">
+                    <span class="input-icon">🔒</span>
+                    <input type="password" id="cambiar-nueva" placeholder="Mínimo 6 caracteres">
+                    <button class="eye-btn" onclick="toggleEye('cambiar-nueva',this)" type="button">👁️</button>
+                </div>
             </div>
             <div class="input-group">
-                <label>Contraseña</label>
-                <input type="password" id="reg-pass" placeholder="Mínimo 6 caracteres" required>
+                <label>Confirmar nueva contraseña</label>
+                <div class="input-wrap">
+                    <span class="input-icon">🔒</span>
+                    <input type="password" id="cambiar-confirm" placeholder="Repite la nueva contraseña">
+                </div>
             </div>
-            <div class="input-group">
-                <label>Confirmar contraseña</label>
-                <input type="password" id="reg-pass2" placeholder="Repite tu contraseña" required>
-            </div>
-            <button class="btn-submit" onclick="hacerRegistro()">Crear Cuenta</button>
-            <div class="msg" id="reg-msg"></div>
+            <button class="btn-modal-primary" onclick="cambiarPassword()">Actualizar Contraseña</button>
+            <div class="modal-msg" id="cambiar-msg"></div>
         </div>
     </div>
 
-    <div class="ods-banner">
-        <img src="/static/logo_ods.png" alt="ODS">
+    <div class="wrapper">
+
+        <div class="logos-top">
+            <img src="/static/logo_cbtis.png" alt="CBTIS 75">
+            <div class="divider"></div>
+            <img src="/static/logo_dgeti.png" alt="DGETI Guanajuato">
+        </div>
+
+        <div class="login-box">
+            <div class="logo-container">
+                <img src="/static/logo.png" alt="Logo PAEC">
+            </div>
+            <div class="brand-title">PAEC</div>
+            <div class="brand-sub">Jardín Polinizador · CBTis 75 · Guanajuato</div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="cambiarTab('login')">Iniciar Sesión</button>
+                <button class="tab-btn" onclick="cambiarTab('registro')">Crear Cuenta</button>
+                <button class="tab-btn" onclick="cambiarTab('cambiar')">Mi Cuenta</button>
+            </div>
+
+            <!-- ── TAB LOGIN ── -->
+            <div id="tab-login" class="tab-content active">
+                <div class="input-group">
+                    <label>Correo electrónico</label>
+                    <div class="input-wrap">
+                        <span class="input-icon">📧</span>
+                        <input type="email" id="login-email" placeholder="tu@correo.com">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Contraseña</label>
+                    <div class="input-wrap">
+                        <span class="input-icon">🔒</span>
+                        <input type="password" id="login-pass" placeholder="••••••••">
+                        <button class="eye-btn" onclick="toggleEye('login-pass',this)" type="button">👁️</button>
+                    </div>
+                </div>
+                <span class="forgot-link" onclick="abrirOlvide()">¿Olvidaste tu contraseña?</span>
+                <button class="btn-submit" onclick="hacerLogin()">✨ Entrar</button>
+                <div class="msg" id="login-msg"></div>
+            </div>
+
+            <!-- ── TAB REGISTRO ── -->
+            <div id="tab-registro" class="tab-content">
+                <div class="input-group">
+                    <label>Correo electrónico</label>
+                    <div class="input-wrap">
+                        <span class="input-icon">📧</span>
+                        <input type="email" id="reg-email" placeholder="tu@correo.com">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Contraseña</label>
+                    <div class="input-wrap">
+                        <span class="input-icon">🔒</span>
+                        <input type="password" id="reg-pass" placeholder="Mínimo 6 caracteres">
+                        <button class="eye-btn" onclick="toggleEye('reg-pass',this)" type="button">👁️</button>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Confirmar contraseña</label>
+                    <div class="input-wrap">
+                        <span class="input-icon">🔒</span>
+                        <input type="password" id="reg-pass2" placeholder="Repite tu contraseña">
+                    </div>
+                </div>
+                <button class="btn-submit" onclick="hacerRegistro()">🌸 Crear Cuenta</button>
+                <div class="msg" id="reg-msg"></div>
+            </div>
+
+            <!-- ── TAB MI CUENTA (cambiar contraseña) ── -->
+            <div id="tab-cambiar" class="tab-content">
+                <div style="text-align:center;padding:10px 0 6px;">
+                    <div style="font-size:2.8em;margin-bottom:8px;">🔐</div>
+                    <p style="color:var(--text-light);font-size:0.95em;font-weight:600;margin-bottom:6px;">Gestiona tu cuenta</p>
+                    <p style="color:var(--text-muted);font-size:0.82em;line-height:1.5;margin-bottom:20px;">
+                        Debes estar autenticado para cambiar tu contraseña. Si olvidaste la tuya usa la opción correspondiente.
+                    </p>
+                </div>
+                <button class="btn-submit" onclick="abrirCambiar()" style="background:linear-gradient(135deg,#9c4dcc,#7b1fa2);">
+                    🔐 Cambiar mi Contraseña
+                </button>
+                <div class="divider-line"><span>o</span></div>
+                <button class="btn-submit" onclick="abrirOlvide()" style="background:rgba(255,133,162,0.12);border:1px solid var(--border-color);box-shadow:none;color:var(--primary-pink);">
+                    🔑 Olvidé mi Contraseña
+                </button>
+                <div class="msg" id="cuenta-msg"></div>
+            </div>
+        </div>
+
+        <div class="ods-banner">
+            <img src="/static/logo_ods.png" alt="ODS">
+        </div>
     </div>
 
     <script>
-        function cambiarTab(tab) {
-            document.querySelectorAll('.tab-btn').forEach((b, i) => {
-                b.classList.toggle('active', (tab === 'login' && i === 0) || (tab === 'registro' && i === 1));
-            });
-            document.getElementById('tab-login').classList.toggle('active', tab === 'login');
-            document.getElementById('tab-registro').classList.toggle('active', tab === 'registro');
+        // ── Partículas decorativas ──
+        const dots = document.getElementById('bgDots');
+        for (let i = 0; i < 40; i++) {
+            const s = document.createElement('span');
+            s.style.left = Math.random() * 100 + 'vw';
+            s.style.top = Math.random() * 100 + 'vh';
+            s.style.animationDelay = (Math.random() * 4) + 's';
+            s.style.animationDuration = (3 + Math.random() * 4) + 's';
+            if (Math.random() > 0.6) {
+                s.style.background = '#ce93d8';
+            }
+            dots.appendChild(s);
         }
 
+        // ── Tabs ──
+        function cambiarTab(tab) {
+            ['login','registro','cambiar'].forEach(t => {
+                document.getElementById('tab-' + t).classList.toggle('active', t === tab);
+            });
+            document.querySelectorAll('.tab-btn').forEach((b, i) => {
+                b.classList.toggle('active', ['login','registro','cambiar'][i] === tab);
+            });
+        }
+
+        // ── Mostrar/ocultar contraseña ──
+        function toggleEye(inputId, btn) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                btn.textContent = '🙈';
+            } else {
+                input.type = 'password';
+                btn.textContent = '👁️';
+            }
+        }
+
+        // ── Mensajes ──
         function mostrarMsg(id, texto, tipo) {
             const el = document.getElementById(id);
             el.textContent = texto;
@@ -256,63 +771,49 @@
             el.style.display = 'block';
         }
 
+        function mostrarModalMsg(id, texto, tipo) {
+            const el = document.getElementById(id);
+            el.textContent = texto;
+            el.className = `modal-msg ${tipo}`;
+            el.style.display = 'block';
+        }
+
+        // ── Login ──
         async function hacerLogin() {
             const email = document.getElementById('login-email').value.trim().toLowerCase();
             const pass = document.getElementById('login-pass').value;
-
-            if (!email || !pass) {
-                mostrarMsg('login-msg', 'Completa todos los campos.', 'error');
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append('usuario', email);
-            formData.append('password', pass);
-
+            if (!email || !pass) { mostrarMsg('login-msg', 'Completa todos los campos.', 'error'); return; }
+            const fd = new FormData();
+            fd.append('usuario', email);
+            fd.append('password', pass);
             try {
-                const res = await fetch('/login-check', { method: 'POST', body: formData });
+                const res = await fetch('/login-check', { method: 'POST', body: fd });
                 const data = await res.json();
-
                 if (res.ok) {
                     localStorage.setItem('userEmail', data.usuario);
                     localStorage.setItem('userRol', data.rol);
-                    window.location.href = '/';
+                    mostrarMsg('login-msg', '¡Bienvenido! Redirigiendo...', 'success');
+                    setTimeout(() => window.location.href = '/', 900);
                 } else {
                     mostrarMsg('login-msg', data.detail || 'Error al iniciar sesión.', 'error');
                 }
-            } catch {
-                mostrarMsg('login-msg', 'Error de conexión.', 'error');
-            }
+            } catch { mostrarMsg('login-msg', 'Error de conexión.', 'error'); }
         }
 
+        // ── Registro ──
         async function hacerRegistro() {
             const email = document.getElementById('reg-email').value.trim().toLowerCase();
             const pass = document.getElementById('reg-pass').value;
             const pass2 = document.getElementById('reg-pass2').value;
-
-            if (!email || !pass || !pass2) {
-                mostrarMsg('reg-msg', 'Completa todos los campos.', 'error');
-                return;
-            }
-
-            if (pass.length < 6) {
-                mostrarMsg('reg-msg', 'La contraseña debe tener al menos 6 caracteres.', 'error');
-                return;
-            }
-
-            if (pass !== pass2) {
-                mostrarMsg('reg-msg', 'Las contraseñas no coinciden.', 'error');
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append('usuario', email);
-            formData.append('password', pass);
-
+            if (!email || !pass || !pass2) { mostrarMsg('reg-msg', 'Completa todos los campos.', 'error'); return; }
+            if (pass.length < 6) { mostrarMsg('reg-msg', 'La contraseña debe tener mínimo 6 caracteres.', 'error'); return; }
+            if (pass !== pass2) { mostrarMsg('reg-msg', 'Las contraseñas no coinciden.', 'error'); return; }
+            const fd = new FormData();
+            fd.append('usuario', email);
+            fd.append('password', pass);
             try {
-                const res = await fetch('/registro', { method: 'POST', body: formData });
+                const res = await fetch('/registro', { method: 'POST', body: fd });
                 const data = await res.json();
-
                 if (res.ok) {
                     mostrarMsg('reg-msg', '¡Cuenta creada! Iniciando sesión...', 'success');
                     localStorage.setItem('userEmail', data.usuario);
@@ -321,19 +822,138 @@
                 } else {
                     mostrarMsg('reg-msg', data.detail || 'Error al registrarse.', 'error');
                 }
-            } catch {
-                mostrarMsg('reg-msg', 'Error de conexión.', 'error');
+            } catch { mostrarMsg('reg-msg', 'Error de conexión.', 'error'); }
+        }
+
+        // ── Modales ──
+        function abrirOlvide() {
+            // Resetear pasos
+            document.getElementById('olvide-step1').style.display = 'block';
+            document.getElementById('olvide-step2').style.display = 'none';
+            document.getElementById('olvide-step3').style.display = 'none';
+            document.getElementById('olvide-email').value = '';
+            document.getElementById('olvide-pass1').value = '';
+            document.getElementById('olvide-pass2').value = '';
+            document.getElementById('olvide-msg1').style.display = 'none';
+            document.getElementById('olvide-msg2').style.display = 'none';
+            document.getElementById('modalOlvide').style.display = 'flex';
+        }
+
+        function abrirCambiar() {
+            const email = localStorage.getItem('userEmail');
+            if (!email) {
+                mostrarMsg('cuenta-msg', 'Debes iniciar sesión primero para cambiar la contraseña.', 'error');
+                document.getElementById('cuenta-msg').style.display = 'block';
+                return;
             }
+            document.getElementById('cambiar-actual').value = '';
+            document.getElementById('cambiar-nueva').value = '';
+            document.getElementById('cambiar-confirm').value = '';
+            document.getElementById('cambiar-msg').style.display = 'none';
+            document.getElementById('modalCambiar').style.display = 'flex';
+        }
+
+        function cerrarModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        // Cerrar al clic fuera
+        document.getElementById('modalOlvide').addEventListener('click', function(e) { if (e.target===this) cerrarModal('modalOlvide'); });
+        document.getElementById('modalCambiar').addEventListener('click', function(e) { if (e.target===this) cerrarModal('modalCambiar'); });
+
+        // ── Flujo recuperar contraseña ──
+        // (En producción esto invocaría un endpoint real de verificación/correo)
+        async function olvideStep1() {
+            const email = document.getElementById('olvide-email').value.trim().toLowerCase();
+            if (!email) { mostrarModalMsg('olvide-msg1','Ingresa tu correo.','error'); return; }
+            // Verificar que el usuario exista
+            try {
+                const fd = new FormData();
+                fd.append('usuario', email);
+                fd.append('password', '__CHECK_ONLY__');
+                const res = await fetch('/login-check', { method: 'POST', body: fd });
+                // Si el error es 401 (contraseña incorrecta) = usuario existe ✓
+                // Si el error es 404 = no existe
+                if (res.status === 404) {
+                    mostrarModalMsg('olvide-msg1', 'No encontramos una cuenta con ese correo.', 'error');
+                    return;
+                }
+                // Procede al paso 2 (usuario existe)
+                document.getElementById('olvide-step1').style.display = 'none';
+                document.getElementById('olvide-step2').style.display = 'block';
+            } catch {
+                mostrarModalMsg('olvide-msg1', 'Error de conexión. Intenta de nuevo.', 'error');
+            }
+        }
+
+        function olvideBack() {
+            document.getElementById('olvide-step2').style.display = 'none';
+            document.getElementById('olvide-step1').style.display = 'block';
+        }
+
+        async function olvideStep2() {
+            const email = document.getElementById('olvide-email').value.trim().toLowerCase();
+            const pass1 = document.getElementById('olvide-pass1').value;
+            const pass2 = document.getElementById('olvide-pass2').value;
+            if (!pass1 || !pass2) { mostrarModalMsg('olvide-msg2','Completa los campos.','error'); return; }
+            if (pass1.length < 6) { mostrarModalMsg('olvide-msg2','Mínimo 6 caracteres.','error'); return; }
+            if (pass1 !== pass2) { mostrarModalMsg('olvide-msg2','Las contraseñas no coinciden.','error'); return; }
+            try {
+                const fd = new FormData();
+                fd.append('usuario', email);
+                fd.append('password_nueva', pass1);
+                const res = await fetch('/cambiar-password', { method: 'POST', body: fd });
+                if (res.ok) {
+                    document.getElementById('olvide-step2').style.display = 'none';
+                    document.getElementById('olvide-step3').style.display = 'block';
+                } else {
+                    const data = await res.json();
+                    mostrarModalMsg('olvide-msg2', data.detail || 'Error al actualizar.', 'error');
+                }
+            } catch { mostrarModalMsg('olvide-msg2','Error de conexión.','error'); }
+        }
+
+        // ── Cambiar contraseña (usuario logueado) ──
+        async function cambiarPassword() {
+            const email = localStorage.getItem('userEmail');
+            const actual = document.getElementById('cambiar-actual').value;
+            const nueva = document.getElementById('cambiar-nueva').value;
+            const confirm = document.getElementById('cambiar-confirm').value;
+            if (!actual || !nueva || !confirm) { mostrarModalMsg('cambiar-msg','Completa todos los campos.','error'); return; }
+            if (nueva.length < 6) { mostrarModalMsg('cambiar-msg','La nueva contraseña debe tener mínimo 6 caracteres.','error'); return; }
+            if (nueva !== confirm) { mostrarModalMsg('cambiar-msg','Las contraseñas nuevas no coinciden.','error'); return; }
+            if (actual === nueva) { mostrarModalMsg('cambiar-msg','La nueva contraseña debe ser diferente a la actual.','error'); return; }
+            try {
+                // Verificar contraseña actual
+                const fdVerify = new FormData();
+                fdVerify.append('usuario', email);
+                fdVerify.append('password', actual);
+                const resVerify = await fetch('/login-check', { method: 'POST', body: fdVerify });
+                if (!resVerify.ok) { mostrarModalMsg('cambiar-msg','La contraseña actual es incorrecta.','error'); return; }
+                // Actualizar
+                const fd = new FormData();
+                fd.append('usuario', email);
+                fd.append('password_nueva', nueva);
+                const res = await fetch('/cambiar-password', { method: 'POST', body: fd });
+                if (res.ok) {
+                    mostrarModalMsg('cambiar-msg','¡Contraseña actualizada exitosamente! 🎉','success');
+                    setTimeout(() => cerrarModal('modalCambiar'), 2000);
+                } else {
+                    const data = await res.json();
+                    mostrarModalMsg('cambiar-msg', data.detail || 'Error al actualizar.', 'error');
+                }
+            } catch { mostrarModalMsg('cambiar-msg','Error de conexión.','error'); }
         }
 
         // Enter para submit
         document.addEventListener('keydown', e => {
-            if (e.key === 'Enter') {
-                const loginActivo = document.getElementById('tab-login').classList.contains('active');
-                if (loginActivo) hacerLogin();
-                else hacerRegistro();
-            }
+            if (e.key !== 'Enter') return;
+            if (document.getElementById('tab-login').classList.contains('active')) hacerLogin();
+            else if (document.getElementById('tab-registro').classList.contains('active')) hacerRegistro();
         });
+
+        // Si viene con hash #registro, abrir esa tab
+        if (window.location.hash === '#registro') cambiarTab('registro');
     </script>
 </body>
 </html>

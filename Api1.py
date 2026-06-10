@@ -138,6 +138,20 @@ async def comentar(id: str, usuario: str = Form(...), texto: str = Form(...)):
     )
     return {"ok": True, "comentario": comentario}
 
+# ✅ Cambiar contraseña (usuario autenticado o recuperación)
+@app.post("/cambiar-password")
+async def cambiar_password(usuario: str = Form(...), password_nueva: str = Form(...)):
+    usuario = usuario.strip().lower()
+    if not usuario or not password_nueva:
+        raise HTTPException(status_code=400, detail="Datos incompletos")
+    if len(password_nueva) < 6:
+        raise HTTPException(status_code=400, detail="La contraseña debe tener al menos 6 caracteres")
+    user_db = await usuarios.find_one({"usuario": usuario})
+    if not user_db:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+    await usuarios.update_one({"usuario": usuario}, {"$set": {"password": password_nueva}})
+    return {"ok": True, "mensaje": "Contraseña actualizada correctamente"}
+
 @app.delete("/eliminar/{id}")
 async def eliminar(id: str, correo_solicitante: str):
     if correo_solicitante.lower().strip() not in ADMIN_EMAILS:
