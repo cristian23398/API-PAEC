@@ -33,23 +33,10 @@
             gap: 10px;
         }
 
-        .top-bar-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .top-bar-left { display: flex; align-items: center; gap: 12px; }
+        .top-bar-left img { height: 48px; width: auto; object-fit: contain; }
 
-        .top-bar-left img {
-            height: 48px;
-            width: auto;
-            object-fit: contain;
-        }
-
-        .top-bar-right {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
+        .top-bar-right { display: flex; align-items: center; gap: 16px; }
 
         .top-bar-right a {
             color: white;
@@ -64,13 +51,12 @@
         }
 
         .top-bar-right a:hover { color: var(--primary-pink); }
-        .top-bar-right a span { font-size: 1.3em; }
+        .top-bar-right a .icon { font-size: 1.3em; }
 
         /* ─── NAV ─── */
         nav {
             background: #5c2d3e;
             display: flex;
-            gap: 0;
             overflow-x: auto;
             padding: 0 10px;
             position: sticky;
@@ -91,15 +77,10 @@
             font-family: inherit;
         }
 
-        nav button:hover,
-        nav button.active { background: var(--dark-pink); }
+        nav button:hover, nav button.active { background: var(--dark-pink); }
 
         /* ─── SECCIONES ─── */
-        .page-section {
-            display: none;
-            animation: fadeIn 0.4s ease;
-        }
-
+        .page-section { display: none; animation: fadeIn 0.4s ease; }
         .page-section.active { display: block; }
 
         /* ─── HERO ─── */
@@ -115,18 +96,8 @@
             min-height: 280px;
         }
 
-        .hero-text h2 {
-            font-size: 2.8em;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 12px;
-        }
-
-        .hero-text p {
-            font-size: 1.1em;
-            opacity: 0.9;
-            margin-bottom: 22px;
-        }
+        .hero-text h2 { font-size: 2.8em; font-weight: 800; line-height: 1.2; margin-bottom: 12px; }
+        .hero-text p { font-size: 1.1em; opacity: 0.9; margin-bottom: 22px; }
 
         .hero-text a {
             background: white;
@@ -142,13 +113,7 @@
 
         .hero-text a:hover { transform: scale(1.05); }
 
-        /* ✅ Foto perfectamente centrada y circular */
-        .hero-foto-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
+        .hero-foto-wrapper { display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
         .hero-foto {
             width: 220px;
@@ -158,15 +123,77 @@
             object-position: center center;
             border: 5px solid white;
             box-shadow: 0 10px 35px rgba(0,0,0,0.25);
+        }
+
+        /* ─── VIDEO INTRO ─── */
+        .video-intro-wrapper {
+            background: #1a0a10;
+            padding: 35px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .video-intro-text { color: white; max-width: 380px; }
+        .video-intro-text h3 { font-size: 1.6em; margin-bottom: 10px; color: var(--primary-pink); }
+        .video-intro-text p { font-size: 0.95em; opacity: 0.8; line-height: 1.6; }
+
+        #videoIntro {
+            width: 480px;
+            max-width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+        }
+
+        /* ─── VIDEO FLOTANTE ─── */
+        .floating-video {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 320px;
+            background: #1a0a10;
+            border-radius: 14px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            z-index: 9999;
+            display: none;
+            overflow: hidden;
+            border: 2px solid var(--primary-pink);
+        }
+
+        .floating-video-header {
+            background: var(--nav-bg);
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .floating-video-header button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.1em;
+            padding: 2px 6px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .floating-video-header button:hover { background: var(--dark-pink); }
+
+        #videoFlotante {
+            width: 100%;
             display: block;
+            border-radius: 0 0 12px 12px;
         }
 
         /* ─── SECCIÓN GENÉRICA ─── */
-        .section {
-            padding: 40px 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        .section { padding: 40px 30px; max-width: 1200px; margin: 0 auto; }
 
         .section-title {
             font-size: 1.6em;
@@ -180,10 +207,26 @@
             gap: 10px;
         }
 
-        /* ─── CARDS GALERÍA ─── */
+        /* ─── SUBSECCIONES ACTIVIDADES ─── */
+        .subseccion {
+            margin-bottom: 45px;
+        }
+
+        .subseccion-title {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, var(--dark-pink), #c2185b);
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin-bottom: 18px;
+            display: inline-block;
+        }
+
+        /* ─── CARDS ─── */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 20px;
         }
 
@@ -195,46 +238,116 @@
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(244,91,126,0.15);
-        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(244,91,126,0.15); }
 
-        .card img, .card video {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
+        .card img, .card video { width: 100%; height: 190px; object-fit: cover; }
 
         .card-body { padding: 15px; }
+        .card-body h3 { font-size: 1em; font-weight: 700; margin-bottom: 6px; }
+        .card-body p { font-size: 0.85em; color: #8a7a80; line-height: 1.4; }
 
-        .card-body h3 {
-            font-size: 1em;
-            font-weight: 700;
-            margin-bottom: 6px;
+        /* ─── LIKES Y COMENTARIOS ─── */
+        .card-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid #ffeef2;
         }
 
-        .card-body p {
+        .btn-like {
+            background: none;
+            border: 1px solid #ffccd5;
+            border-radius: 20px;
+            padding: 5px 12px;
+            cursor: pointer;
+            font-size: 0.85em;
+            color: #d93856;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-like.liked { background: #fff0f3; border-color: var(--dark-pink); }
+        .btn-like:hover { background: #fff0f3; }
+
+        .btn-comentar {
+            background: none;
+            border: 1px solid #eedad3;
+            border-radius: 20px;
+            padding: 5px 12px;
+            cursor: pointer;
             font-size: 0.85em;
             color: #8a7a80;
-            line-height: 1.4;
+            font-weight: 600;
+            transition: all 0.2s;
         }
 
-        .card-body .btn-eliminar {
-            margin-top: 12px;
+        .btn-comentar:hover { background: var(--soft-pink); border-color: var(--primary-pink); }
+
+        .comentarios-section {
+            margin-top: 10px;
+            display: none;
+        }
+
+        .comentarios-section.open { display: block; }
+
+        .comentario-item {
+            padding: 7px 10px;
+            background: #fff9fa;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            font-size: 0.82em;
+        }
+
+        .comentario-item strong { color: var(--dark-pink); }
+
+        .comentario-input {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .comentario-input input {
+            flex: 1;
+            padding: 7px 12px;
+            border: 1px solid #eedad3;
+            border-radius: 20px;
+            font-size: 0.85em;
+            outline: none;
+        }
+
+        .comentario-input input:focus { border-color: var(--primary-pink); }
+
+        .comentario-input button {
+            padding: 7px 14px;
+            background: var(--primary-pink);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .btn-eliminar {
+            margin-top: 10px;
             width: 100%;
-            padding: 8px;
+            padding: 7px;
             border: 1px solid #ffccd5;
             background: #fff5f6;
             color: #d93856;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 0.85em;
+            font-size: 0.82em;
             font-weight: 600;
             transition: all 0.2s;
         }
 
-        .card-body .btn-eliminar:hover { background: #d93856; color: white; }
+        .btn-eliminar:hover { background: #d93856; color: white; }
 
         /* ─── FORMULARIO ADMIN ─── */
         .form-container {
@@ -242,20 +355,16 @@
             margin: 0 auto 30px auto;
             padding: 25px;
             border-radius: 16px;
-            max-width: 480px;
+            max-width: 500px;
             box-shadow: 0 6px 20px rgba(244,91,126,0.1);
             border: 1px solid rgba(255,133,162,0.2);
             display: none;
         }
 
-        .form-container h2 {
-            color: var(--dark-pink);
-            font-size: 1.3em;
-            text-align: center;
-            margin-bottom: 16px;
-        }
+        .form-container h2 { color: var(--dark-pink); font-size: 1.3em; text-align: center; margin-bottom: 16px; }
 
-        .form-container input[type="text"] {
+        .form-container input[type="text"],
+        .form-container select {
             width: 100%;
             padding: 11px 14px;
             border-radius: 10px;
@@ -264,9 +373,11 @@
             outline: none;
             margin-bottom: 12px;
             transition: border-color 0.3s;
+            font-family: inherit;
         }
 
-        .form-container input[type="text"]:focus { border-color: var(--primary-pink); }
+        .form-container input[type="text"]:focus,
+        .form-container select:focus { border-color: var(--primary-pink); }
 
         .form-container input[type="file"] {
             width: 100%;
@@ -293,11 +404,47 @@
 
         .btn-agregar:hover { transform: translateY(-2px); }
 
-        /* ─── LAVANDA ─── */
-        .lavanda-hero {
-            background: linear-gradient(135deg, #f3e5f5, #e8f5e9);
-            padding: 50px 40px;
+        /* ─── CRONOGRAMA ─── */
+        .cronograma-wrapper {
+            overflow-x: auto;
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            margin-top: 20px;
         }
+
+        #tablaCronograma {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88em;
+            min-width: 700px;
+        }
+
+        #tablaCronograma th {
+            background: linear-gradient(135deg, var(--dark-pink), #c2185b);
+            color: white;
+            padding: 10px 14px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        #tablaCronograma td {
+            padding: 9px 14px;
+            border-bottom: 1px solid #ffeef2;
+            text-align: center;
+        }
+
+        #tablaCronograma tr:nth-child(even) td { background: #fff9fa; }
+        #tablaCronograma tr:hover td { background: #ffeef2; }
+
+        .celda-check {
+            color: var(--dark-pink);
+            font-size: 1.2em;
+        }
+
+        /* ─── LAVANDA ─── */
+        .lavanda-hero { background: linear-gradient(135deg, #f3e5f5, #e8f5e9); padding: 50px 40px; }
 
         .lavanda-inner {
             max-width: 1100px;
@@ -308,15 +455,9 @@
             align-items: center;
         }
 
-        .lavanda-inner img {
-            width: 100%;
-            border-radius: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
-
+        .lavanda-inner img { width: 100%; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
         .lavanda-info h2 { font-size: 2em; color: #6a1b9a; margin-bottom: 14px; }
-        .lavanda-info p { color: #5d4037; line-height: 1.7; font-size: 1em; margin-bottom: 10px; }
-
+        .lavanda-info p { color: #5d4037; line-height: 1.7; margin-bottom: 10px; }
         .lavanda-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 
         .lavanda-tags span {
@@ -343,6 +484,7 @@
             text-align: center;
             background: #fff9fa;
             transition: box-shadow 0.3s;
+            cursor: pointer;
         }
 
         .producto-card:hover { box-shadow: 0 8px 20px rgba(244,91,126,0.15); }
@@ -358,13 +500,7 @@
             margin-top: 20px;
         }
 
-        .receta-card {
-            background: white;
-            border-radius: 16px;
-            padding: 22px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-        }
-
+        .receta-card { background: white; border-radius: 16px; padding: 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); }
         .receta-card .receta-emoji { font-size: 2.5em; margin-bottom: 8px; }
         .receta-card h3 { color: var(--dark-pink); font-size: 1.1em; margin-bottom: 8px; }
         .receta-card ul { padding-left: 18px; color: #8a7a80; font-size: 0.88em; line-height: 1.8; }
@@ -379,21 +515,11 @@
         }
 
         /* ─── REDES ─── */
-        .redes-hero {
-            background: var(--nav-bg);
-            padding: 50px 30px;
-            text-align: center;
-        }
-
+        .redes-hero { background: var(--nav-bg); padding: 50px 30px; text-align: center; }
         .redes-hero h2 { color: white; font-size: 1.8em; margin-bottom: 8px; }
         .redes-hero p { color: #d4a0b0; margin-bottom: 30px; }
 
-        .redes-grid {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
+        .redes-grid { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
 
         .red-card {
             display: flex;
@@ -410,12 +536,7 @@
             min-width: 150px;
         }
 
-        .red-card:hover {
-            background: var(--dark-pink);
-            transform: translateY(-5px);
-            border-color: var(--dark-pink);
-        }
-
+        .red-card:hover { background: var(--dark-pink); transform: translateY(-5px); }
         .red-card .red-icon { font-size: 2.8em; }
         .red-card span { font-size: 1em; font-weight: 600; }
         .red-card small { color: #d4a0b0; font-size: 0.8em; }
@@ -433,22 +554,8 @@
             gap: 15px;
         }
 
-        .footer-logos {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .footer-logos img {
-            height: 40px;
-            width: auto;
-            object-fit: contain;
-            opacity: 0.75;
-            filter: brightness(1.5);
-        }
-
+        .footer-logos { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .footer-logos img { height: 40px; width: auto; object-fit: contain; opacity: 0.75; filter: brightness(1.5); }
         footer strong { color: var(--primary-pink); }
 
         @keyframes fadeIn {
@@ -461,6 +568,8 @@
             .hero-text h2 { font-size: 1.8em; }
             .hero-foto { width: 150px; height: 150px; }
             .lavanda-inner { grid-template-columns: 1fr; }
+            #videoIntro { width: 100%; }
+            .floating-video { width: 260px; }
         }
     </style>
 </head>
@@ -474,13 +583,12 @@
             <img src="/static/logo_dgeti.png" alt="DGETI">
         </div>
         <div class="top-bar-right">
-            <!-- ✅ Botón dinámico sesión -->
             <a id="btnSesion" onclick="accionSesion()">
-                <span>👤</span>
+                <span class="icon">👤</span>
                 <span id="lblSesion">Iniciar Sesión</span>
             </a>
             <a onclick="mostrarSeccion('redes')">
-                <span>🌐</span>
+                <span class="icon">🌐</span>
                 Redes
             </a>
         </div>
@@ -496,6 +604,15 @@
         <button onclick="mostrarSeccion('redes')">📲 Redes Sociales</button>
     </nav>
 
+    <!-- ─── VIDEO FLOTANTE ─── -->
+    <div class="floating-video" id="floatingVideo">
+        <div class="floating-video-header">
+            <span>🎬 PAEC · Video Introductorio</span>
+            <button onclick="cerrarFlotante()" title="Cerrar">✕</button>
+        </div>
+        <video id="videoFlotante" controls></video>
+    </div>
+
     <!-- ─── INICIO ─── -->
     <div id="sec-inicio" class="page-section active">
         <div class="hero">
@@ -504,39 +621,40 @@
                 <p>Proyecto PAEC · Jardín Polinizador · CBTis 75 Guanajuato</p>
                 <a onclick="mostrarSeccion('galeria')">Ver Actividades</a>
             </div>
-            <!-- ✅ Wrapper para centrar la foto -->
             <div class="hero-foto-wrapper">
                 <img src="/static/foto_equipo.jpg" alt="Equipo PAEC" class="hero-foto">
             </div>
         </div>
 
+        <!-- VIDEO INTRO -->
+        <div class="video-intro-wrapper">
+            <div class="video-intro-text">
+                <h3>🎬 Conoce el Proyecto</h3>
+                <p>Descubre cómo el Proyecto PAEC está transformando la educación científica en el CBTis 75 a través del cultivo de lavanda y la producción de productos naturales.</p>
+            </div>
+            <video id="videoIntro" controls>
+                <source src="/static/intro.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <!-- EXPLORAR -->
         <div class="section">
             <div class="section-title">🚀 Explorar</div>
             <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;">
-                <div class="producto-card" style="cursor:pointer;" onclick="mostrarSeccion('galeria')">
-                    <div class="emoji">📸</div>
-                    <h3>Actividades</h3>
-                    <p>Fotos y videos de nuestras actividades</p>
+                <div class="producto-card" onclick="mostrarSeccion('galeria')">
+                    <div class="emoji">📸</div><h3>Actividades</h3><p>Fotos y videos del proyecto</p>
                 </div>
-                <div class="producto-card" style="cursor:pointer;" onclick="mostrarSeccion('lavanda')">
-                    <div class="emoji">🌿</div>
-                    <h3>Lavanda</h3>
-                    <p>Conoce nuestra planta estrella</p>
+                <div class="producto-card" onclick="mostrarSeccion('lavanda')">
+                    <div class="emoji">🌿</div><h3>Lavanda</h3><p>Nuestra planta estrella</p>
                 </div>
-                <div class="producto-card" style="cursor:pointer;" onclick="mostrarSeccion('productos')">
-                    <div class="emoji">🧴</div>
-                    <h3>Productos</h3>
-                    <p>Elaborados con lavanda natural</p>
+                <div class="producto-card" onclick="mostrarSeccion('productos')">
+                    <div class="emoji">🧴</div><h3>Productos</h3><p>Elaborados con lavanda</p>
                 </div>
-                <div class="producto-card" style="cursor:pointer;" onclick="mostrarSeccion('recetario')">
-                    <div class="emoji">📖</div>
-                    <h3>Recetario</h3>
-                    <p>Recetas con lavanda y plantas</p>
+                <div class="producto-card" onclick="mostrarSeccion('recetario')">
+                    <div class="emoji">📖</div><h3>Recetario</h3><p>Recetas con lavanda</p>
                 </div>
-                <div class="producto-card" style="cursor:pointer;" onclick="mostrarSeccion('redes')">
-                    <div class="emoji">📲</div>
-                    <h3>Redes</h3>
-                    <p>Síguenos en nuestras redes</p>
+                <div class="producto-card" onclick="mostrarSeccion('redes')">
+                    <div class="emoji">📲</div><h3>Redes</h3><p>Síguenos</p>
                 </div>
             </div>
         </div>
@@ -546,13 +664,56 @@
     <div id="sec-galeria" class="page-section">
         <div class="section">
             <div class="section-title">📸 Bitácora de Actividades</div>
+
+            <!-- Formulario admin -->
             <div class="form-container" id="adminSection">
                 <h2>✨ Agregar Nueva Actividad ✨</h2>
-                <input type="text" id="nombre" placeholder="Nombre de la actividad" required>
-                <input type="file" id="inputImagen" accept="image/*,video/*" required>
+                <input type="text" id="nombre" placeholder="Nombre de la actividad">
+                <select id="seccionSelect">
+                    <option value="seccion1">🌱 Sección 1 · Cuidados y Cosecha de Lavanda</option>
+                    <option value="seccion2">🧴 Sección 2 · Creación y Distribución del Producto</option>
+                    <option value="seccion3">📊 Sección 3 · Cronograma y Diagrama</option>
+                </select>
+                <input type="file" id="inputImagen" accept="image/*,video/*">
                 <button class="btn-agregar" id="btnGuardar">Guardar Actividad</button>
             </div>
-            <div class="cards-grid" id="contenedor"></div>
+
+            <!-- Sección 1 -->
+            <div class="subseccion">
+                <div class="subseccion-title">🌱 Sección 1 · Cuidados y Cosecha de Lavanda</div>
+                <div class="cards-grid" id="contenedor-seccion1">
+                    <p style="color:#8a7a80;padding:20px;">Cargando...</p>
+                </div>
+            </div>
+
+            <!-- Sección 2 -->
+            <div class="subseccion">
+                <div class="subseccion-title">🧴 Sección 2 · Creación y Distribución del Producto</div>
+                <div class="cards-grid" id="contenedor-seccion2">
+                    <p style="color:#8a7a80;padding:20px;">Cargando...</p>
+                </div>
+            </div>
+
+            <!-- Sección 3 · Cronograma -->
+            <div class="subseccion">
+                <div class="subseccion-title">📊 Sección 3 · Cronograma y Diagrama</div>
+                <div class="cards-grid" id="contenedor-seccion3"></div>
+                <div class="cronograma-wrapper">
+                    <table id="tablaCronograma">
+                        <thead>
+                            <tr>
+                                <th>Actividad</th>
+                                <th>Responsable</th>
+                                <th>Enero</th><th>Febrero</th><th>Marzo</th>
+                                <th>Abril</th><th>Mayo</th><th>Junio</th>
+                                <th>Julio</th><th>Agosto</th><th>Septiembre</th>
+                                <th>Octubre</th><th>Noviembre</th><th>Diciembre</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cronogramaBody"></tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -563,8 +724,8 @@
                 <img src="/static/logo.png" alt="Lavanda PAEC">
                 <div class="lavanda-info">
                     <h2>🌿 Nuestra Lavanda</h2>
-                    <p>La lavanda (<em>Lavandula angustifolia</em>) es una planta aromática cultivada en nuestro jardín polinizador. Rica en aceites esenciales, atrae a polinizadores como abejas y mariposas.</p>
-                    <p>En el proyecto PAEC utilizamos la lavanda para investigar sus propiedades medicinales, cosméticas y su impacto en la biodiversidad local del estado de Guanajuato.</p>
+                    <p>La lavanda (<em>Lavandula angustifolia</em>) es una planta aromática cultivada en nuestro jardín polinizador. Atrae polinizadores como abejas y mariposas.</p>
+                    <p>En PAEC la usamos para investigar sus propiedades medicinales, cosméticas y su impacto en la biodiversidad de Guanajuato.</p>
                     <div class="lavanda-tags">
                         <span>🐝 Polinizadora</span>
                         <span>💜 Aromática</span>
@@ -582,24 +743,20 @@
             <div class="section-title">🧴 Nuestros Productos</div>
             <div class="producto-cards">
                 <div class="producto-card">
-                    <div class="emoji">🕯️</div>
-                    <h3>Cera de Lavanda</h3>
-                    <p>Velas artesanales elaboradas con cera de abeja y aceite esencial de lavanda cultivada en nuestro jardín.</p>
+                    <div class="emoji">🕯️</div><h3>Cera de Lavanda</h3>
+                    <p>Velas artesanales con cera de abeja y aceite esencial de lavanda.</p>
                 </div>
                 <div class="producto-card">
-                    <div class="emoji">🧴</div>
-                    <h3>Aceite Esencial</h3>
-                    <p>Aceite extraído por destilación de la lavanda del proyecto. Ideal para aromaterapia y cuidado personal.</p>
+                    <div class="emoji">🧴</div><h3>Aceite Esencial</h3>
+                    <p>Extraído por destilación. Ideal para aromaterapia y cuidado personal.</p>
                 </div>
                 <div class="producto-card">
-                    <div class="emoji">🌸</div>
-                    <h3>Jabón Natural</h3>
-                    <p>Jabón artesanal con flores de lavanda deshidratadas y aceites naturales. 100% libre de químicos.</p>
+                    <div class="emoji">🌸</div><h3>Jabón Natural</h3>
+                    <p>Con flores de lavanda deshidratadas. 100% libre de químicos.</p>
                 </div>
                 <div class="producto-card">
-                    <div class="emoji">🍵</div>
-                    <h3>Té de Lavanda</h3>
-                    <p>Mezcla herbal con flores de lavanda seca. Relajante y con propiedades antioxidantes naturales.</p>
+                    <div class="emoji">🍵</div><h3>Té de Lavanda</h3>
+                    <p>Mezcla herbal relajante con propiedades antioxidantes naturales.</p>
                 </div>
             </div>
         </div>
@@ -617,10 +774,10 @@
                         <ul>
                             <li>2 tazas de harina</li>
                             <li>1 taza de azúcar</li>
-                            <li>2 cdas de flores de lavanda</li>
+                            <li>2 cdas flores de lavanda</li>
                             <li>3 huevos, mantequilla, leche</li>
                         </ul>
-                        <div class="pasos">Mezcla los ingredientes secos, incorpora los húmedos y las flores de lavanda. Hornea a 180°C por 20 min.</div>
+                        <div class="pasos">Mezcla secos, incorpora húmedos y flores. Hornea 180°C por 20 min.</div>
                     </div>
                     <div class="receta-card">
                         <div class="receta-emoji">🍋</div>
@@ -628,20 +785,20 @@
                         <ul>
                             <li>4 limones frescos</li>
                             <li>2 cdas de miel</li>
-                            <li>1 cda de flores de lavanda</li>
+                            <li>1 cda flores de lavanda</li>
                             <li>1 litro de agua fría</li>
                         </ul>
-                        <div class="pasos">Infusiona la lavanda en agua caliente 5 min, enfría y mezcla con jugo de limón y miel al gusto.</div>
+                        <div class="pasos">Infusiona lavanda 5 min, enfría, mezcla con limón y miel.</div>
                     </div>
                     <div class="receta-card">
                         <div class="receta-emoji">🍯</div>
                         <h3>Miel Infusionada</h3>
                         <ul>
                             <li>250g de miel de abeja</li>
-                            <li>3 cdas de flores de lavanda secas</li>
+                            <li>3 cdas flores de lavanda secas</li>
                             <li>1 frasco de vidrio</li>
                         </ul>
-                        <div class="pasos">Calienta la miel a baño maría, agrega las flores y deja reposar 1 semana en frasco sellado.</div>
+                        <div class="pasos">Calienta a baño maría, agrega flores, reposa 1 semana sellado.</div>
                     </div>
                 </div>
             </div>
@@ -652,22 +809,16 @@
     <div id="sec-redes" class="page-section">
         <div class="redes-hero">
             <h2>📲 Síguenos en Redes</h2>
-            <p>Mantente al tanto de todas nuestras actividades y proyectos</p>
+            <p>Mantente al tanto de todas nuestras actividades</p>
             <div class="redes-grid">
                 <a class="red-card" href="https://www.youtube.com/@PAECCERACURATIVA4PV" target="_blank">
-                    <span class="red-icon">▶️</span>
-                    <span>YouTube</span>
-                    <small>PAEC Cera Curativa</small>
+                    <span class="red-icon">▶️</span><span>YouTube</span><small>PAEC Cera Curativa</small>
                 </a>
                 <a class="red-card" href="https://www.tiktok.com/@xd306933" target="_blank">
-                    <span class="red-icon">🎵</span>
-                    <span>TikTok</span>
-                    <small>@xd306933</small>
+                    <span class="red-icon">🎵</span><span>TikTok</span><small>@xd306933</small>
                 </a>
                 <a class="red-card" href="https://www.instagram.com/eder_company4" target="_blank">
-                    <span class="red-icon">📸</span>
-                    <span>Instagram</span>
-                    <small>@eder_company4</small>
+                    <span class="red-icon">📸</span><span>Instagram</span><small>@eder_company4</small>
                 </a>
             </div>
         </div>
@@ -686,28 +837,27 @@
 
     <script>
         const userEmail = localStorage.getItem('userEmail') || "";
-        const ADMINS = ["oscar24540@cbtis75.edu.mx", "admin@correo.com"];
+        const userRol = localStorage.getItem('userRol') || "";
+        const ADMINS = ["oscar24540@cbtis75.edu.mx"];
         const esAdmin = ADMINS.includes(userEmail.toLowerCase().trim());
+        const estaLogueado = !!userEmail;
 
-        // ✅ Mostrar nombre de usuario o "Iniciar Sesión"
+        // ─── SESIÓN ───
         window.onload = () => {
             if (userEmail) {
                 const nombre = userEmail.split("@")[0];
-                document.getElementById('lblSesion').innerHTML = `Hola, ${nombre} · Cerrar Sesión`;
+                document.getElementById('lblSesion').innerHTML = `${nombre} · Salir`;
             } else {
                 document.getElementById('lblSesion').textContent = "Iniciar Sesión";
             }
-
-            if (esAdmin) {
-                document.getElementById('adminSection').style.display = 'block';
-            }
-
+            if (esAdmin) document.getElementById('adminSection').style.display = 'block';
             mostrarSeccion('inicio');
+            iniciarVideoFlotante();
+            cargarCronograma();
         };
 
-        // ✅ Si hay sesión cierra, si no redirige al login
         function accionSesion() {
-            if (userEmail) {
+            if (estaLogueado) {
                 localStorage.clear();
                 window.location.reload();
             } else {
@@ -715,47 +865,147 @@
             }
         }
 
+        // ─── NAVEGACIÓN SPA ───
         function mostrarSeccion(id) {
             document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-
             document.getElementById('sec-' + id).classList.add('active');
-
-            const map = { inicio: 0, galeria: 1, lavanda: 2, productos: 3, recetario: 4, redes: 5 };
+            const map = { inicio:0, galeria:1, lavanda:2, productos:3, recetario:4, redes:5 };
             const btns = document.querySelectorAll('nav button');
             if (map[id] !== undefined) btns[map[id]].classList.add('active');
-
             if (id === 'galeria') cargarActividades();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // ─── VIDEO FLOTANTE ───
+        function iniciarVideoFlotante() {
+            const videoOrigen = document.getElementById('videoIntro');
+            const flotante = document.getElementById('floatingVideo');
+            const videoFlotante = document.getElementById('videoFlotante');
+
+            // Sincronizar src
+            videoFlotante.src = videoOrigen.querySelector('source')?.src || videoOrigen.src;
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting && !videoOrigen.paused) {
+                        // Sale de vista y está reproduciendo → mostrar flotante
+                        flotante.style.display = 'block';
+                        videoFlotante.currentTime = videoOrigen.currentTime;
+                        videoOrigen.pause();
+                        videoFlotante.play();
+                    } else if (entry.isIntersecting && !videoFlotante.paused) {
+                        // Vuelve a vista → regresar al original
+                        videoOrigen.currentTime = videoFlotante.currentTime;
+                        videoFlotante.pause();
+                        flotante.style.display = 'none';
+                        videoOrigen.play();
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            observer.observe(videoOrigen);
+        }
+
+        function cerrarFlotante() {
+            const flotante = document.getElementById('floatingVideo');
+            const videoFlotante = document.getElementById('videoFlotante');
+            const videoOrigen = document.getElementById('videoIntro');
+            videoOrigen.currentTime = videoFlotante.currentTime;
+            videoFlotante.pause();
+            flotante.style.display = 'none';
+        }
+
+        // ─── CRONOGRAMA ───
+        function cargarCronograma() {
+            const datos = [
+                { actividad: "Preparación del terreno", responsable: "Equipo completo", meses: [1,1,0,0,0,0,0,0,0,0,0,0] },
+                { actividad: "Siembra de lavanda", responsable: "Eder / Oscar", meses: [0,1,1,0,0,0,0,0,0,0,0,0] },
+                { actividad: "Cuidados y riego", responsable: "Equipo completo", meses: [1,1,1,1,1,1,1,1,1,1,1,1] },
+                { actividad: "Cosecha de lavanda", responsable: "Eder / Oscar", meses: [0,0,0,0,1,1,0,0,0,1,1,0] },
+                { actividad: "Extracción de aceite", responsable: "Laboratorio", meses: [0,0,0,0,0,1,1,0,0,0,1,1] },
+                { actividad: "Elaboración de productos", responsable: "Equipo PAEC", meses: [0,0,0,0,0,0,1,1,1,0,0,1] },
+                { actividad: "Distribución / Venta", responsable: "Eder", meses: [0,0,0,0,0,0,0,1,1,1,1,1] },
+                { actividad: "Documentación y reportes", responsable: "Oscar", meses: [1,1,1,1,1,1,1,1,1,1,1,1] },
+                { actividad: "Presentación de resultados", responsable: "Equipo completo", meses: [0,0,0,0,0,1,0,0,0,0,0,1] },
+            ];
+
+            const tbody = document.getElementById('cronogramaBody');
+            tbody.innerHTML = "";
+            datos.forEach(row => {
+                const tr = document.createElement('tr');
+                let html = `<td style="text-align:left;font-weight:600;">${row.actividad}</td><td>${row.responsable}</td>`;
+                row.meses.forEach(m => {
+                    html += `<td class="${m ? 'celda-check' : ''}">${m ? '✔' : ''}</td>`;
+                });
+                tr.innerHTML = html;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // ─── ACTIVIDADES ───
         async function cargarActividades() {
             try {
                 const res = await fetch('/estudiantes');
                 const datos = await res.json();
-                const contenedor = document.getElementById("contenedor");
-                contenedor.innerHTML = "";
 
-                if (datos.length === 0) {
-                    contenedor.innerHTML = '<p style="color:#8a7a80;grid-column:1/-1;text-align:center;padding:30px;">No hay actividades registradas aún.</p>';
-                    return;
-                }
+                ['seccion1','seccion2','seccion3'].forEach(sec => {
+                    document.getElementById('contenedor-' + sec).innerHTML = "";
+                });
+
+                const vacios = { seccion1: true, seccion2: true, seccion3: true };
 
                 datos.forEach(act => {
+                    const sec = act.seccion || 'seccion1';
+                    const contenedor = document.getElementById('contenedor-' + sec);
+                    if (!contenedor) return;
+                    vacios[sec] = false;
+
                     const card = document.createElement("div");
                     card.classList.add("card");
 
                     const esVideo = act.tipo === "video";
                     const mediaHtml = esVideo
                         ? `<video src="${act.imagen_url}" controls></video>`
-                        : `<img src="${act.imagen_url || '/static/plt.jpg'}" alt="Actividad">`;
+                        : `<img src="${act.imagen_url || '/static/plt.jpg'}" alt="${act.nombre}">`;
+
+                    const likes = act.likes || [];
+                    const comentarios = act.comentarios || [];
+                    const yaLikeo = likes.includes(userEmail);
 
                     let html = `
                         ${mediaHtml}
                         <div class="card-body">
                             <h3>${act.nombre}</h3>
-                            <p>Actividad registrada en el sistema.</p>
+                            <div class="card-actions">
+                                <button class="btn-like ${yaLikeo ? 'liked' : ''}" onclick="toggleLike('${act._id}', this)">
+                                    ❤️ <span class="like-count">${likes.length}</span>
+                                </button>
+                                <button class="btn-comentar" onclick="toggleComentarios('${act._id}')">
+                                    💬 ${comentarios.length}
+                                </button>
+                            </div>
+                            <div class="comentarios-section" id="com-${act._id}">
                     `;
+
+                    comentarios.forEach(c => {
+                        html += `<div class="comentario-item"><strong>${c.usuario}:</strong> ${c.texto}</div>`;
+                    });
+
+                    if (estaLogueado) {
+                        html += `
+                            <div class="comentario-input">
+                                <input type="text" id="inp-${act._id}" placeholder="Escribe un comentario...">
+                                <button onclick="enviarComentario('${act._id}')">Enviar</button>
+                            </div>
+                        `;
+                    } else {
+                        html += `<p style="font-size:0.82em;color:#8a7a80;margin-top:8px;">
+                            <a href="/login" style="color:var(--dark-pink);font-weight:600;">Inicia sesión</a> para comentar.
+                        </p>`;
+                    }
+
+                    html += `</div>`;
 
                     if (esAdmin) {
                         html += `<button class="btn-eliminar" onclick="eliminarActividad('${act._id}')">Eliminar</button>`;
@@ -765,13 +1015,64 @@
                     card.innerHTML = html;
                     contenedor.appendChild(card);
                 });
+
+                Object.entries(vacios).forEach(([sec, vacio]) => {
+                    if (vacio) {
+                        document.getElementById('contenedor-' + sec).innerHTML =
+                            '<p style="color:#8a7a80;padding:15px;">No hay actividades en esta sección aún.</p>';
+                    }
+                });
+
             } catch (error) {
                 console.error("Error cargando actividades:", error);
             }
         }
 
+        async function toggleLike(id, btn) {
+            if (!estaLogueado) {
+                if (confirm("¿Deseas iniciar sesión para dar like?")) window.location.href = "/login";
+                return;
+            }
+            const formData = new FormData();
+            formData.append('usuario', userEmail);
+            const res = await fetch(`/like/${id}`, { method: 'POST', body: formData });
+            if (res.ok) {
+                const data = await res.json();
+                btn.querySelector('.like-count').textContent = data.likes;
+                btn.classList.toggle('liked', data.liked);
+            }
+        }
+
+        function toggleComentarios(id) {
+            const sec = document.getElementById('com-' + id);
+            sec.classList.toggle('open');
+        }
+
+        async function enviarComentario(id) {
+            const input = document.getElementById('inp-' + id);
+            const texto = input.value.trim();
+            if (!texto) return;
+
+            const formData = new FormData();
+            formData.append('usuario', userEmail);
+            formData.append('texto', texto);
+
+            const res = await fetch(`/comentar/${id}`, { method: 'POST', body: formData });
+            if (res.ok) {
+                const data = await res.json();
+                const c = data.comentario;
+                const sec = document.getElementById('com-' + id);
+                const div = document.createElement('div');
+                div.className = 'comentario-item';
+                div.innerHTML = `<strong>${c.usuario}:</strong> ${c.texto}`;
+                sec.insertBefore(div, sec.querySelector('.comentario-input'));
+                input.value = "";
+            }
+        }
+
         document.getElementById("btnGuardar").addEventListener("click", async function() {
             const nombre = document.getElementById("nombre").value;
+            const seccion = document.getElementById("seccionSelect").value;
             const archivoFile = document.getElementById("inputImagen").files[0];
 
             if (!nombre || !archivoFile) {
@@ -782,10 +1083,10 @@
             const formData = new FormData();
             formData.append('nombre', nombre);
             formData.append('correo_solicitante', userEmail);
+            formData.append('seccion', seccion);
             formData.append('imagen', archivoFile);
 
             const res = await fetch('/agregar', { method: 'POST', body: formData });
-
             if (res.ok) {
                 document.getElementById("nombre").value = "";
                 document.getElementById("inputImagen").value = "";
