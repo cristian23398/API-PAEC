@@ -112,6 +112,7 @@
             justify-content: space-between;
             gap: 30px;
             flex-wrap: wrap;
+            min-height: 280px;
         }
 
         .hero-text h2 {
@@ -141,16 +142,23 @@
 
         .hero-text a:hover { transform: scale(1.05); }
 
-        /* ✅ Foto circular grande */
+        /* ✅ Foto perfectamente centrada y circular */
+        .hero-foto-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
         .hero-foto {
             width: 220px;
             height: 220px;
             border-radius: 50%;
             object-fit: cover;
-            object-position: center top;
+            object-position: center center;
             border: 5px solid white;
             box-shadow: 0 10px 35px rgba(0,0,0,0.25);
-            flex-shrink: 0;
+            display: block;
         }
 
         /* ─── SECCIÓN GENÉRICA ─── */
@@ -306,25 +314,10 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         }
 
-        .lavanda-info h2 {
-            font-size: 2em;
-            color: #6a1b9a;
-            margin-bottom: 14px;
-        }
+        .lavanda-info h2 { font-size: 2em; color: #6a1b9a; margin-bottom: 14px; }
+        .lavanda-info p { color: #5d4037; line-height: 1.7; font-size: 1em; margin-bottom: 10px; }
 
-        .lavanda-info p {
-            color: #5d4037;
-            line-height: 1.7;
-            font-size: 1em;
-            margin-bottom: 10px;
-        }
-
-        .lavanda-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 16px;
-        }
+        .lavanda-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 
         .lavanda-tags span {
             background: #ce93d8;
@@ -354,13 +347,7 @@
 
         .producto-card:hover { box-shadow: 0 8px 20px rgba(244,91,126,0.15); }
         .producto-card .emoji { font-size: 3.2em; margin-bottom: 12px; }
-
-        .producto-card h3 {
-            color: var(--nav-bg);
-            font-size: 1.1em;
-            margin-bottom: 8px;
-        }
-
+        .producto-card h3 { color: var(--nav-bg); font-size: 1.1em; margin-bottom: 8px; }
         .producto-card p { color: #8a7a80; font-size: 0.88em; line-height: 1.5; }
 
         /* ─── RECETARIO ─── */
@@ -379,19 +366,8 @@
         }
 
         .receta-card .receta-emoji { font-size: 2.5em; margin-bottom: 8px; }
-
-        .receta-card h3 {
-            color: var(--dark-pink);
-            font-size: 1.1em;
-            margin-bottom: 8px;
-        }
-
-        .receta-card ul {
-            padding-left: 18px;
-            color: #8a7a80;
-            font-size: 0.88em;
-            line-height: 1.8;
-        }
+        .receta-card h3 { color: var(--dark-pink); font-size: 1.1em; margin-bottom: 8px; }
+        .receta-card ul { padding-left: 18px; color: #8a7a80; font-size: 0.88em; line-height: 1.8; }
 
         .receta-card .pasos {
             margin-top: 10px;
@@ -498,9 +474,10 @@
             <img src="/static/logo_dgeti.png" alt="DGETI">
         </div>
         <div class="top-bar-right">
-            <a onclick="irLogin()">
+            <!-- ✅ Botón dinámico sesión -->
+            <a id="btnSesion" onclick="accionSesion()">
                 <span>👤</span>
-                Iniciar Sesión
+                <span id="lblSesion">Iniciar Sesión</span>
             </a>
             <a onclick="mostrarSeccion('redes')">
                 <span>🌐</span>
@@ -527,10 +504,12 @@
                 <p>Proyecto PAEC · Jardín Polinizador · CBTis 75 Guanajuato</p>
                 <a onclick="mostrarSeccion('galeria')">Ver Actividades</a>
             </div>
-            <img src="/static/foto_equipo.jpg" alt="Equipo PAEC" class="hero-foto">
+            <!-- ✅ Wrapper para centrar la foto -->
+            <div class="hero-foto-wrapper">
+                <img src="/static/foto_equipo.jpg" alt="Equipo PAEC" class="hero-foto">
+            </div>
         </div>
 
-        <!-- Tarjetas de acceso rápido -->
         <div class="section">
             <div class="section-title">🚀 Explorar</div>
             <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;">
@@ -628,7 +607,7 @@
 
     <!-- ─── RECETARIO ─── -->
     <div id="sec-recetario" class="page-section">
-        <div class="section" style="background:var(--bg-gradient);max-width:100%;padding:40px 60px;">
+        <div style="background:var(--bg-gradient);padding:40px 60px;">
             <div style="max-width:1200px;margin:0 auto;">
                 <div class="section-title">📖 Recetario PAEC</div>
                 <div class="receta-cards">
@@ -652,7 +631,7 @@
                             <li>1 cda de flores de lavanda</li>
                             <li>1 litro de agua fría</li>
                         </ul>
-                        <div class="pasos">Infusiona la lavanda en agua caliente 5 min, enfría, mezcla con jugo de limón y miel al gusto.</div>
+                        <div class="pasos">Infusiona la lavanda en agua caliente 5 min, enfría y mezcla con jugo de limón y miel al gusto.</div>
                     </div>
                     <div class="receta-card">
                         <div class="receta-emoji">🍯</div>
@@ -662,7 +641,7 @@
                             <li>3 cdas de flores de lavanda secas</li>
                             <li>1 frasco de vidrio</li>
                         </ul>
-                        <div class="pasos">Calienta la miel a baño maría, agrega las flores, deja reposar 1 semana en frasco sellado.</div>
+                        <div class="pasos">Calienta la miel a baño maría, agrega las flores y deja reposar 1 semana en frasco sellado.</div>
                     </div>
                 </div>
             </div>
@@ -710,32 +689,45 @@
         const ADMINS = ["oscar24540@cbtis75.edu.mx", "admin@correo.com"];
         const esAdmin = ADMINS.includes(userEmail.toLowerCase().trim());
 
-        function mostrarSeccion(id) {
-            // Ocultar todas
-            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-
-            // Mostrar la seleccionada
-            document.getElementById('sec-' + id).classList.add('active');
-
-            // Marcar botón activo
-            const btns = document.querySelectorAll('nav button');
-            const map = { inicio: 0, galeria: 1, lavanda: 2, productos: 3, recetario: 4, redes: 5 };
-            if (map[id] !== undefined) btns[map[id]].classList.add('active');
-
-            // Si es galería, cargar actividades
-            if (id === 'galeria') cargarActividades();
-
-            // Scroll al top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
+        // ✅ Mostrar nombre de usuario o "Iniciar Sesión"
         window.onload = () => {
+            if (userEmail) {
+                const nombre = userEmail.split("@")[0];
+                document.getElementById('lblSesion').innerHTML = `Hola, ${nombre} · Cerrar Sesión`;
+            } else {
+                document.getElementById('lblSesion').textContent = "Iniciar Sesión";
+            }
+
             if (esAdmin) {
                 document.getElementById('adminSection').style.display = 'block';
             }
+
             mostrarSeccion('inicio');
         };
+
+        // ✅ Si hay sesión cierra, si no redirige al login
+        function accionSesion() {
+            if (userEmail) {
+                localStorage.clear();
+                window.location.reload();
+            } else {
+                window.location.href = "/login";
+            }
+        }
+
+        function mostrarSeccion(id) {
+            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+
+            document.getElementById('sec-' + id).classList.add('active');
+
+            const map = { inicio: 0, galeria: 1, lavanda: 2, productos: 3, recetario: 4, redes: 5 };
+            const btns = document.querySelectorAll('nav button');
+            if (map[id] !== undefined) btns[map[id]].classList.add('active');
+
+            if (id === 'galeria') cargarActividades();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
         async function cargarActividades() {
             try {
@@ -808,10 +800,6 @@
             const res = await fetch(`/eliminar/${id}?correo_solicitante=${encodeURIComponent(userEmail)}`, { method: 'DELETE' });
             if (res.ok) cargarActividades();
             else alert("No tienes permisos para eliminar.");
-        }
-
-        function irLogin() {
-            window.location.href = "/login";
         }
     </script>
 </body>
