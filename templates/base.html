@@ -26,12 +26,11 @@
         .top-bar {
             background: var(--nav-bg);
             color: white;
-            padding: 8px 20px;
+            padding: 10px 25px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 10px;
-            flex-wrap: wrap;
         }
 
         .top-bar-left {
@@ -44,31 +43,6 @@
             height: 48px;
             width: auto;
             object-fit: contain;
-        }
-
-        .top-bar-center {
-            flex: 1;
-            max-width: 500px;
-            display: flex;
-        }
-
-        .top-bar-center input {
-            flex: 1;
-            padding: 10px 14px;
-            border: none;
-            border-radius: 8px 0 0 8px;
-            font-size: 0.95em;
-            outline: none;
-        }
-
-        .top-bar-center button {
-            padding: 10px 16px;
-            background: var(--primary-pink);
-            border: none;
-            border-radius: 0 8px 8px 0;
-            color: white;
-            cursor: pointer;
-            font-size: 1em;
         }
 
         .top-bar-right {
@@ -86,6 +60,7 @@
             align-items: center;
             gap: 2px;
             transition: color 0.2s;
+            cursor: pointer;
         }
 
         .top-bar-right a:hover { color: var(--primary-pink); }
@@ -98,64 +73,84 @@
             gap: 0;
             overflow-x: auto;
             padding: 0 10px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        nav a {
+        nav button {
             color: white;
-            text-decoration: none;
-            padding: 10px 16px;
+            background: none;
+            border: none;
+            padding: 12px 18px;
             font-size: 0.9em;
             white-space: nowrap;
-            transition: background 0.2s;
+            cursor: pointer;
             border-radius: 4px;
+            transition: background 0.2s;
+            font-family: inherit;
         }
 
-        nav a:hover { background: var(--dark-pink); }
+        nav button:hover,
+        nav button.active { background: var(--dark-pink); }
 
-        /* ─── HERO BANNER ─── */
+        /* ─── SECCIONES ─── */
+        .page-section {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .page-section.active { display: block; }
+
+        /* ─── HERO ─── */
         .hero {
             background: linear-gradient(135deg, #f45b7e 0%, #c2185b 100%);
             color: white;
-            padding: 50px 40px;
+            padding: 55px 60px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 20px;
+            gap: 30px;
             flex-wrap: wrap;
         }
 
         .hero-text h2 {
-            font-size: 2.5em;
+            font-size: 2.8em;
             font-weight: 800;
             line-height: 1.2;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .hero-text p {
             font-size: 1.1em;
             opacity: 0.9;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
 
         .hero-text a {
             background: white;
             color: var(--dark-pink);
-            padding: 12px 28px;
+            padding: 13px 30px;
             border-radius: 25px;
             text-decoration: none;
             font-weight: 700;
             transition: transform 0.2s;
             display: inline-block;
+            cursor: pointer;
         }
 
         .hero-text a:hover { transform: scale(1.05); }
 
-        .hero img {
-            height: 180px;
-            object-fit: contain;
+        /* ✅ Foto circular grande */
+        .hero-foto {
+            width: 220px;
+            height: 220px;
             border-radius: 50%;
-            border: 4px solid white;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            object-fit: cover;
+            object-position: center top;
+            border: 5px solid white;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.25);
+            flex-shrink: 0;
         }
 
         /* ─── SECCIÓN GENÉRICA ─── */
@@ -177,7 +172,7 @@
             gap: 10px;
         }
 
-        /* ─── CARDS GRID ─── */
+        /* ─── CARDS GALERÍA ─── */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -209,7 +204,6 @@
             font-size: 1em;
             font-weight: 700;
             margin-bottom: 6px;
-            color: var(--text-dark);
         }
 
         .card-body p {
@@ -232,10 +226,7 @@
             transition: all 0.2s;
         }
 
-        .card-body .btn-eliminar:hover {
-            background: #d93856;
-            color: white;
-        }
+        .card-body .btn-eliminar:hover { background: #d93856; color: white; }
 
         /* ─── FORMULARIO ADMIN ─── */
         .form-container {
@@ -247,7 +238,6 @@
             box-shadow: 0 6px 20px rgba(244,91,126,0.1);
             border: 1px solid rgba(255,133,162,0.2);
             display: none;
-            animation: fadeIn 0.4s ease;
         }
 
         .form-container h2 {
@@ -290,24 +280,23 @@
             cursor: pointer;
             font-size: 0.95em;
             font-weight: 600;
-            box-shadow: 0 4px 12px rgba(244,91,126,0.3);
             transition: all 0.3s;
         }
 
         .btn-agregar:hover { transform: translateY(-2px); }
 
         /* ─── LAVANDA ─── */
-        .lavanda-section {
+        .lavanda-hero {
             background: linear-gradient(135deg, #f3e5f5, #e8f5e9);
-            padding: 40px 30px;
+            padding: 50px 40px;
         }
 
         .lavanda-inner {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 30px;
+            gap: 40px;
             align-items: center;
         }
 
@@ -320,7 +309,7 @@
         .lavanda-info h2 {
             font-size: 2em;
             color: #6a1b9a;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
         .lavanda-info p {
@@ -334,29 +323,19 @@
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-top: 14px;
+            margin-top: 16px;
         }
 
         .lavanda-tags span {
             background: #ce93d8;
             color: white;
-            padding: 5px 14px;
+            padding: 6px 16px;
             border-radius: 20px;
             font-size: 0.85em;
             font-weight: 600;
         }
 
-        /* ─── PRODUCTO ─── */
-        .producto-section {
-            padding: 40px 30px;
-            background: white;
-        }
-
-        .producto-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
+        /* ─── PRODUCTOS ─── */
         .producto-cards {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -367,15 +346,14 @@
         .producto-card {
             border: 1px solid #f0dde3;
             border-radius: 16px;
-            padding: 20px;
+            padding: 24px;
             text-align: center;
             background: #fff9fa;
             transition: box-shadow 0.3s;
         }
 
         .producto-card:hover { box-shadow: 0 8px 20px rgba(244,91,126,0.15); }
-
-        .producto-card .emoji { font-size: 3em; margin-bottom: 10px; }
+        .producto-card .emoji { font-size: 3.2em; margin-bottom: 12px; }
 
         .producto-card h3 {
             color: var(--nav-bg);
@@ -383,23 +361,9 @@
             margin-bottom: 8px;
         }
 
-        .producto-card p {
-            color: #8a7a80;
-            font-size: 0.88em;
-            line-height: 1.5;
-        }
+        .producto-card p { color: #8a7a80; font-size: 0.88em; line-height: 1.5; }
 
         /* ─── RECETARIO ─── */
-        .recetario-section {
-            background: var(--bg-gradient);
-            padding: 40px 30px;
-        }
-
-        .recetario-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
         .receta-cards {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -438,24 +402,15 @@
             padding-top: 10px;
         }
 
-        /* ─── REDES SOCIALES ─── */
-        .redes-section {
+        /* ─── REDES ─── */
+        .redes-hero {
             background: var(--nav-bg);
-            padding: 40px 30px;
+            padding: 50px 30px;
             text-align: center;
         }
 
-        .redes-section h2 {
-            color: white;
-            font-size: 1.6em;
-            margin-bottom: 8px;
-        }
-
-        .redes-section p {
-            color: #d4a0b0;
-            margin-bottom: 25px;
-            font-size: 0.95em;
-        }
+        .redes-hero h2 { color: white; font-size: 1.8em; margin-bottom: 8px; }
+        .redes-hero p { color: #d4a0b0; margin-bottom: 30px; }
 
         .redes-grid {
             display: flex;
@@ -473,20 +428,21 @@
             background: rgba(255,255,255,0.07);
             border: 1px solid rgba(255,255,255,0.15);
             border-radius: 16px;
-            padding: 20px 30px;
+            padding: 25px 35px;
             color: white;
             transition: all 0.3s;
-            min-width: 130px;
+            min-width: 150px;
         }
 
         .red-card:hover {
             background: var(--dark-pink);
-            transform: translateY(-4px);
+            transform: translateY(-5px);
             border-color: var(--dark-pink);
         }
 
-        .red-card .red-icon { font-size: 2.5em; }
-        .red-card span { font-size: 0.9em; font-weight: 600; }
+        .red-card .red-icon { font-size: 2.8em; }
+        .red-card span { font-size: 1em; font-weight: 600; }
+        .red-card small { color: #d4a0b0; font-size: 0.8em; }
 
         /* ─── FOOTER ─── */
         footer {
@@ -520,15 +476,15 @@
         footer strong { color: var(--primary-pink); }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 768px) {
             .hero { padding: 30px 20px; }
             .hero-text h2 { font-size: 1.8em; }
+            .hero-foto { width: 150px; height: 150px; }
             .lavanda-inner { grid-template-columns: 1fr; }
-            .top-bar-center { display: none; }
         }
     </style>
 </head>
@@ -541,16 +497,12 @@
             <img src="/static/logo_cbtis.png" alt="CBTIS">
             <img src="/static/logo_dgeti.png" alt="DGETI">
         </div>
-        <div class="top-bar-center">
-            <input type="text" placeholder="Buscar actividades, recetas, productos...">
-            <button>🔍</button>
-        </div>
         <div class="top-bar-right">
-            <a href="/login">
+            <a onclick="irLogin()">
                 <span>👤</span>
                 Iniciar Sesión
             </a>
-            <a href="#redes">
+            <a onclick="mostrarSeccion('redes')">
                 <span>🌐</span>
                 Redes
             </a>
@@ -559,60 +511,95 @@
 
     <!-- ─── NAV ─── -->
     <nav>
-        <a href="#galeria">📸 Actividades</a>
-        <a href="#lavanda">🌿 Lavanda</a>
-        <a href="#productos">🧴 Productos</a>
-        <a href="#recetario">📖 Recetario</a>
-        <a href="#redes">📲 Redes Sociales</a>
+        <button class="active" onclick="mostrarSeccion('inicio')">🏠 Inicio</button>
+        <button onclick="mostrarSeccion('galeria')">📸 Actividades</button>
+        <button onclick="mostrarSeccion('lavanda')">🌿 Lavanda</button>
+        <button onclick="mostrarSeccion('productos')">🧴 Productos</button>
+        <button onclick="mostrarSeccion('recetario')">📖 Recetario</button>
+        <button onclick="mostrarSeccion('redes')">📲 Redes Sociales</button>
     </nav>
 
-    <!-- ─── HERO ─── -->
-    <div class="hero">
-        <div class="hero-text">
-            <h2>Sembrando ciencia,<br>cosechando innovación 🌸</h2>
-            <p>Proyecto PAEC · Jardín Polinizador · CBTis 75 Guanajuato</p>
-            <a href="#galeria">Ver Actividades</a>
+    <!-- ─── INICIO ─── -->
+    <div id="sec-inicio" class="page-section active">
+        <div class="hero">
+            <div class="hero-text">
+                <h2>Sembrando ciencia,<br>cosechando innovación 🌸</h2>
+                <p>Proyecto PAEC · Jardín Polinizador · CBTis 75 Guanajuato</p>
+                <a onclick="mostrarSeccion('galeria')">Ver Actividades</a>
+            </div>
+            <img src="/static/foto_equipo.jpg" alt="Equipo PAEC" class="hero-foto">
         </div>
-        <img src="/static/foto_equipo.jpg" alt="Equipo PAEC">
-    </div>
 
-    <!-- ─── FORMULARIO ADMIN ─── -->
-    <div class="section">
-        <div class="form-container" id="adminSection">
-            <h2>✨ Agregar Nueva Actividad ✨</h2>
-            <input type="text" id="nombre" placeholder="Nombre de la actividad" required>
-            <input type="file" id="inputImagen" accept="image/*,video/*" required>
-            <button class="btn-agregar" id="btnGuardar">Guardar Actividad</button>
+        <!-- Tarjetas de acceso rápido -->
+        <div class="section">
+            <div class="section-title">🚀 Explorar</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;">
+                <div class="producto-card" style="cursor:pointer;" onclick="mostrarSeccion('galeria')">
+                    <div class="emoji">📸</div>
+                    <h3>Actividades</h3>
+                    <p>Fotos y videos de nuestras actividades</p>
+                </div>
+                <div class="producto-card" style="cursor:pointer;" onclick="mostrarSeccion('lavanda')">
+                    <div class="emoji">🌿</div>
+                    <h3>Lavanda</h3>
+                    <p>Conoce nuestra planta estrella</p>
+                </div>
+                <div class="producto-card" style="cursor:pointer;" onclick="mostrarSeccion('productos')">
+                    <div class="emoji">🧴</div>
+                    <h3>Productos</h3>
+                    <p>Elaborados con lavanda natural</p>
+                </div>
+                <div class="producto-card" style="cursor:pointer;" onclick="mostrarSeccion('recetario')">
+                    <div class="emoji">📖</div>
+                    <h3>Recetario</h3>
+                    <p>Recetas con lavanda y plantas</p>
+                </div>
+                <div class="producto-card" style="cursor:pointer;" onclick="mostrarSeccion('redes')">
+                    <div class="emoji">📲</div>
+                    <h3>Redes</h3>
+                    <p>Síguenos en nuestras redes</p>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- ─── GALERÍA ─── -->
-    <div class="section" id="galeria">
-        <div class="section-title">📸 Bitácora de Actividades</div>
-        <div class="cards-grid" id="contenedor"></div>
+    <div id="sec-galeria" class="page-section">
+        <div class="section">
+            <div class="section-title">📸 Bitácora de Actividades</div>
+            <div class="form-container" id="adminSection">
+                <h2>✨ Agregar Nueva Actividad ✨</h2>
+                <input type="text" id="nombre" placeholder="Nombre de la actividad" required>
+                <input type="file" id="inputImagen" accept="image/*,video/*" required>
+                <button class="btn-agregar" id="btnGuardar">Guardar Actividad</button>
+            </div>
+            <div class="cards-grid" id="contenedor"></div>
+        </div>
     </div>
 
     <!-- ─── LAVANDA ─── -->
-    <div class="lavanda-section" id="lavanda">
-        <div class="lavanda-inner">
-            <img src="/static/logo.png" alt="Lavanda PAEC">
-            <div class="lavanda-info">
-                <h2>🌿 Nuestra Lavanda</h2>
-                <p>La lavanda (<em>Lavandula angustifolia</em>) es una planta aromática cultivada en nuestro jardín polinizador. Rica en aceites esenciales, atrae a polinizadores como abejas y mariposas, siendo clave en nuestro ecosistema escolar.</p>
-                <p>En el proyecto PAEC utilizamos la lavanda para investigar sus propiedades medicinales, cosméticas y su impacto en la biodiversidad local del estado de Guanajuato.</p>
-                <div class="lavanda-tags">
-                    <span>🐝 Polinizadora</span>
-                    <span>💜 Aromática</span>
-                    <span>🔬 Experimental</span>
-                    <span>🌱 Sostenible</span>
+    <div id="sec-lavanda" class="page-section">
+        <div class="lavanda-hero">
+            <div class="lavanda-inner">
+                <img src="/static/logo.png" alt="Lavanda PAEC">
+                <div class="lavanda-info">
+                    <h2>🌿 Nuestra Lavanda</h2>
+                    <p>La lavanda (<em>Lavandula angustifolia</em>) es una planta aromática cultivada en nuestro jardín polinizador. Rica en aceites esenciales, atrae a polinizadores como abejas y mariposas.</p>
+                    <p>En el proyecto PAEC utilizamos la lavanda para investigar sus propiedades medicinales, cosméticas y su impacto en la biodiversidad local del estado de Guanajuato.</p>
+                    <div class="lavanda-tags">
+                        <span>🐝 Polinizadora</span>
+                        <span>💜 Aromática</span>
+                        <span>🔬 Experimental</span>
+                        <span>🌱 Sostenible</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- ─── PRODUCTOS ─── -->
-    <div class="producto-section" id="productos">
-        <div class="producto-inner">
+    <div id="sec-productos" class="page-section">
+        <div class="section">
             <div class="section-title">🧴 Nuestros Productos</div>
             <div class="producto-cards">
                 <div class="producto-card">
@@ -640,66 +627,70 @@
     </div>
 
     <!-- ─── RECETARIO ─── -->
-    <div class="recetario-section" id="recetario">
-        <div class="recetario-inner">
-            <div class="section-title">📖 Recetario PAEC</div>
-            <div class="receta-cards">
-                <div class="receta-card">
-                    <div class="receta-emoji">🧁</div>
-                    <h3>Cupcakes de Lavanda</h3>
-                    <ul>
-                        <li>2 tazas de harina</li>
-                        <li>1 taza de azúcar</li>
-                        <li>2 cdas de flores de lavanda</li>
-                        <li>3 huevos, mantequilla, leche</li>
-                    </ul>
-                    <div class="pasos">Mezcla los ingredientes secos, incorpora los húmedos y las flores de lavanda. Hornea a 180°C por 20 min.</div>
-                </div>
-                <div class="receta-card">
-                    <div class="receta-emoji">🍋</div>
-                    <h3>Limonada de Lavanda</h3>
-                    <ul>
-                        <li>4 limones frescos</li>
-                        <li>2 cdas de miel</li>
-                        <li>1 cda de flores de lavanda</li>
-                        <li>1 litro de agua fría</li>
-                    </ul>
-                    <div class="pasos">Infusiona la lavanda en agua caliente 5 min, enfría, mezcla con jugo de limón y miel al gusto.</div>
-                </div>
-                <div class="receta-card">
-                    <div class="receta-emoji">🍯</div>
-                    <h3>Miel Infusionada</h3>
-                    <ul>
-                        <li>250g de miel de abeja</li>
-                        <li>3 cdas de flores de lavanda secas</li>
-                        <li>1 frasco de vidrio</li>
-                    </ul>
-                    <div class="pasos">Calienta la miel a baño maría, agrega las flores, deja reposar 1 semana en frasco sellado.</div>
+    <div id="sec-recetario" class="page-section">
+        <div class="section" style="background:var(--bg-gradient);max-width:100%;padding:40px 60px;">
+            <div style="max-width:1200px;margin:0 auto;">
+                <div class="section-title">📖 Recetario PAEC</div>
+                <div class="receta-cards">
+                    <div class="receta-card">
+                        <div class="receta-emoji">🧁</div>
+                        <h3>Cupcakes de Lavanda</h3>
+                        <ul>
+                            <li>2 tazas de harina</li>
+                            <li>1 taza de azúcar</li>
+                            <li>2 cdas de flores de lavanda</li>
+                            <li>3 huevos, mantequilla, leche</li>
+                        </ul>
+                        <div class="pasos">Mezcla los ingredientes secos, incorpora los húmedos y las flores de lavanda. Hornea a 180°C por 20 min.</div>
+                    </div>
+                    <div class="receta-card">
+                        <div class="receta-emoji">🍋</div>
+                        <h3>Limonada de Lavanda</h3>
+                        <ul>
+                            <li>4 limones frescos</li>
+                            <li>2 cdas de miel</li>
+                            <li>1 cda de flores de lavanda</li>
+                            <li>1 litro de agua fría</li>
+                        </ul>
+                        <div class="pasos">Infusiona la lavanda en agua caliente 5 min, enfría, mezcla con jugo de limón y miel al gusto.</div>
+                    </div>
+                    <div class="receta-card">
+                        <div class="receta-emoji">🍯</div>
+                        <h3>Miel Infusionada</h3>
+                        <ul>
+                            <li>250g de miel de abeja</li>
+                            <li>3 cdas de flores de lavanda secas</li>
+                            <li>1 frasco de vidrio</li>
+                        </ul>
+                        <div class="pasos">Calienta la miel a baño maría, agrega las flores, deja reposar 1 semana en frasco sellado.</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ─── REDES SOCIALES ─── -->
-    <div class="redes-section" id="redes">
-        <h2>📲 Síguenos en Redes</h2>
-        <p>Mantente al tanto de todas nuestras actividades y proyectos</p>
-        <div class="redes-grid">
-            <a class="red-card" href="https://www.youtube.com/@PAECCERACURATIVA4PV" target="_blank">
-                <span class="red-icon">▶️</span>
-                <span>YouTube</span>
-                <small style="color:#d4a0b0;font-size:0.8em;">PAEC Cera Curativa</small>
-            </a>
-            <a class="red-card" href="https://www.tiktok.com/@xd306933" target="_blank">
-                <span class="red-icon">🎵</span>
-                <span>TikTok</span>
-                <small style="color:#d4a0b0;font-size:0.8em;">@xd306933</small>
-            </a>
-            <a class="red-card" href="https://www.instagram.com/eder_company4" target="_blank">
-                <span class="red-icon">📸</span>
-                <span>Instagram</span>
-                <small style="color:#d4a0b0;font-size:0.8em;">@eder_company4</small>
-            </a>
+    <!-- ─── REDES ─── -->
+    <div id="sec-redes" class="page-section">
+        <div class="redes-hero">
+            <h2>📲 Síguenos en Redes</h2>
+            <p>Mantente al tanto de todas nuestras actividades y proyectos</p>
+            <div class="redes-grid">
+                <a class="red-card" href="https://www.youtube.com/@PAECCERACURATIVA4PV" target="_blank">
+                    <span class="red-icon">▶️</span>
+                    <span>YouTube</span>
+                    <small>PAEC Cera Curativa</small>
+                </a>
+                <a class="red-card" href="https://www.tiktok.com/@xd306933" target="_blank">
+                    <span class="red-icon">🎵</span>
+                    <span>TikTok</span>
+                    <small>@xd306933</small>
+                </a>
+                <a class="red-card" href="https://www.instagram.com/eder_company4" target="_blank">
+                    <span class="red-icon">📸</span>
+                    <span>Instagram</span>
+                    <small>@eder_company4</small>
+                </a>
+            </div>
         </div>
     </div>
 
@@ -719,11 +710,31 @@
         const ADMINS = ["oscar24540@cbtis75.edu.mx", "admin@correo.com"];
         const esAdmin = ADMINS.includes(userEmail.toLowerCase().trim());
 
+        function mostrarSeccion(id) {
+            // Ocultar todas
+            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+
+            // Mostrar la seleccionada
+            document.getElementById('sec-' + id).classList.add('active');
+
+            // Marcar botón activo
+            const btns = document.querySelectorAll('nav button');
+            const map = { inicio: 0, galeria: 1, lavanda: 2, productos: 3, recetario: 4, redes: 5 };
+            if (map[id] !== undefined) btns[map[id]].classList.add('active');
+
+            // Si es galería, cargar actividades
+            if (id === 'galeria') cargarActividades();
+
+            // Scroll al top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         window.onload = () => {
             if (esAdmin) {
                 document.getElementById('adminSection').style.display = 'block';
             }
-            cargarActividades();
+            mostrarSeccion('inicio');
         };
 
         async function cargarActividades() {
