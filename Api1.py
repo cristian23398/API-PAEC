@@ -22,13 +22,13 @@ cloudinary.config(
 ADMIN_EMAILS = ["oscar24540@cbtis75.edu.mx"]
 
 @app.get("/", response_class=HTMLResponse)
-async def login():
-    with open("templates/login.html", "r", encoding="utf-8") as f:
+async def inicio():
+    with open("templates/base.html", "r", encoding="utf-8") as f:
         return f.read()
 
-@app.get("/base", response_class=HTMLResponse)
-async def actividades():
-    with open("templates/base.html", "r", encoding="utf-8") as f:
+@app.get("/login", response_class=HTMLResponse)
+async def login():
+    with open("templates/login.html", "r", encoding="utf-8") as f:
         return f.read()
 
 @app.post("/registro")
@@ -38,7 +38,7 @@ async def registro(usuario: str = Form(...), password: str = Form(...)):
     if not user_db:
         rol = "admin" if usuario in ADMIN_EMAILS else "lector"
         await usuarios.insert_one({"usuario": usuario, "password": password, "rol": rol})
-    return RedirectResponse(url="/base", status_code=303)
+    return RedirectResponse(url="/", status_code=303)
 
 @app.get("/estudiantes")
 async def obtener_estudiantes():

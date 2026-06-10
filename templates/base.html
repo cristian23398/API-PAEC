@@ -98,7 +98,6 @@
             box-shadow: 0 4px 10px rgba(255, 133, 162, 0.3);
         }
 
-        /* Banner equipo debajo del header */
         .equipo-banner {
             background: white;
             border-bottom: 1px solid rgba(255, 133, 162, 0.15);
@@ -331,18 +330,16 @@
 <body>
 
     <header>
-        <!-- Logos institucionales a la izquierda -->
         <div class="header-logos-left">
             <img src="/static/logo_cbtis.png" alt="CBTIS 75">
             <img src="/static/logo_dgeti.png" alt="DGETI">
         </div>
-        <!-- Logo PAEC centrado -->
         <img src="/static/logo.png" alt="Logo PAEC" class="header-logo">
         <h1>Bitácora de Actividades</h1>
-        <button class="btn-logout" onclick="cerrarSesion()">Cerrar Sesión</button>
+        <!-- ✅ Cambiado a "Iniciar Sesión" -->
+        <button class="btn-logout" onclick="irLogin()">Iniciar Sesión</button>
     </header>
 
-    <!-- Franja con foto del equipo y ODS -->
     <div class="equipo-banner">
         <img src="/static/foto_equipo.jpg" alt="Equipo PAEC" class="foto-equipo">
         <p><strong>Proyecto PAEC</strong><br>Jardín Polinizador · Ciencias Experimentales<br>CBTis 75 · Guanajuato</p>
@@ -469,9 +466,9 @@
             }
         }
 
-        function cerrarSesion() {
-            localStorage.clear();
-            window.location.href = "/";
+        // ✅ Cambiado: redirige al login en lugar de limpiar sesión
+        function irLogin() {
+            window.location.href = "/login";
         }
     </script>
 </body>
