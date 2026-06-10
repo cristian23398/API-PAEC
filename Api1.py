@@ -31,7 +31,6 @@ async def login():
     with open("templates/login.html", "r", encoding="utf-8") as f:
         return f.read()
 
-# ✅ Registro con contraseña obligatoria
 @app.post("/registro")
 async def registro(usuario: str = Form(...), password: str = Form(...)):
     usuario = usuario.strip().lower()
@@ -44,7 +43,6 @@ async def registro(usuario: str = Form(...), password: str = Form(...)):
     await usuarios.insert_one({"usuario": usuario, "password": password, "rol": rol})
     return {"ok": True, "usuario": usuario, "rol": rol}
 
-# ✅ Login verificando contraseña en el backend
 @app.post("/login-check")
 async def login_check(usuario: str = Form(...), password: str = Form(...)):
     usuario = usuario.strip().lower()
@@ -68,7 +66,9 @@ async def agregar(
     nombre: str = Form(...),
     correo_solicitante: str = Form(...),
     seccion: str = Form(...),
-    imagen: UploadFile = File(...)
+    imagen: UploadFile = File(...),
+    crop_x: float = Form(default=0.5),
+    crop_y: float = Form(default=0.5)
 ):
     if correo_solicitante.lower().strip() not in ADMIN_EMAILS:
         raise HTTPException(status_code=403)
@@ -77,21 +77,64 @@ async def agregar(
     es_video = imagen.content_type.startswith("video/")
 
     if es_video:
+        # Comprimir video con ffmpeg si está disponible, si no subir directo
+        try:
+            import subprocess, tempfile, uuid
+            ext = imagen.filename.rsplit(".", 1)[-1].lower()
+            tmp_in = f"/tmp/{uuid.uuid4()}.{ext}"
+            tmp_out = f"/tmp/{uuid.uuid4()}.mp4"
+            with open(tmp_in, "wb") as f:
+                f.write(contenido)
+            # Comprimir a max 720p, CRF 28
+            cmd = [
+                "ffmpeg", "-i", tmp_in,
+                "-vf", "scale='min(720,iw)':-2",
+                "-c:v", "libx264", "-crf", "28",
+                "-preset", "fast", "-c:a", "aac",
+                "-b:a", "128k", "-y", tmp_out
+            ]
+            subprocess.run(cmd, capture_output=True, timeout=120)
+            with open(tmp_out, "rb") as f:
+                contenido = f.read()
+            os.remove(tmp_in)
+            os.remove(tmp_out)
+        except Exception:
+            pass  # Si falla ffmpeg, subir original
+
         resultado = cloudinary.uploader.upload(
             contenido,
             resource_type="video",
             folder="estudiantes",
             public_id=imagen.filename.rsplit(".", 1)[0],
-            overwrite=True
+            overwrite=True,
+            chunk_size=6000000  # 6MB chunks para videos grandes
         )
     else:
         img = Image.open(io.BytesIO(contenido))
         if img.mode in ("RGBA", "P"):
             img = img.convert("RGB")
+
+        # ✅ Aplicar crop basado en la posición que eligió el admin
+        w, h = img.size
+        target_ratio = 4 / 3
+        current_ratio = w / h
+
+        if current_ratio > target_ratio:
+            # Más ancha — recortar lados
+            new_w = int(h * target_ratio)
+            left = int((w - new_w) * crop_x)
+            img = img.crop((left, 0, left + new_w, h))
+        else:
+            # Más alta — recortar arriba/abajo
+            new_h = int(w / target_ratio)
+            top = int((h - new_h) * crop_y)
+            img = img.crop((0, top, w, top + new_h))
+
         buffer = io.BytesIO()
-        img.save(buffer, format="JPEG", quality=70)
+        img.save(buffer, format="JPEG", quality=75)
         buffer.seek(0)
         contenido_comprimido = buffer.read()
+
         resultado = cloudinary.uploader.upload(
             contenido_comprimido,
             resource_type="image",
@@ -112,7 +155,6 @@ async def agregar(
     })
     return {"id": str(res.inserted_id)}
 
-# ✅ Like toggle
 @app.post("/like/{id}")
 async def toggle_like(id: str, usuario: str = Form(...)):
     doc = await collection.find_one({"_id": ObjectId(id)})
@@ -126,7 +168,6 @@ async def toggle_like(id: str, usuario: str = Form(...)):
     await collection.update_one({"_id": ObjectId(id)}, {"$set": {"likes": likes}})
     return {"likes": len(likes), "liked": usuario in likes}
 
-# ✅ Agregar comentario
 @app.post("/comentar/{id}")
 async def comentar(id: str, usuario: str = Form(...), texto: str = Form(...)):
     if not texto.strip():
@@ -138,19 +179,18 @@ async def comentar(id: str, usuario: str = Form(...), texto: str = Form(...)):
     )
     return {"ok": True, "comentario": comentario}
 
-# ✅ Cambiar contraseña (usuario autenticado o recuperación)
 @app.post("/cambiar-password")
 async def cambiar_password(usuario: str = Form(...), password_nueva: str = Form(...)):
     usuario = usuario.strip().lower()
     if not usuario or not password_nueva:
         raise HTTPException(status_code=400, detail="Datos incompletos")
     if len(password_nueva) < 6:
-        raise HTTPException(status_code=400, detail="La contraseña debe tener al menos 6 caracteres")
+        raise HTTPException(status_code=400, detail="Mínimo 6 caracteres")
     user_db = await usuarios.find_one({"usuario": usuario})
     if not user_db:
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
     await usuarios.update_one({"usuario": usuario}, {"$set": {"password": password_nueva}})
-    return {"ok": True, "mensaje": "Contraseña actualizada correctamente"}
+    return {"ok": True}
 
 @app.delete("/eliminar/{id}")
 async def eliminar(id: str, correo_solicitante: str):
@@ -162,3 +202,9 @@ async def eliminar(id: str, correo_solicitante: str):
         cloudinary.uploader.destroy(doc["cloudinary_id"], resource_type=resource_type)
     await collection.delete_one({"_id": ObjectId(id)})
     return {"mensaje": "borrado"}
+
+# ⚠️ TEMPORAL: borrar después de usarlo una vez
+@app.get("/reset-usuarios")
+async def reset_usuarios():
+    await usuarios.delete_many({})
+    return {"mensaje": "Usuarios borrados"}
