@@ -3,297 +3,502 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌸 Galería de Actividades 🌸</title>
+    <title>🌸 PAEC · Jardín Polinizador</title>
     <style>
         :root {
             --primary-pink: #ff85a2;
             --dark-pink: #f45b7e;
             --soft-pink: #ffeef2;
-            --accent-gold: #e5ad35;
             --text-dark: #4a3b40;
             --bg-gradient: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
+            --nav-bg: #3b1f2b;
         }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: var(--bg-gradient);
+            background: #f9f3f5;
             color: var(--text-dark);
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
         }
 
-        header {
-            background-color: white;
-            color: var(--text-dark);
-            padding: 15px 20px;
-            text-align: center;
-            position: relative;
-            box-shadow: 0 4px 20px rgba(255, 133, 162, 0.15);
-            border-bottom: 3px solid var(--primary-pink);
+        /* ─── TOP BAR ─── */
+        .top-bar {
+            background: var(--nav-bg);
+            color: white;
+            padding: 8px 20px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 15px;
+            justify-content: space-between;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
-        .header-logos-left {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .top-bar-left img {
+            height: 48px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .top-bar-center {
+            flex: 1;
+            max-width: 500px;
+            display: flex;
+        }
+
+        .top-bar-center input {
+            flex: 1;
+            padding: 10px 14px;
+            border: none;
+            border-radius: 8px 0 0 8px;
+            font-size: 0.95em;
+            outline: none;
+        }
+
+        .top-bar-center button {
+            padding: 10px 16px;
+            background: var(--primary-pink);
+            border: none;
+            border-radius: 0 8px 8px 0;
+            color: white;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .top-bar-right a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.85em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            transition: color 0.2s;
+        }
+
+        .top-bar-right a:hover { color: var(--primary-pink); }
+        .top-bar-right a span { font-size: 1.3em; }
+
+        /* ─── NAV ─── */
+        nav {
+            background: #5c2d3e;
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+            padding: 0 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 16px;
+            font-size: 0.9em;
+            white-space: nowrap;
+            transition: background 0.2s;
+            border-radius: 4px;
+        }
+
+        nav a:hover { background: var(--dark-pink); }
+
+        /* ─── HERO BANNER ─── */
+        .hero {
+            background: linear-gradient(135deg, #f45b7e 0%, #c2185b 100%);
+            color: white;
+            padding: 50px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .hero-text h2 {
+            font-size: 2.5em;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+
+        .hero-text p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .hero-text a {
+            background: white;
+            color: var(--dark-pink);
+            padding: 12px 28px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+
+        .hero-text a:hover { transform: scale(1.05); }
+
+        .hero img {
+            height: 180px;
+            object-fit: contain;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        /* ─── SECCIÓN GENÉRICA ─── */
+        .section {
+            padding: 40px 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: var(--nav-bg);
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 3px solid var(--primary-pink);
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .header-logos-left img {
-            height: 55px;
-            width: auto;
-            object-fit: contain;
-        }
-
-        .header-logo {
-            height: 70px;
-            width: 70px;
-            object-fit: contain;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2.2em;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: var(--dark-pink);
-            display: inline-block;
-            position: relative;
-        }
-
-        header h1::after {
-            content: " 🎀";
-            font-size: 0.9em;
-            vertical-align: middle;
-        }
-
-        .btn-logout {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: transparent;
-            color: var(--dark-pink);
-            border: 2px solid var(--primary-pink);
-            padding: 8px 18px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .btn-logout:hover {
-            background: var(--primary-pink);
-            color: white;
-            box-shadow: 0 4px 10px rgba(255, 133, 162, 0.3);
-        }
-
-        .equipo-banner {
-            background: white;
-            border-bottom: 1px solid rgba(255, 133, 162, 0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* ─── CARDS GRID ─── */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 20px;
-            padding: 12px 30px;
         }
 
-        .equipo-banner img.foto-equipo {
-            height: 80px;
-            width: 80px;
+        .card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(244,91,126,0.15);
+        }
+
+        .card img, .card video {
+            width: 100%;
+            height: 180px;
             object-fit: cover;
-            border-radius: 50%;
-            border: 3px solid var(--primary-pink);
-            box-shadow: 0 4px 12px rgba(244, 91, 126, 0.2);
         }
 
-        .equipo-banner img.ods-mini {
-            height: 55px;
-            width: auto;
-            object-fit: contain;
-            border-radius: 8px;
-        }
+        .card-body { padding: 15px; }
 
-        .equipo-banner p {
-            margin: 0;
-            font-size: 0.9em;
-            color: #8a7a80;
-            max-width: 300px;
-            line-height: 1.5;
-        }
-
-        .equipo-banner p strong {
-            color: var(--dark-pink);
+        .card-body h3 {
             font-size: 1em;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-dark);
         }
 
+        .card-body p {
+            font-size: 0.85em;
+            color: #8a7a80;
+            line-height: 1.4;
+        }
+
+        .card-body .btn-eliminar {
+            margin-top: 12px;
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ffccd5;
+            background: #fff5f6;
+            color: #d93856;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85em;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .card-body .btn-eliminar:hover {
+            background: #d93856;
+            color: white;
+        }
+
+        /* ─── FORMULARIO ADMIN ─── */
         .form-container {
             background: white;
-            margin: 40px auto 20px auto;
-            padding: 30px;
-            border-radius: 20px;
-            width: 90%;
+            margin: 0 auto 30px auto;
+            padding: 25px;
+            border-radius: 16px;
             max-width: 480px;
-            box-shadow: 0 10px 30px rgba(244, 91, 126, 0.1);
-            border: 1px solid rgba(255, 133, 162, 0.2);
-            display: none; 
-            animation: fadeIn 0.5s ease;
+            box-shadow: 0 6px 20px rgba(244,91,126,0.1);
+            border: 1px solid rgba(255,133,162,0.2);
+            display: none;
+            animation: fadeIn 0.4s ease;
         }
 
-        .form-container h2 { 
-            margin-top: 0; 
-            color: var(--dark-pink); 
-            font-size: 1.5em;
+        .form-container h2 {
+            color: var(--dark-pink);
+            font-size: 1.3em;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
-
-        .form-group { margin-bottom: 15px; }
 
         .form-container input[type="text"] {
             width: 100%;
-            padding: 12px 15px;
-            border-radius: 12px;
+            padding: 11px 14px;
+            border-radius: 10px;
             border: 2px solid #eedad3;
-            font-size: 1em;
-            box-sizing: border-box;
+            font-size: 0.95em;
             outline: none;
+            margin-bottom: 12px;
             transition: border-color 0.3s;
         }
 
-        .form-container input[type="text"]:focus {
-            border-color: var(--primary-pink);
-        }
+        .form-container input[type="text"]:focus { border-color: var(--primary-pink); }
 
         .form-container input[type="file"] {
             width: 100%;
-            padding: 10px;
+            padding: 9px;
             background: var(--soft-pink);
-            border-radius: 12px;
+            border-radius: 10px;
             border: 1px dashed var(--primary-pink);
-            box-sizing: border-box;
             cursor: pointer;
+            margin-bottom: 12px;
         }
 
         .btn-agregar {
             width: 100%;
-            margin-top: 10px;
-            padding: 14px;
-            background: linear-gradient(135deg, var(--primary-pink) 0%, var(--dark-pink) 100%);
+            padding: 13px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--dark-pink));
             color: white;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 1em;
+            font-size: 0.95em;
             font-weight: 600;
-            box-shadow: 0 5px 15px rgba(244, 91, 126, 0.3);
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(244,91,126,0.3);
+            transition: all 0.3s;
         }
 
-        .btn-agregar:hover { 
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(244, 91, 126, 0.4);
+        .btn-agregar:hover { transform: translateY(-2px); }
+
+        /* ─── LAVANDA ─── */
+        .lavanda-section {
+            background: linear-gradient(135deg, #f3e5f5, #e8f5e9);
+            padding: 40px 30px;
         }
 
-        .gallery-container {
-            flex: 1;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-            padding: 40px;
+        .lavanda-inner {
             max-width: 1200px;
             margin: 0 auto;
-            width: 90%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
         }
 
-        .photo-card {
-            background: white;
+        .lavanda-inner img {
+            width: 100%;
             border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-            border: 1px solid rgba(255, 133, 162, 0.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         }
 
-        .photo-card:hover { 
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(244, 91, 126, 0.15);
+        .lavanda-info h2 {
+            font-size: 2em;
+            color: #6a1b9a;
+            margin-bottom: 12px;
         }
 
-        .photo-card img {
-            width: 100%;
-            height: 260px;
-            object-fit: cover;
-            transition: transform 0.5s ease;
+        .lavanda-info p {
+            color: #5d4037;
+            line-height: 1.7;
+            font-size: 1em;
+            margin-bottom: 10px;
         }
 
-        .photo-card video {
-            width: 100%;
-            height: 260px;
-            object-fit: cover;
-            background: #000;
+        .lavanda-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 14px;
         }
 
-        .photo-card:hover img { transform: scale(1.03); }
-
-        .photo-info { padding: 20px; position: relative; }
-
-        .photo-info h3 { 
-            margin: 0 0 10px 0; 
-            color: var(--text-dark); 
-            font-size: 1.25em; 
+        .lavanda-tags span {
+            background: #ce93d8;
+            color: white;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
             font-weight: 600;
         }
 
-        .photo-info p {
-            margin: 0;
+        /* ─── PRODUCTO ─── */
+        .producto-section {
+            padding: 40px 30px;
+            background: white;
+        }
+
+        .producto-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .producto-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .producto-card {
+            border: 1px solid #f0dde3;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            background: #fff9fa;
+            transition: box-shadow 0.3s;
+        }
+
+        .producto-card:hover { box-shadow: 0 8px 20px rgba(244,91,126,0.15); }
+
+        .producto-card .emoji { font-size: 3em; margin-bottom: 10px; }
+
+        .producto-card h3 {
+            color: var(--nav-bg);
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+
+        .producto-card p {
             color: #8a7a80;
-            font-size: 0.9em;
+            font-size: 0.88em;
             line-height: 1.5;
         }
 
-        .btn-eliminar {
-            margin-top: 18px;
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ffccd5;
-            background-color: #fff5f6;
-            color: #d93856;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 0.9em;
-            font-weight: 600;
-            transition: all 0.2s ease;
+        /* ─── RECETARIO ─── */
+        .recetario-section {
+            background: var(--bg-gradient);
+            padding: 40px 30px;
         }
 
-        .btn-eliminar:hover { 
-            background-color: #d93856;
-            color: white;
-            border-color: #d93856;
+        .recetario-inner {
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        footer {
-            background-color: white;
+        .receta-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .receta-card {
+            background: white;
+            border-radius: 16px;
+            padding: 22px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .receta-card .receta-emoji { font-size: 2.5em; margin-bottom: 8px; }
+
+        .receta-card h3 {
+            color: var(--dark-pink);
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+
+        .receta-card ul {
+            padding-left: 18px;
             color: #8a7a80;
+            font-size: 0.88em;
+            line-height: 1.8;
+        }
+
+        .receta-card .pasos {
+            margin-top: 10px;
+            font-size: 0.85em;
+            color: #6d4c6e;
+            line-height: 1.6;
+            border-top: 1px solid #ffd6e0;
+            padding-top: 10px;
+        }
+
+        /* ─── REDES SOCIALES ─── */
+        .redes-section {
+            background: var(--nav-bg);
+            padding: 40px 30px;
             text-align: center;
-            padding: 20px;
-            margin-top: auto;
-            border-top: 1px solid rgba(255, 133, 162, 0.15);
+        }
+
+        .redes-section h2 {
+            color: white;
+            font-size: 1.6em;
+            margin-bottom: 8px;
+        }
+
+        .redes-section p {
+            color: #d4a0b0;
+            margin-bottom: 25px;
             font-size: 0.95em;
+        }
+
+        .redes-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .red-card {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
+            text-decoration: none;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 16px;
+            padding: 20px 30px;
+            color: white;
+            transition: all 0.3s;
+            min-width: 130px;
+        }
+
+        .red-card:hover {
+            background: var(--dark-pink);
+            transform: translateY(-4px);
+            border-color: var(--dark-pink);
+        }
+
+        .red-card .red-icon { font-size: 2.5em; }
+        .red-card span { font-size: 0.9em; font-weight: 600; }
+
+        /* ─── FOOTER ─── */
+        footer {
+            background: #2b1520;
+            color: #c09aaa;
+            text-align: center;
+            padding: 25px 20px;
+            font-size: 0.9em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
         }
 
         .footer-logos {
@@ -301,66 +506,204 @@
             align-items: center;
             justify-content: center;
             gap: 20px;
+            flex-wrap: wrap;
         }
 
         .footer-logos img {
-            height: 45px;
+            height: 40px;
             width: auto;
             object-fit: contain;
-            opacity: 0.85;
+            opacity: 0.75;
+            filter: brightness(1.5);
         }
 
-        footer strong { color: var(--dark-pink); }
+        footer strong { color: var(--primary-pink); }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @media (max-width: 600px) {
-            .header-logos-left { display: none; }
-            header h1 { font-size: 1.4em; }
-            .header-logo { height: 50px; width: 50px; }
-            .btn-logout { position: static; transform: none; margin-top: 10px; }
-            .equipo-banner { flex-direction: column; text-align: center; }
-            .gallery-container { padding: 20px 10px; gap: 20px; }
+        @media (max-width: 768px) {
+            .hero { padding: 30px 20px; }
+            .hero-text h2 { font-size: 1.8em; }
+            .lavanda-inner { grid-template-columns: 1fr; }
+            .top-bar-center { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="header-logos-left">
-            <img src="/static/logo_cbtis.png" alt="CBTIS 75">
+    <!-- ─── TOP BAR ─── -->
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <img src="/static/logo.png" alt="PAEC">
+            <img src="/static/logo_cbtis.png" alt="CBTIS">
             <img src="/static/logo_dgeti.png" alt="DGETI">
         </div>
-        <img src="/static/logo.png" alt="Logo PAEC" class="header-logo">
-        <h1>Bitácora de Actividades</h1>
-        <!-- ✅ Cambiado a "Iniciar Sesión" -->
-        <button class="btn-logout" onclick="irLogin()">Iniciar Sesión</button>
-    </header>
-
-    <div class="equipo-banner">
-        <img src="/static/foto_equipo.jpg" alt="Equipo PAEC" class="foto-equipo">
-        <p><strong>Proyecto PAEC</strong><br>Jardín Polinizador · Ciencias Experimentales<br>CBTis 75 · Guanajuato</p>
-        <img src="/static/logo_ods.png" alt="ODS" class="ods-mini">
+        <div class="top-bar-center">
+            <input type="text" placeholder="Buscar actividades, recetas, productos...">
+            <button>🔍</button>
+        </div>
+        <div class="top-bar-right">
+            <a href="/login">
+                <span>👤</span>
+                Iniciar Sesión
+            </a>
+            <a href="#redes">
+                <span>🌐</span>
+                Redes
+            </a>
+        </div>
     </div>
 
-    <section class="form-container" id="adminSection">
-        <h2>✨ Agregar Nueva Actividad ✨</h2>
-        <form id="formAgregar">
-            <div class="form-group">
-                <input type="text" id="nombre" placeholder="Nombre de la actividad" required>
-            </div>
-            <div class="form-group">
-                <input type="file" id="inputImagen" accept="image/*,video/*" required>
-            </div>
-            <button type="submit" class="btn-agregar">Guardar Actividad</button>
-        </form>
-    </section>
+    <!-- ─── NAV ─── -->
+    <nav>
+        <a href="#galeria">📸 Actividades</a>
+        <a href="#lavanda">🌿 Lavanda</a>
+        <a href="#productos">🧴 Productos</a>
+        <a href="#recetario">📖 Recetario</a>
+        <a href="#redes">📲 Redes Sociales</a>
+    </nav>
 
-    <main class="gallery-container" id="contenedor"></main>
+    <!-- ─── HERO ─── -->
+    <div class="hero">
+        <div class="hero-text">
+            <h2>Sembrando ciencia,<br>cosechando innovación 🌸</h2>
+            <p>Proyecto PAEC · Jardín Polinizador · CBTis 75 Guanajuato</p>
+            <a href="#galeria">Ver Actividades</a>
+        </div>
+        <img src="/static/foto_equipo.jpg" alt="Equipo PAEC">
+    </div>
 
+    <!-- ─── FORMULARIO ADMIN ─── -->
+    <div class="section">
+        <div class="form-container" id="adminSection">
+            <h2>✨ Agregar Nueva Actividad ✨</h2>
+            <input type="text" id="nombre" placeholder="Nombre de la actividad" required>
+            <input type="file" id="inputImagen" accept="image/*,video/*" required>
+            <button class="btn-agregar" id="btnGuardar">Guardar Actividad</button>
+        </div>
+    </div>
+
+    <!-- ─── GALERÍA ─── -->
+    <div class="section" id="galeria">
+        <div class="section-title">📸 Bitácora de Actividades</div>
+        <div class="cards-grid" id="contenedor"></div>
+    </div>
+
+    <!-- ─── LAVANDA ─── -->
+    <div class="lavanda-section" id="lavanda">
+        <div class="lavanda-inner">
+            <img src="/static/logo.png" alt="Lavanda PAEC">
+            <div class="lavanda-info">
+                <h2>🌿 Nuestra Lavanda</h2>
+                <p>La lavanda (<em>Lavandula angustifolia</em>) es una planta aromática cultivada en nuestro jardín polinizador. Rica en aceites esenciales, atrae a polinizadores como abejas y mariposas, siendo clave en nuestro ecosistema escolar.</p>
+                <p>En el proyecto PAEC utilizamos la lavanda para investigar sus propiedades medicinales, cosméticas y su impacto en la biodiversidad local del estado de Guanajuato.</p>
+                <div class="lavanda-tags">
+                    <span>🐝 Polinizadora</span>
+                    <span>💜 Aromática</span>
+                    <span>🔬 Experimental</span>
+                    <span>🌱 Sostenible</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── PRODUCTOS ─── -->
+    <div class="producto-section" id="productos">
+        <div class="producto-inner">
+            <div class="section-title">🧴 Nuestros Productos</div>
+            <div class="producto-cards">
+                <div class="producto-card">
+                    <div class="emoji">🕯️</div>
+                    <h3>Cera de Lavanda</h3>
+                    <p>Velas artesanales elaboradas con cera de abeja y aceite esencial de lavanda cultivada en nuestro jardín.</p>
+                </div>
+                <div class="producto-card">
+                    <div class="emoji">🧴</div>
+                    <h3>Aceite Esencial</h3>
+                    <p>Aceite extraído por destilación de la lavanda del proyecto. Ideal para aromaterapia y cuidado personal.</p>
+                </div>
+                <div class="producto-card">
+                    <div class="emoji">🌸</div>
+                    <h3>Jabón Natural</h3>
+                    <p>Jabón artesanal con flores de lavanda deshidratadas y aceites naturales. 100% libre de químicos.</p>
+                </div>
+                <div class="producto-card">
+                    <div class="emoji">🍵</div>
+                    <h3>Té de Lavanda</h3>
+                    <p>Mezcla herbal con flores de lavanda seca. Relajante y con propiedades antioxidantes naturales.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── RECETARIO ─── -->
+    <div class="recetario-section" id="recetario">
+        <div class="recetario-inner">
+            <div class="section-title">📖 Recetario PAEC</div>
+            <div class="receta-cards">
+                <div class="receta-card">
+                    <div class="receta-emoji">🧁</div>
+                    <h3>Cupcakes de Lavanda</h3>
+                    <ul>
+                        <li>2 tazas de harina</li>
+                        <li>1 taza de azúcar</li>
+                        <li>2 cdas de flores de lavanda</li>
+                        <li>3 huevos, mantequilla, leche</li>
+                    </ul>
+                    <div class="pasos">Mezcla los ingredientes secos, incorpora los húmedos y las flores de lavanda. Hornea a 180°C por 20 min.</div>
+                </div>
+                <div class="receta-card">
+                    <div class="receta-emoji">🍋</div>
+                    <h3>Limonada de Lavanda</h3>
+                    <ul>
+                        <li>4 limones frescos</li>
+                        <li>2 cdas de miel</li>
+                        <li>1 cda de flores de lavanda</li>
+                        <li>1 litro de agua fría</li>
+                    </ul>
+                    <div class="pasos">Infusiona la lavanda en agua caliente 5 min, enfría, mezcla con jugo de limón y miel al gusto.</div>
+                </div>
+                <div class="receta-card">
+                    <div class="receta-emoji">🍯</div>
+                    <h3>Miel Infusionada</h3>
+                    <ul>
+                        <li>250g de miel de abeja</li>
+                        <li>3 cdas de flores de lavanda secas</li>
+                        <li>1 frasco de vidrio</li>
+                    </ul>
+                    <div class="pasos">Calienta la miel a baño maría, agrega las flores, deja reposar 1 semana en frasco sellado.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── REDES SOCIALES ─── -->
+    <div class="redes-section" id="redes">
+        <h2>📲 Síguenos en Redes</h2>
+        <p>Mantente al tanto de todas nuestras actividades y proyectos</p>
+        <div class="redes-grid">
+            <a class="red-card" href="https://www.youtube.com/@PAECCERACURATIVA4PV" target="_blank">
+                <span class="red-icon">▶️</span>
+                <span>YouTube</span>
+                <small style="color:#d4a0b0;font-size:0.8em;">PAEC Cera Curativa</small>
+            </a>
+            <a class="red-card" href="https://www.tiktok.com/@xd306933" target="_blank">
+                <span class="red-icon">🎵</span>
+                <span>TikTok</span>
+                <small style="color:#d4a0b0;font-size:0.8em;">@xd306933</small>
+            </a>
+            <a class="red-card" href="https://www.instagram.com/eder_company4" target="_blank">
+                <span class="red-icon">📸</span>
+                <span>Instagram</span>
+                <small style="color:#d4a0b0;font-size:0.8em;">@eder_company4</small>
+            </a>
+        </div>
+    </div>
+
+    <!-- ─── FOOTER ─── -->
     <footer>
         <div class="footer-logos">
             <img src="/static/logo_cbtis.png" alt="CBTIS 75">
@@ -368,12 +711,12 @@
             <img src="/static/logo_dgeti.png" alt="DGETI">
             <img src="/static/logo_ods.png" alt="ODS">
         </div>
-        <p>Reporte Diario de Actividades · <strong>CBTis 75</strong> · 2026 🌸</p>
+        <p>Proyecto PAEC · Jardín Polinizador · <strong>CBTis 75</strong> · Guanajuato · 2026 🌸</p>
     </footer>
 
     <script>
         const userEmail = localStorage.getItem('userEmail') || "";
-        const ADMINS = ["oscar24540@cbtis75.edu.mx", "admin@correo.com"]; 
+        const ADMINS = ["oscar24540@cbtis75.edu.mx", "admin@correo.com"];
         const esAdmin = ADMINS.includes(userEmail.toLowerCase().trim());
 
         window.onload = () => {
@@ -390,9 +733,14 @@
                 const contenedor = document.getElementById("contenedor");
                 contenedor.innerHTML = "";
 
+                if (datos.length === 0) {
+                    contenedor.innerHTML = '<p style="color:#8a7a80;grid-column:1/-1;text-align:center;padding:30px;">No hay actividades registradas aún.</p>';
+                    return;
+                }
+
                 datos.forEach(act => {
                     const card = document.createElement("div");
-                    card.classList.add("photo-card");
+                    card.classList.add("card");
 
                     const esVideo = act.tipo === "video";
                     const mediaHtml = esVideo
@@ -401,13 +749,13 @@
 
                     let html = `
                         ${mediaHtml}
-                        <div class="photo-info">
+                        <div class="card-body">
                             <h3>${act.nombre}</h3>
                             <p>Actividad registrada en el sistema.</p>
                     `;
 
                     if (esAdmin) {
-                        html += `<button class="btn-eliminar" onclick="eliminarActividad('${act._id}')">Eliminar Actividad</button>`;
+                        html += `<button class="btn-eliminar" onclick="eliminarActividad('${act._id}')">Eliminar</button>`;
                     }
 
                     html += `</div>`;
@@ -419,14 +767,12 @@
             }
         }
 
-        document.getElementById("formAgregar").addEventListener("submit", async function(e) {
-            e.preventDefault();
-            
+        document.getElementById("btnGuardar").addEventListener("click", async function() {
             const nombre = document.getElementById("nombre").value;
             const archivoFile = document.getElementById("inputImagen").files[0];
 
-            if (!archivoFile) {
-                alert("Por favor, selecciona una imagen o video.");
+            if (!nombre || !archivoFile) {
+                alert("Por favor completa todos los campos.");
                 return;
             }
 
@@ -435,38 +781,24 @@
             formData.append('correo_solicitante', userEmail);
             formData.append('imagen', archivoFile);
 
-            const res = await fetch('/agregar', {
-                method: 'POST',
-                body: formData
-            });
+            const res = await fetch('/agregar', { method: 'POST', body: formData });
 
             if (res.ok) {
-                document.getElementById("formAgregar").reset();
+                document.getElementById("nombre").value = "";
+                document.getElementById("inputImagen").value = "";
                 cargarActividades();
             } else {
-                alert("Error al subir la actividad. Verifica tus permisos en el sistema.");
+                alert("Error al subir. Verifica tus permisos.");
             }
         });
 
         async function eliminarActividad(id) {
-            if (!confirm("¿Estás segura de que deseas eliminar esta actividad? 🎀")) return;
-            
-            try {
-                const res = await fetch(`/eliminar/${id}?correo_solicitante=${encodeURIComponent(userEmail)}`, { 
-                    method: 'DELETE' 
-                });
-                
-                if (res.ok) {
-                    cargarActividades();
-                } else {
-                    alert("No tienes permisos para eliminar.");
-                }
-            } catch (error) {
-                console.error("Error al eliminar la actividad:", error);
-            }
+            if (!confirm("¿Eliminar esta actividad? 🎀")) return;
+            const res = await fetch(`/eliminar/${id}?correo_solicitante=${encodeURIComponent(userEmail)}`, { method: 'DELETE' });
+            if (res.ok) cargarActividades();
+            else alert("No tienes permisos para eliminar.");
         }
 
-        // ✅ Cambiado: redirige al login en lugar de limpiar sesión
         function irLogin() {
             window.location.href = "/login";
         }
